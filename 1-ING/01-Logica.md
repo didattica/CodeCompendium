@@ -1,10 +1,3 @@
-# Lezione 1 – Cos’è la Logica 🧠📐
-
-## 📄 Titolo suggerito per il file
-**lezione1_introduzione_alla_logica.md**
-
----
-
 ## 1. Introduzione 🚀
 
 La **logica** è una disciplina della **matematica** e dell’**informatica** 💻.  
