@@ -222,3 +222,90 @@ quando il carico si avvicina al valore massimo.
 - La stabilità è una **condizione matematica**
 - La latenza cresce **prima** del blocco totale
 - Non basta aumentare la potenza: serve equilibrio ⚖️
+
+## Collegamento con i server web reali 🌐🖥️
+
+Il modello matematico studiato finora non è astratto:  
+è una **semplificazione diretta del comportamento dei server web reali**.
+
+Quando accediamo a:
+- un sito web
+- una piattaforma cloud
+- un servizio di streaming
+- un’API REST
+
+stiamo inviando **richieste HTTP** a un server che:
+- le riceve
+- le mette in coda
+- le elabora
+- restituisce una risposta
+
+---
+
+## Corrispondenza modello ↔ realtà 🔁
+
+| Modello teorico | Server web reale |
+|-----------------|------------------|
+| Richiesta | HTTP request |
+| Server centralizzato | Web server (Apache, Nginx, Node.js, ecc.) |
+| Coda FIFO | Request queue |
+| $T_{\text{serv}}$ | Tempo di elaborazione della richiesta |
+| $\lambda$ | Numero di richieste al secondo |
+| Latenza | Tempo di risposta percepito dall’utente |
+
+---
+
+## Perché i siti “vanno lenti” 🐌
+
+Quando molti utenti accedono contemporaneamente:
+- $\lambda$ aumenta
+- $\rho$ si avvicina a 1
+- la coda cresce
+- la latenza aumenta
+
+Anche se il server:
+- è acceso
+- non ha errori
+- continua a rispondere
+
+👉 l’utente percepisce il servizio come **lento o inutilizzabile**
+
+Questo accade **prima** del blocco totale del sistema.
+
+---
+
+## Esempio concreto 🧠
+
+Un server web può gestire al massimo:
+
+$$
+\lambda_{\text{max}} = 100 \text{ req/s}
+$$
+
+Durante un picco di traffico:
+- arrivano 95–98 richieste al secondo
+- il server non è ancora saturo
+- ma i tempi di risposta crescono molto
+
+📌 Il problema non è il crash,  
+ma la **latenza che diverge**.
+
+---
+
+## Messaggio chiave 💡
+
+- I server web **non collassano all’improvviso**
+- Prima diventano lenti
+- La matematica spiega **perché succede**
+- La stabilità è più importante della potenza pura ⚖️
+
+---
+
+👉 Nei sistemi reali, per evitare la saturazione, si introducono:
+- più server
+- bilanciamento del carico
+- code limitate
+- meccanismi di controllo
+
+(che vedremo solo se deciderai di approfondire 😉)
+
