@@ -44,16 +44,19 @@ dove:
 **Componenti della latenza:**
 
 1. **Queue Latency** (Latenza di coda): tempo di attesa dovuto alle richieste precedenti
+
    $$
    \text{Queue Latency}_i = \sum_{j=1}^{i-1} (t_{\text{request},j} + t_{\text{processing},j} + t_{\text{response},j})
    $$
 
 2. **Service Time** (Tempo di servizio): tempo per processare la richiesta corrente
+
    $$
    \text{Service Time}_i = t_{\text{request},i} + t_{\text{processing},i} + t_{\text{response},i}
    $$
 
 Quindi:
+
 $$
 TC_i = \text{Queue Latency}_i + \text{Service Time}_i
 $$
