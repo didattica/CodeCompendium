@@ -1,12 +1,14 @@
 # 📂 Raccolta esercizi avanzati – IP, Subnet e CIDR
 
+### 🔌 Con collegamento esplicito alla logica AND bit a bit
+
 ---
 
 ## 🧮 Esercizio 5 – Network e broadcast con CIDR
 
-### 🧾 Traccia
+*(metodo dei blocchi = AND “mascherato”)*
 
-Dato l’indirizzo:
+### 🧾 Traccia
 
 * IP: **192.168.10.77/26**
 
@@ -18,89 +20,131 @@ Calcolare:
 
 ---
 
-### 🧩 Soluzione passo-passo
+## 🧠 Idea chiave (prima di iniziare)
 
-#### 🔹 1. Interpretazione del prefisso
-
-```
-/26 → 26 bit di rete
-32 − 26 = 6 bit di host
-```
-
-#### 🔹 2. Calcolo degli host
+📌 **Ogni network address nasce da:**
 
 ```
-2⁶ = 64 indirizzi totali
+IP AND Subnet Mask
+```
+
+Il **metodo dei blocchi** è solo un modo **più veloce** per ottenere **lo stesso risultato dell’AND bit a bit**, quando la maschera “cade” su un ottetto.
+
+---
+
+### 🔹 1. Prefisso → subnet mask
+
+```
+/26 → 255.255.255.192
+```
+
+Ultimo ottetto:
+
+```
+192 = 11000000
+```
+
+👉 significa:
+
+* **2 bit di rete**
+* **6 bit di host**
+
+---
+
+### 🔹 2. Numero di host (bit host)
+
+```
+6 bit → 2⁶ = 64 indirizzi
 64 − 2 = 62 host utilizzabili
 ```
 
-#### 🔹 3. Dimensione del blocco
+---
 
-Subnet mask /26 → ultimo ottetto:
+### 🔹 3. Metodo dei blocchi (equivalente all’AND)
+
+Calcolo ampiezza blocco:
 
 ```
 256 − 192 = 64
 ```
 
-➡️ Le sottoreti avanzano di **64**:
+Sottoreti nell’ultimo ottetto:
 
 ```
-0, 64, 128, 192
+0 | 64 | 128 | 192
 ```
 
-#### 🔹 4. Individuazione della subnet
+---
 
-L’IP **192.168.10.77** cade nel range:
+### 🔹 4. Individuazione subnet
 
 ```
-64 – 127
+77 ∈ [64 – 127]
 ```
 
-#### 🔹 5. Risultati
+---
+
+### 🔹 5. Risultati
 
 ✅ Network address: **192.168.10.64**
 📣 Broadcast address: **192.168.10.127**
 💻 Host utilizzabili: **62**
 
+🧠 *Nota didattica*:
+se facessimo l’**AND bit a bit**, otterremmo **lo stesso 64**.
+
 ---
 
-## 🧠 Esercizio 6 – Verifica stessa rete con CIDR
+## 🧠 Esercizio 6 – Verifica stessa rete
+
+*(AND logico concettuale)*
 
 ### 🧾 Traccia
-
-Due host:
 
 * A: **10.0.5.14/20**
 * B: **10.0.12.3/20**
 
-Stabilisci se appartengono alla **stessa rete**.
-
 ---
 
-### 🧩 Soluzione passo-passo
-
-#### 🔹 1. Subnet mask da /20
+### 🔹 1. Subnet mask
 
 ```
 /20 → 255.255.240.0
+240 = 11110000
 ```
 
-Ultimo ottetto rilevante: **240** → blocchi da:
+---
+
+### 🔹 2. Concetto chiave (importantissimo)
+
+👉 Due host sono **nella stessa rete** se:
+
+```
+(IP A AND MASK) = (IP B AND MASK)
+```
+
+---
+
+### 🔹 3. Metodo dei blocchi (AND semplificato)
+
+Terzo ottetto:
 
 ```
 256 − 240 = 16
 ```
 
-#### 🔹 2. Individuazione subnet
+Blocchi:
 
-Terzo ottetto:
+```
+0–15 | 16–31 | ...
+```
 
-* Host A: **5** → subnet **0–15**
-* Host B: **12** → subnet **0–15**
+* Host A → 5 ∈ 0–15
+* Host B → 12 ∈ 0–15
 
-#### 🔹 3. Network address
+---
 
-Entrambi:
+### 🔹 4. Network address comune
 
 ```
 10.0.0.0/20
@@ -108,142 +152,123 @@ Entrambi:
 
 ✅ **Stessa rete**
 
+🧠 *L’AND “nasconde” i bit host e lascia solo quelli di rete.*
+
 ---
 
-## 🔢 Esercizio 7 – Subnetting: quante sottoreti?
+## 🔢 Esercizio 7 – Subnetting
+
+*(uso esplicito dei bit)*
 
 ### 🧾 Traccia
 
-Una rete **192.168.1.0/24** viene suddivisa in subnet **/27**.
-
-Calcolare:
-
-1. Numero di subnet
-2. Host per subnet
+Rete iniziale: **192.168.1.0/24**
+Nuovo prefisso: **/27**
 
 ---
 
-### 🧩 Soluzione passo-passo
-
-#### 🔹 1. Bit presi agli host
+### 🔹 1. Bit presi agli host
 
 ```
-/27 − /24 = 3 bit
+27 − 24 = 3 bit
 ```
 
-#### 🔹 2. Numero di subnet
+👉 3 bit diventano **bit di subnet**
+
+---
+
+### 🔹 2. Numero di subnet
 
 ```
 2³ = 8 subnet
 ```
 
-#### 🔹 3. Host per subnet
+---
+
+### 🔹 3. Bit host rimasti
 
 ```
-32 − 27 = 5 bit host
-2⁵ = 32
-32 − 2 = 30 host
+32 − 27 = 5 bit
 ```
 
-✅ **8 subnet da 30 host ciascuna**
+Host per subnet:
+
+```
+2⁵ − 2 = 30
+```
+
+✅ **8 subnet da 30 host**
+
+🧠 *Subnetting = spostare il confine dell’AND più a destra.*
 
 ---
 
-## 🌐 Esercizio 8 – Calcolo subnet con AND logico
+## 🌐 Esercizio 8 – AND logico bit a bit (esplicito)
 
 ### 🧾 Traccia
 
-Dato:
-
 * IP: **172.20.35.200**
-* Subnet mask: **255.255.255.192**
-
-Calcolare:
-
-1. Network address
-2. Broadcast address
+* Mask: **255.255.255.192**
 
 ---
 
-### 🧩 Soluzione passo-passo (AND bit a bit)
+### 🔹 1. Binario
 
----
-
-### 🔹 1. Conversione in binario
-
-**Indirizzo IP**
+**IP**
 
 ```
-172 = 10101100
-20  = 00010100
-35  = 00100011
 200 = 11001000
 ```
 
-**Subnet mask**
+**Mask**
 
 ```
-255 = 11111111
-255 = 11111111
-255 = 11111111
 192 = 11000000
 ```
 
 ---
 
-### 🔹 2. AND logico bit a bit (IP AND subnet mask)
+### 🔹 2. AND bit a bit (CUORE DELLA RETE)
 
 ```
-10101100 AND 11111111 = 10101100
-00010100 AND 11111111 = 00010100
-00100011 AND 11111111 = 00100011
-11001000 AND 11000000 = 11000000
+11001000
+AND 11000000
+-----------
+11000000
 ```
 
 ---
 
-### 🔹 3. Riconversione in decimale
+### 🔹 3. Riconversione
 
 ```
-10101100 = 172
-00010100 = 20
-00100011 = 35
 11000000 = 192
 ```
 
-✅ **Network address: 172.20.35.192**
+✅ Network address: **172.20.35.192**
 
 ---
 
-### 🔹 4. Calcolo del Broadcast address
+### 🔹 4. Broadcast
 
-Il broadcast si ottiene ponendo **tutti i bit host a 1**.
-
-Subnet mask: **/26**
-Bit host: **6**
-
-Parte host (ultimo ottetto):
+Bit host = 6 → tutti a 1:
 
 ```
 00111111 = 63
-```
-
-Sommiamo alla parte di rete:
-
-```
 192 + 63 = 255
 ```
 
-📣 **Broadcast address: 172.20.35.255**
+📣 Broadcast: **172.20.35.255**
 
+🧠 *Il broadcast è la “negazione” della mask sulla parte host.*
 
 ---
 
-## 🧩 Esercizio 9 – Aggregazione CIDR (supernetting)
+## 🧩 Esercizio 9 – Aggregazione CIDR
+
+*(operazione inversa dell’AND)*
 
 ### 🧾 Traccia
-
-Le seguenti reti:
 
 ```
 192.168.4.0/24
@@ -252,46 +277,44 @@ Le seguenti reti:
 192.168.7.0/24
 ```
 
-Possono essere aggregate?
-Se sì, trovare il **prefisso CIDR risultante**.
+---
+
+### 🔹 1. Numero reti
+
+```
+4 = 2²
+```
 
 ---
 
-### 🧩 Soluzione passo-passo
-
-#### 🔹 1. Numero di reti
-
-```
-4 reti → 2²
-```
-
-➡️ Possibile aggregazione
-
-#### 🔹 2. Calcolo nuovo prefisso
+### 🔹 2. Nuovo prefisso
 
 ```
 /24 − 2 = /22
 ```
 
-#### 🔹 3. Verifica contiguità
+---
 
-Le reti sono consecutive ✔
+### 🔹 3. Significato logico
 
-#### 🔹 4. Risultato
-
-✅ Supernet:
-
-```
-192.168.4.0/22
-```
+👉 Stiamo **ignorando 2 bit** di rete
+👉 come se la mask facesse AND su meno bit
 
 ---
 
-## 🚦 Esercizio 10 – Routing decisionale
+### 🔹 4. Risultato
+
+✅ **192.168.4.0/22**
+
+---
+
+## 🚦 Esercizio 10 – Routing
+
+*(AND + confronto prefissi)*
 
 ### 🧾 Traccia
 
-Un router ha la seguente tabella:
+Rotte:
 
 ```
 10.0.0.0/8
@@ -299,35 +322,56 @@ Un router ha la seguente tabella:
 10.1.5.0/24
 ```
 
-Destinazione pacchetto: **10.1.5.77**
-
-Quale rotta viene scelta?
+Destinazione: **10.1.5.77**
 
 ---
 
-### 🧩 Soluzione passo-passo
-
-#### 🔹 Regola fondamentale
+### 🔹 Regola chiave
 
 👉 **Longest Prefix Match**
 
-#### 🔹 Verifica corrispondenze
+---
 
-| Rete        | Match |
-| ----------- | ----- |
-| 10.0.0.0/8  | ✔     |
-| 10.1.0.0/16 | ✔     |
-| 10.1.5.0/24 | ✔     |
+### 🔹 Concetto logico
 
-#### 🔹 Prefisso più lungo
+Ogni rotta fa:
 
 ```
-/24 → più specifico
+DESTINATION AND MASK
 ```
 
-✅ Rotta scelta:
+👉 vince quella con **più bit di rete**
+
+---
+
+### 🔹 Verifica
+
+| Rotta | Bit rete |
+| ----- | -------- |
+| /8    | 8        |
+| /16   | 16       |
+| /24   | 24 ✅     |
+
+---
+
+### ✅ Risultato finale
 
 ```
 10.1.5.0/24
 ```
+
+🧠 *Più bit = AND più preciso = rotta più specifica.*
+
+---
+
+## 🧠 IDEA FINALE DA FAR PASSARE AGLI STUDENTI
+
+> 🔑 **Tutto il networking IPv4 si basa su una sola operazione logica:**
+>
+> ## 👉 AND bit a bit
+
+* Network address → **IP AND mask**
+* Stessa rete → **AND uguale**
+* Subnetting → **sposto l’AND**
+* Routing → **AND + confronto prefissi**
 
