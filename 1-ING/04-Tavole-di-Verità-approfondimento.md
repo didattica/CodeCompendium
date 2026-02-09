@@ -6,24 +6,23 @@
 
 Le **tavole di verità** sono uno strumento fondamentale della **logica** perché permettono di:
 
-* analizzare **tutte le possibili situazioni**
-* verificare se un’espressione è corretta
-* capire **come funziona davvero** una formula logica
+- analizzare **tutte le possibili situazioni**
+- verificare se un’espressione è corretta
+- capire in modo preciso **come funziona una formula logica**
 
 📌 In informatica e nei sistemi digitali, le tavole di verità servono per:
 
-* controllare condizioni (`if`)
-* progettare circuiti logici
-* verificare se una formula è:
+- controllare condizioni (`if`)
+- progettare circuiti logici
+- verificare se una formula è:
+  - una **tautologia**
+  - una **contraddizione**
+  - una **contingenza**
 
-  * una **tautologia**
-  * una **contraddizione**
-  * una **contingenza**
+👉 Le tavole di verità sono il collegamento tra:
 
-👉 Sono il **ponte perfetto** tra:
-
-* logica di Aristotele 🏛️
-* logica booleana e informatica ⚙️💻
+- logica classica (Aristotele) 🏛️
+- logica booleana e informatica ⚙️💻
 
 ---
 
@@ -31,13 +30,13 @@ Le **tavole di verità** sono uno strumento fondamentale della **logica** perch�
 
 Una **tavola di verità** è una tabella che mostra:
 
-* **tutti i possibili valori** delle variabili logiche
-* il **risultato finale** dell’espressione
+- **tutte le combinazioni possibili** delle variabili logiche
+- il **risultato finale** di un’espressione logica
 
 📌 Le variabili logiche possono assumere solo due valori:
 
-* **Vero (V / 1)**
-* **Falso (F / 0)**
+- **Vero (V oppure 1)**
+- **Falso (F oppure 0)**
 
 ---
 
@@ -47,10 +46,10 @@ Consideriamo una sola proposizione:
 
 **A**
 
-| A | ¬A |
-| - | -- |
-| V | F  |
-| F | V  |
+| A | NOT A |
+|---|-------|
+| V | F     |
+| F | V     |
 
 📌 Con **una variabile** ci sono sempre:
 
@@ -65,7 +64,7 @@ Con **due proposizioni** (A e B) le combinazioni possibili sono:
 > **2² = 4**
 
 | A | B |
-| - | - |
+|---|---|
 | V | V |
 | V | F |
 | F | V |
@@ -84,113 +83,111 @@ Vediamo ora come costruire una **tavola di verità completa**, passo per passo.
 ### Esempio 1 – A AND B ✖️
 
 | A | B | A AND B |
-| - | - | ------- |
+|---|---|---------|
 | V | V | V       |
 | V | F | F       |
 | F | V | F       |
 | F | F | F       |
 
-📌 L’AND è vero **solo se entrambe** le proposizioni sono vere.
+📌 L’operatore **AND** è vero **solo se entrambe** le proposizioni sono vere.
 
 ---
 
 ### Esempio 2 – A OR B ➕
 
 | A | B | A OR B |
-| - | - | ------ |
+|---|---|--------|
 | V | V | V      |
 | V | F | V      |
 | F | V | V      |
 | F | F | F      |
 
-📌 L’OR è vero se **almeno una** è vera.
+📌 L’operatore **OR** è vero se **almeno una** proposizione è vera.
 
 ---
 
 ### Esempio 3 – NOT A 🔄
 
-| A | ¬A |
-| - | -- |
-| V | F  |
-| F | V  |
+| A | NOT A |
+|---|-------|
+| V | F     |
+| F | V     |
+
+📌 L’operatore **NOT** inverte sempre il valore logico.
 
 ---
 
-## 6. Come verificare una tavola di verità passo per passo 🪜✍️
+## 6. Come costruire una tavola di verità passo per passo 🪜✍️
 
 Metodo consigliato (molto importante per gli studenti):
 
-### ✅ Passo 1
+### Passo 1
+Scrivere **tutte le combinazioni** delle variabili.
 
-Scrivere **tutte le combinazioni** delle variabili
+### Passo 2
+Calcolare prima tutte le negazioni (**NOT**).
 
-### ✅ Passo 2
+### Passo 3
+Calcolare gli operatori (**AND / OR**) seguendo l’ordine corretto.
 
-Calcolare prima le **negazioni (NOT)**
+### Passo 4
+Compilare la tabella **una colonna alla volta**, senza saltare passaggi.
 
-### ✅ Passo 3
-
-Calcolare **AND / OR** seguendo l’ordine corretto
-
-### ✅ Passo 4
-
-Compilare **una colonna alla volta**
-
-📌 Mai saltare passaggi:
-la logica è **precisione**, non intuizione.
+📌 Non bisogna mai improvvisare:
+la logica richiede **precisione**, non intuizione.
 
 ---
 
 ## 7. Tavole di verità e classificazione delle proposizioni 🏷️
 
-Le tavole di verità permettono di **classificare** una formula.
+Le tavole di verità permettono di **classificare** una formula logica.
 
 ---
 
-### 🔁 Tautologia
+### Tautologia 🔁
 
 Una formula è una **tautologia** se:
 
 👉 l’ultima colonna è **sempre vera**
 
-#### Esempio: A OR ¬A
+#### Esempio: A OR NOT A
 
-| A | ¬A | A OR ¬A |
-| - | -- | ------- |
-| V | F  | V       |
-| F | V  | V       |
+| A | NOT A | A OR NOT A |
+|---|-------|------------|
+| V | F     | V          |
+| F | V     | V          |
 
 ✔ Sempre vera → **tautologia**
 
 ---
 
-### ❌ Contraddizione
+### Contraddizione ❌
 
 Una formula è una **contraddizione** se:
 
 👉 l’ultima colonna è **sempre falsa**
 
-#### Esempio: A AND ¬A
+#### Esempio: A AND NOT A
 
-| A | ¬A | A AND ¬A |
-| - | -- | -------- |
-| V | F  | F        |
-| F | V  | F        |
+| A | NOT A | A AND NOT A |
+|---|-------|-------------|
+| V | F     | F           |
+| F | V     | F           |
 
 ❌ Sempre falsa → **contraddizione**
 
 ---
 
-### 🔄 Contingenza
+### Contingenza 🔄
 
 Una formula è una **contingenza** se:
 
-👉 l’ultima colonna ha **sia V che F**
+👉 l’ultima colonna contiene **sia V che F**
 
 #### Esempio: A AND B
 
 | A | B | A AND B |
-| - | - | ------- |
+|---|---|---------|
 | V | V | V       |
 | V | F | F       |
 | F | V | F       |
@@ -204,13 +201,13 @@ Una formula è una **contingenza** se:
 
 📌 Nei programmi:
 
-* **tautologia** → controllo inutile
-* **contraddizione** → codice mai eseguito
-* **contingenza** → decisione reale
+- una **tautologia** → condizione inutile (sempre vera)
+- una **contraddizione** → codice che non verrà mai eseguito
+- una **contingenza** → condizione reale che dipende dai dati
 
 📌 Nei circuiti digitali:
 
-* la tavola di verità descrive **esattamente** il comportamento del circuito
+- la tavola di verità descrive **esattamente** il comportamento del circuito
 
 ---
 
@@ -218,10 +215,12 @@ Una formula è una **contingenza** se:
 
 👉 Le tavole di verità:
 
-* rendono la logica **oggettiva**
-* eliminano ambiguità
-* permettono di dimostrare se una formula funziona **sempre**, **mai** o **a volte**
+- rendono la logica **oggettiva**
+- eliminano ambiguità
+- permettono di dimostrare se una formula è vera:
+  - **sempre**
+  - **mai**
+  - **solo in alcuni casi**
 
 Senza tavole di verità:
-❌ non esiste verifica logica rigorosa.
-
+❌ non esiste una verifica logica rigorosa.
