@@ -226,14 +226,13 @@ int 21h     ; termina programma
 
 ## 🔁 Tabella riepilogativa
 
-| Istruzione | Azione principale   | Tipo    | Risultato principale       | Note registri |
-| ---------- | ------------------- | ------- | -------------------------- | ------------- |
-| mov        | copia valore        | binario | modifica destinazione      | CPU           |
-| add        | somma               | binario | modifica destinazione      | CPU + ALU     |
-| sub        | sottrazione         | binario | modifica destinazione      | CPU + ALU     |
-| mul        | moltiplicazione     | unario  | AX/DX                      | CPU + ALU     |
-| div        | divisione           | unario  | AX = quoziente, DX = resto | CPU + ALU     |
-| cmp        | confronto           | binario | aggiorna flag              | CPU           |
-| int        | chiamata al sistema | unario  | dipende dal servizio       | OS / BIOS     |
-
+| Istruzione | Tipo    | Operazione / Risultato       | Registri modificati                          |
+| ---------- | ------- | ---------------------------- | -------------------------------------------- |
+| mov        | binario | dest ← src                   | dest                                         |
+| add        | binario | dest ← dest + src            | dest, flag                                   |
+| sub        | binario | dest ← dest - src            | dest, flag                                   |
+| mul        | unario  | AX * src → DX:AX             | AX (low), DX (high)                          |
+| div        | unario  | DX:AX ÷ src → AX, resto → DX | AX (quoziente), DX (resto)                   |
+| cmp        | binario | dest - src → flag            | flag                                         |
+| int        | unario  | servizio OS/BIOS             | variabili in base al servizio (AX, DX, ecc.) |
 
