@@ -359,5 +359,3 @@ $$
 📌 Interpretazione: aumentando molto il numero di server, il carico su ciascun server tende a zero e la latenza tende al valore minimo teorico.
 
 ---
-
-# Fine esercizi ✅
