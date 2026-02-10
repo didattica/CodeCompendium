@@ -2,7 +2,7 @@
 
 Si consideri un **sistema centralizzato** (server unico o cluster visto come risorsa logica) con **carico normalizzato** $\rho \in [0,1)$, dove $\rho$ rappresenta il rapporto tra tasso di arrivo e capacità di servizio.
 
-L’obiettivo è analizzare il comportamento asintotico della **latenza media** al crescere del carico, in scenari tipici di **load balancing, code M/M/1 e sistemi congestionati**.
+L’obiettivo è analizzare il comportamento asintotico della **latenza media** al crescere del carico, in scenari tipici di **load balancing, code FIFO e sistemi congestionati.**.
 
 ---
 
