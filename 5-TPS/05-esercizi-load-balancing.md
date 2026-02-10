@@ -221,9 +221,7 @@ $$
 Riscriviamo l’espressione:
 
 $$
-(1-\rho)\cdot \frac{5}{(1-\rho)^2}
-=
-\frac{5(1-\rho)}{(1-\rho)^2}
+(1-\rho)\cdot \frac{5}{(1-\rho)^2} = \frac{5(1-\rho)}{(1-\rho)^2}
 $$
 
 Semplificando:
@@ -264,12 +262,12 @@ $$
 ---
 
 ### Soluzione
-Quando $\rho \to 1^-$, allora $1-\rho \to 0^+$.
+Quando $ \rho \to 1^- $, allora $ 1-\rho \to 0^+ $.
 
 Quindi:
 
-- $\frac{1}{1-\rho} \to +\infty$
-- $\ln\left(\frac{1}{1-\rho}\right) \to +\infty$
+- $ \frac{1}{1-\rho} \to +\infty $
+- $ \ln\left(\frac{1}{1-\rho}\right) \to +\infty $
 
 L’espressione diventa:
 
@@ -330,8 +328,7 @@ Ora valutiamo il limite per $k \to \infty$.
 Poiché:
 
 $$
-\frac{\lambda}{k\mu} \to 0
-\quad\text{quando}\quad k\to\infty
+\frac{\lambda}{k\mu} \to 0 \quad\text{quando}\quad k\to\infty
 $$
 
 allora:
@@ -343,11 +340,7 @@ $$
 Quindi:
 
 $$
-\lim_{k \to \infty} L(\rho_k)
-=
-\frac{1}{1}
-=
-1
+\lim_{k \to \infty} L(\rho_k) = \frac{1}{1} = 1
 $$
 
 Conclusione:
