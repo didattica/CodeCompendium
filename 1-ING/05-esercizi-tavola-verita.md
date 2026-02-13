@@ -1,10 +1,3 @@
----
-
-# Esercizi svolti – Tavole di Verità 🧠📊
-
-*(difficoltà crescente)*
-
----
 
 ## 🟢 Esercizio 1 – NOT semplice
 
