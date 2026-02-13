@@ -1,0 +1,17 @@
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rettangolo Universo -->
+  <rect x="0" y="0" width="300" height="200" fill="none" stroke="black" stroke-width="2"/>
+  <text x="10" y="20" font-family="Arial" font-size="14" fill="black">U</text>
+
+  <!-- Cerchio A -->
+  <circle cx="150" cy="100" r="60" fill="red" fill-opacity="0.4" stroke="black" stroke-width="2"/>
+  <text x="140" y="100" font-family="Arial" font-size="16" fill="black">A</text>
+
+  <!-- Evidenziare Complemento -->
+  <rect x="0" y="0" width="300" height="200" fill="none"/>
+  <rect x="0" y="0" width="300" height="200" fill="lightgreen" fill-opacity="0.2"/>
+  <circle cx="150" cy="100" r="60" fill="white"/>
+
+  <!-- Testo Complemento -->
+  <text x="150" y="180" font-family="Arial" font-size="16" fill="black" text-anchor="middle">Aᶜ</text>
+</svg>
