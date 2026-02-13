@@ -89,18 +89,32 @@ fa comunque parte dell’unione.
 
 ## 2.3 NOT → Complementare
 
-**Logica:**
+**Logica:**  
 NOT A è vera quando A è falsa.
 
-**Insiemi:**
-Il complementare di A (Aᶜ) contiene tutti gli elementi dell’universo che non appartengono ad A.
+**Insiemi:**  
+Il complemento di A è l’insieme di tutti gli elementi dell’universo che non appartengono ad A.
+
+Notazioni equivalenti per indicare il complemento di A:
+
+- Aᶜ  
+- Ā  
+- U − A  
+- C(A)  (meno usata, ma possibile)
+
+Formalmente:
+
+Aᶜ = { x ∈ U | x ∉ A }
+
+Significa: l’insieme di tutti gli elementi x appartenenti all’universo U che non appartengono ad A.
 
 ### Metafora
 
 Se l’universo è l’intera classe,
-e A sono gli studenti che praticano sport,
+e A è l’insieme degli studenti che praticano sport,
 
-Aᶜ sono gli studenti che **non** praticano sport.
+il complemento di A (Aᶜ, Ā, U − A) è l’insieme degli studenti che non praticano sport.
+
 
 ---
 
