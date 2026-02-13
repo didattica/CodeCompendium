@@ -67,6 +67,8 @@ chi sta lì appartiene sia ad A sia a B.
 Esempio:
 Studenti che praticano sport **e** suonano uno strumento.
 
+![Intersezione A ∩ B](./images/intersezione_ab.svg)
+
 ---
 
 ## 2.2 OR → Unione (∪)
@@ -84,6 +86,8 @@ l’unione è tutta l’area coperta dai due cerchi.
 
 Non importa se un elemento sta in uno solo o in entrambi:
 fa comunque parte dell’unione.
+
+![Unione A ∪ B](./images/unione_ab.svg)
 
 ---
 
@@ -115,6 +119,7 @@ e A è l’insieme degli studenti che praticano sport,
 
 il complemento di A (Aᶜ, Ā, U − A) è l’insieme degli studenti che non praticano sport.
 
+![Complemento Aᶜ](./images/complemento_a.svg)
 
 ---
 
@@ -143,6 +148,8 @@ Con due insiemi possiamo rappresentare:
 
 La zona centrale dei due cerchi rappresenta l’intersezione.
 
+![Diagramma Venn due insiemi](./images/venn2.svg)
+
 ---
 
 ## 3.2 Tre insiemi
@@ -155,6 +162,8 @@ Con tre insiemi il diagramma diventa più complesso:
 Questa rappresentazione è utile per visualizzare espressioni logiche come:
 
 (A AND B) OR C
+
+![Diagramma Venn tre insiemi](./images/venn3.svg)
 
 ---
 
@@ -200,15 +209,17 @@ Nel diagramma di Venn:
 * Il numero 3 sta nella zona centrale.
 * Il numero 6 sta fuori da entrambi i cerchi.
 
+![Esempio completo Venn](./images/esempio_completo.svg)
+
 ---
 
 # 6. Sintesi Concettuale
 
 Possiamo riassumere così:
 
-Logica → Valori di verità
-Insiemi → Appartenenza
-Diagrammi di Venn → Visualizzazione della logica
+Logica → Valori di verità  
+Insiemi → Appartenenza  
+Diagrammi di Venn → Visualizzazione della logica  
 
-La rappresentazione grafica non è solo un disegno,
+La rappresentazione grafica non è solo un disegno,  
 ma uno strumento per comprendere strutture astratte.
