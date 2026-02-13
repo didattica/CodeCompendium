@@ -1,0 +1,15 @@
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rettangolo Universo -->
+  <rect x="0" y="0" width="300" height="200" fill="none" stroke="black" stroke-width="2"/>
+
+  <!-- Cerchio A -->
+  <circle cx="110" cy="100" r="60" fill="red" fill-opacity="0.4" stroke="black" stroke-width="2"/>
+  <text x="90" y="40" font-family="Arial" font-size="16" fill="black">A</text>
+
+  <!-- Cerchio B -->
+  <circle cx="190" cy="100" r="60" fill="blue" fill-opacity="0.4" stroke="black" stroke-width="2"/>
+  <text x="180" y="40" font-family="Arial" font-size="16" fill="black">B</text>
+
+  <!-- Testo Unione -->
+  <text x="150" y="180" font-family="Arial" font-size="16" fill="black" text-anchor="middle">A ∪ B</text>
+</svg>
