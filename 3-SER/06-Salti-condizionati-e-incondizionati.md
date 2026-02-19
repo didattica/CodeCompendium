@@ -187,7 +187,3 @@ mov cx, 1
 
 **Risultato:** CX = 1
 
-
-
-Vuoi che faccia anche quella?
-```
