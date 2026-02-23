@@ -62,11 +62,13 @@ $$
 **Caso collisione in rete**:
 
 - $t_{\text{slot}} = 20 \, \mu s$, $k = 3$, $W_{\text{max}} = 16$  
-- Calcolo finestra:  
+- Calcolo finestra:
+
 $$
 W = \min(2^3-1, 16) = 7
 $$  
-- Se $\text{Random}(0,7) = 5$, allora:  
+- Se $\text{Random}(0,7) = 5$, allora:
+ 
 $$
 T_{\text{backoff}} = 5 \cdot 20 = 100 \, \mu s
 $$
@@ -74,7 +76,8 @@ $$
 **Caso server giù**:
 
 - $T_0 = 100 \, \text{ms}$, $T_{\text{max}} = 1600 \, \text{ms}$, $k = 3$  
-- Se $\text{Random}(0,1) = 0.6$, allora:  
+- Se $\text{Random}(0,1) = 0.6$, allora:
+
 $$
 T_{\text{backoff}}^{(3)} = \min(1600, 100 \cdot 2^3) \cdot 0.6 = \min(1600, 800) \cdot 0.6 = 480 \, \text{ms}
 $$
@@ -128,14 +131,16 @@ xychart-beta
 * **Backoff esponenziale** = ritardo crescente ad ogni tentativo
 * Riduce **collisioni**, **sovraccarico** e **congestione**
 * Formule principali:
-  $$
-  T_{\text{backoff}} = \text{Random}(0, W) \cdot t_{\text{slot}}
-  $$
-  $$
-  W = \min(2^k - 1, W_{\text{max}})
-  $$
-  $$
-  T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k) \cdot \text{Random}(0,1)
-  $$
+
+$$
+T_{\text{backoff}} = \text{Random}(0, W) \cdot t_{\text{slot}}
+$$
+
+$$
+W = \min(2^k - 1, W_{\text{max}})
+$$
+$$
+T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k) \cdot \text{Random}(0,1)
+$$
 
 
