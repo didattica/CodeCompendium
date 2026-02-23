@@ -179,7 +179,7 @@ Caso 3:
 → saturazione
 -->
 ---
-
+<!--
 # ⚫ ESERCIZIO 5 – Load Balancing e Riduzione del Carico
 
 Un sistema riceve:
@@ -202,8 +202,8 @@ Ogni server ha:
 \[
 \rho = \frac{120}{50} = 2.4
 \]
-<!--
-→ sistema instabile-->
+
+→ sistema instabile
 
 ---
 
@@ -214,8 +214,8 @@ Carico per server:
 \[
 \rho_3 = \frac{120}{3 \cdot 50} = \frac{120}{150} = 0.8
 \]
-<!--
-→ sistema stabile-->
+
+→ sistema stabile
 
 ---
 
@@ -238,12 +238,13 @@ Condizione:
 \[
 3.43 < k
 \]
-<!--
+
 Numero minimo intero:
 
 \[
 k = 4
-\]-->
+\]
+<!--
 
 ---
 
