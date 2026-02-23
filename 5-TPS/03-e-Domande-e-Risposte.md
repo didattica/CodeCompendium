@@ -1,171 +1,137 @@
-# 🟢 DOMANDE FACILI (0-6)
 
-### 1) Definizione di sistema centralizzato
-**Risposta (max 30 parole):**  
-Sistema composto da un unico nodo che esegue tutte le operazioni e gestisce tutte le richieste senza comunicazione interna tra nodi.
+## Sistemi Centralizzati, Code, Prestazioni e Load Balancing  
+*(Versione rigorosa e priva di ambiguità)*
 
 ---
 
-### 2) Cosa rappresenta $|N| = 1$ in un sistema centralizzato?
+# 🟢 SEZIONE 1 – DOMANDE FACILI (Definizioni precise)
+
+---
+
+### 1) Definizione formale di sistema centralizzato
+
+**Domanda:**  
+Fornire una definizione formale di sistema centralizzato utilizzando la notazione $S = (N,E,C)$.
+
 **Risposta:**  
-Indica che l’insieme dei nodi contiene un solo elemento: esiste un unico nodo che svolge tutte le funzioni del sistema.
+
+Un sistema è centralizzato se:
+
+$$
+S = (N,E,C) \quad \text{con} \quad |N| = 1
+$$
+
+dove esiste un unico nodo che esegue tutte le funzioni del sistema e non esistono comunicazioni interne tra nodi distinti.
 
 ---
 
-### 3) Definizione di latenza (max 30 parole)
+### 2) Cosa significa formalmente $|N| = 1$?
+
 **Risposta:**  
-Tempo totale che intercorre tra l’invio di una richiesta da parte del client e la ricezione della risposta dal server.
+Significa che l’insieme dei nodi contiene un solo elemento: tutte le operazioni del sistema sono eseguite dallo stesso nodo fisico.
 
 ---
 
-### 4) Cos’è la Queue Latency?
+### 3) Definizione rigorosa di latenza
+
 **Risposta:**  
-È il tempo di attesa in coda dovuto alle richieste precedenti quando il server gestisce le richieste una alla volta.
+La latenza totale è il tempo che intercorre tra l’invio di una richiesta da parte del client e la ricezione completa della risposta.
 
 ---
 
-### 5) Cos’è il Service Time?
+### 4) Componenti della latenza
+
 **Risposta:**  
-È il tempo necessario per trasmettere la richiesta, elaborarla sul server e inviare la risposta al client.
+La latenza totale è composta da:
+
+- tempo di trasmissione della richiesta  
+- tempo di elaborazione  
+- tempo di trasmissione della risposta  
+- eventuale tempo di attesa in coda
 
 ---
 
-### 6) Definizione di Throughput (max 30 parole)
+### 5) Definizione di Queue Latency
+
 **Risposta:**  
-Numero di richieste completate dal sistema per unità di tempo.
+Tempo di attesa causato dalle richieste precedenti quando il server elabora le richieste sequenzialmente.
 
 ---
 
-### 7) Cos’è il tasso di arrivo $\lambda$?
+### 6) Definizione di Service Time
+
 **Risposta:**  
-Numero di richieste che arrivano al server per unità di tempo.
+
+$$
+T_{serv} = t_{request} + t_{processing} + t_{response}
+$$
+
+È il tempo necessario a completare una singola richiesta, esclusa l’attesa in coda.
 
 ---
 
-### 8) Differenza tra FIFO e LIFO
+### 7) Definizione di Throughput
+
 **Risposta:**  
-FIFO serve le richieste in ordine di arrivo; LIFO serve prima l’ultima richiesta arrivata.
+
+$$
+\lambda = \frac{\text{richieste completate}}{\text{tempo}}
+$$
+
+Numero di richieste completate per unità di tempo.
 
 ---
 
-# 🟡 DOMANDE MEDIE (7)
+### 8) Definizione di tasso di arrivo
 
-### 9) Scrivere la formula della latenza totale $TC_i$ in un sistema FIFO
+**Risposta:**  
+Numero di richieste che arrivano al sistema per unità di tempo.
+
+---
+
+# 🟡 SEZIONE 2 – DOMANDE MEDIE (Stabilità e Prestazioni)
+
+---
+
+### 9) Formula completa della latenza in FIFO
+
 **Risposta:**
 
 $$
-TC_i = \sum_{j=1}^{i-1}(t_{request,j}+t_{processing,j}+t_{response,j}) + t_{request,i}+t_{processing,i}+t_{response,i}
+TC_i = \sum_{j=1}^{i-1} (t_{request,j}+t_{processing,j}+t_{response,j}) + t_{request,i}+t_{processing,i}+t_{response,i}
 $$
 
 ---
 
-### 10) Cosa succede se $\lambda < \lambda_{\text{max}}$?
-**Risposta:**  
-Il sistema è stabile, il server riesce a smaltire le richieste e la coda rimane limitata.
+### 10) Definizione di throughput massimo teorico
 
----
-
-### 11) Cosa succede quando $\lambda = \lambda_{\text{max}}$?
-**Risposta:**  
-Il server è saturo (ρ = 1). Lavora al 100% e basta una richiesta in più per generare coda crescente.
-
----
-
-### 12) Cosa accade se $\lambda > \lambda_{\text{max}}$?
-**Risposta:**  
-Il sistema diventa instabile: la coda cresce senza limite e la latenza aumenta continuamente.
-
----
-
-### 13) Definire l’utilizzazione del server
 **Risposta:**
 
-$$
-\rho = \frac{\lambda}{\lambda_{\text{max}}}
-$$
-
-Indica la percentuale di capacità utilizzata.
-
----
-
-### 14) Interpretazione di $\rho = 0.6$
-**Risposta:**  
-Il server è utilizzato al 60% della sua capacità massima e dispone ancora del 40% di margine.
-
----
-
-### 15) Perché un sito web può essere lento anche se non è in crash?
-**Risposta:**  
-Perché il carico si avvicina alla saturazione, la coda cresce e la latenza aumenta prima del collasso totale.
-
----
-
-# 🔴 DOMANDE DIFFICILI (8)
-
-### 16) Dimostrare perché $\lambda_{\text{max}} = \frac{1}{T_{serv}}$
-**Risposta:**  
-Se una richiesta richiede $T_{serv}$ secondi, in un secondo il server può completare al massimo $\frac{1}{T_{serv}}$ richieste.
-
----
-
-### 17) Spiegare il significato di:
+Se il tempo medio di servizio è $T_{serv}$:
 
 $$
-\lim_{\lambda \to \lambda_{\text{max}}^-} L(\lambda) = +\infty
+\lambda_{max} = \frac{1}{T_{serv}}
 $$
 
-**Risposta:**  
-Quando il tasso di arrivo si avvicina al massimo teorico da sinistra, la latenza cresce senza limite pur senza blocco immediato del sistema.
-
 ---
 
-### 18) Perché la latenza diverge prima del crash?
-**Risposta:**  
-Perché la coda accumula richieste sempre più rapidamente; anche un piccolo eccesso di carico genera attese crescenti.
+### 11) Definizione di utilizzazione del server
 
----
-
-### 19) Definire $\rho = \frac{\lambda}{\mu}$ nel modello con $\mu$ tasso di servizio
-**Risposta:**  
-ρ rappresenta il carico normalizzato: rapporto tra richieste in arrivo e capacità massima di servizio del server.
-
----
-
-### 20) Spiegare il concetto di asintoto verticale nel grafico della latenza
-**Risposta:**  
-Quando $\rho \to 1$, la latenza cresce senza bound: la retta $\rho = 1$ si comporta come asintoto verticale della funzione $L(\rho)$.
-
----
-
-# ⚫ DOMANDE SUPER DIFFICILI (9 - 10)
-
-### 21) Dimostrare l’effetto del load balancing su k server identici
 **Risposta:**
 
-Carico per server:
+Nel modello con capacità massima $\mu$:
 
 $$
-\rho_k = \frac{\lambda}{k\mu}
+\rho = \frac{\lambda}{\mu}
 $$
 
-All’aumentare di $k$:
-
-$$
-\lim_{k \to \infty} \rho_k = 0
-$$
-
-Quindi l’utilizzazione per server diminuisce.
+dove $\mu = \lambda_{max}$.
 
 ---
 
-### 22) Perché aumentare k non elimina completamente la latenza?
-**Risposta:**  
-Esistono overhead di rete, sincronizzazione, coordinamento e costi di bilanciamento che impediscono latenza nulla.
+### 12) Condizione formale di stabilità
 
----
-
-### 23) Spiegare formalmente la condizione di stabilità
-**Risposta:**  
+**Risposta:**
 
 Il sistema è stabile se:
 
@@ -173,36 +139,145 @@ $$
 \rho < 1
 $$
 
-cioè il carico è inferiore alla capacità massima. In caso contrario la coda diverge.
+equivalentemente:
+
+$$
+\lambda < \mu
+$$
 
 ---
 
-### 24) Confrontare sistema centralizzato e sistema con load balancing in termini di limite
+### 13) Cosa accade se $\rho = 1$?
+
 **Risposta:**  
-Sistema centralizzato: un unico punto di saturazione con divergenza rapida della latenza.  
-Sistema distribuito: saturazione spostata, carico ripartito, crescita più lenta della latenza.
+Il sistema è in saturazione: il server lavora al 100% e qualsiasi incremento del carico genera crescita della coda.
 
 ---
 
-### 25) Perché la stabilità è più importante della potenza pura?
+### 14) Cosa accade se $\rho > 1$?
+
 **Risposta:**  
-Perché anche un server molto potente diventa inutilizzabile se il carico supera la capacità. La stabilità garantisce tempi di risposta accettabili.
+Il sistema è instabile: il tasso di arrivo supera la capacità di servizio e la coda cresce senza limite.
 
 ---
 
-# 🎯 Obiettivo didattico
+### 15) Perché la latenza aumenta prima del collasso?
 
-Le domande coprono:
+**Risposta:**  
+Perché all’aumentare di $\rho$ la coda cresce progressivamente; anche senza superare la capacità massima, l’attesa diventa elevata.
 
-- Modello formale del sistema centralizzato  
+---
+
+# 🔴 SEZIONE 3 – DOMANDE DIFFICILI (Limiti e Analisi Matematica)
+
+---
+
+### 16) Interpretare formalmente:
+
+$$
+\lim_{\lambda \to \mu^-} L(\lambda) = +\infty
+$$
+
+**Risposta:**  
+Quando il tasso di arrivo si avvicina alla capacità massima da valori inferiori, la latenza media cresce senza limite.
+
+---
+
+### 17) Spiegare il significato di asintoto verticale in questo contesto
+
+**Risposta:**  
+La retta $\lambda = \mu$ rappresenta un asintoto verticale della funzione latenza: la funzione cresce indefinitamente avvicinandosi alla saturazione.
+
+---
+
+### 18) Differenza tra sistema centralizzato e distribuito (definizione rigorosa)
+
+**Risposta:**  
+
+- Sistema centralizzato: $|N|=1$  
+- Sistema distribuito: $|N|>1$ con comunicazione tra nodi distinti  
+
+La distinzione è fisica, non solo logica.
+
+---
+
+### 19) Un sistema con server su macchina A e database su macchina B è centralizzato?
+
+**Risposta:**  
+No. È distribuito, perché esistono almeno due nodi fisici che cooperano tramite rete.
+
+---
+
+### 20) Un sistema con client remoto e server unico è centralizzato?
+
+**Risposta:**  
+Dal lato server è centralizzato ($|N|=1$).  
+Dal punto di vista complessivo client–server è distribuito.
+
+---
+
+# ⚫ SEZIONE 4 – DOMANDE SUPER DIFFICILI (Load Balancing e Scalabilità)
+
+---
+
+### 21) Effetto del Load Balancing su k server identici
+
+**Risposta:**
+
+Con $k$ server di capacità $\mu$ ciascuno:
+
+$$
+\rho_k = \frac{\lambda}{k\mu}
+$$
+
+---
+
+### 22) Comportamento al limite aumentando i server
+
+**Risposta:**
+
+$$
+\lim_{k \to \infty} \rho_k = 0
+$$
+
+L’utilizzazione per server tende a zero, assumendo distribuzione uniforme del carico.
+
+---
+
+### 23) Il load balancing elimina la divergenza della latenza?
+
+**Risposta:**  
+No. Sposta il punto di saturazione aumentando la capacità totale, ma ogni singolo server mantiene la stessa condizione di stabilità $\rho < 1$.
+
+---
+
+### 24) Perché la stabilità è una proprietà matematica?
+
+**Risposta:**  
+Perché dipende dal rapporto tra due tassi ($\lambda$ e $\mu$) e determina formalmente se la coda converge o diverge.
+
+---
+
+### 25) Perché un sistema può essere attivo ma inutilizzabile?
+
+**Risposta:**  
+Perché anche con $\rho < 1$, se $\rho$ è molto vicino a 1, la latenza può diventare estremamente elevata pur senza instabilità formale.
+
+---
+
+# 🎯 Copertura completa degli argomenti
+
+Questo documento copre in modo non ambiguo:
+
+- Definizione formale di sistema centralizzato  
+- Distinzione fisica tra centralizzato e distribuito  
 - Latenza e sue componenti  
-- Politiche di coda  
+- Politiche FIFO  
 - Throughput e tasso di arrivo  
-- Utilizzazione e stabilità  
-- Saturazione e divergenza  
-- Interpretazione dei limiti  
-- Collegamento ai server web reali  
-- Introduzione formale al Load Balancing  
+- Utilizzazione  
+- Stabilità, saturazione, instabilità  
+- Limiti matematici  
+- Divergenza della latenza  
+- Load balancing e scalabilità  
 
 ---
-```
