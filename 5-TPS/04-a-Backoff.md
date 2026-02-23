@@ -1,104 +1,141 @@
 
-# Backoff – Definizione, Formalismo e Esempi ⚡🖥️
+# Backoff – Introduzione, Formalismo e Casi d'Uso ⚡🖥️
 
 ---
 
-## 📌 Definizione
+## 📝 Introduzione: una metafora semplice
 
-Il **backoff** è una strategia utilizzata nei sistemi di rete e nei protocolli di comunicazione per **gestire collisioni e retry**.  
-Quando due o più nodi tentano di trasmettere dati contemporaneamente e si verifica una collisione, i nodi **attendono un tempo casuale** prima di ritentare, riducendo la probabilità di ulteriori collisioni.
+Immagina di dover attraversare un corridoio stretto con **più persone che vogliono passare contemporaneamente**.  
+Se tutti provano a passare nello stesso momento, si crea **ingorgo**: nessuno riesce a muoversi.  
 
-Il backoff è usato in protocolli come **Ethernet (CSMA/CD)** e **Wi-Fi (CSMA/CA)**.
+Il **backoff** funziona come una strategia per **evitare ingorghi**:
+
+- Chi non riesce a passare aspetta un **tempo casuale** prima di ritentare.  
+- Chi aspetta più a lungo ha più probabilità di passare senza scontrarsi con gli altri.  
+
+Questa idea si applica sia alle **collisioni in rete** sia a **server sovraccarichi o giù temporaneamente**.
 
 ---
 
 ## 🔢 Formalismo Matematico
 
-Il **ritardo di backoff** $T_{backoff}$ può essere calcolato come:
+Il backoff può essere modellato come un **ritardo casuale**:
 
 $$
-T_{backoff} = \text{Random}(0, W) \cdot t_{slot}
+T_{\text{backoff}} = \text{Random}(0, W) \cdot t_{\text{slot}}
 $$
 
 dove:
 
 - $W$ = finestra di backoff (in slot)  
-- $t_{slot}$ = durata di uno slot di tempo  
+- $t_{\text{slot}}$ = durata di uno slot di tempo  
 - $\text{Random}(0, W)$ = numero casuale uniforme tra 0 e $W$
 
-Per il **backoff esponenziale binario**, tipico di Ethernet:
+### Backoff esponenziale binario
+
+Tipico in Ethernet e Wi-Fi:
 
 $$
-W = \min(2^k - 1, W_{max})
+W = \min(2^k - 1, W_{\text{max}})
 $$
 
 dove:
 
-- $k$ = numero di tentativi di trasmissione falliti consecutivi  
-- $W_{max}$ = finestra massima consentita
+- $k$ = numero di tentativi falliti consecutivi  
+- $W_{\text{max}}$ = finestra massima consentita  
+
+Per il **retry con server giù**:
+
+$$
+T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k) \cdot \text{Random}(0,1)
+$$
+
+- $T_0$ = intervallo base  
+- $k$ = tentativo corrente (0,1,2…)  
+- $T_{\text{max}}$ = massimo tempo di attesa  
+- $\text{Random}(0,1)$ = numero casuale per evitare sincronizzazione tra client  
 
 ---
 
 ## 🧮 Esempio Numerico
 
-Supponiamo:
+**Caso collisione in rete**:
 
-- $t_{slot} = 20 \, \mu s$  
-- $W_{min} = 1$  
-- $W_{max} = 16$  
-- $k = 3$ tentativi falliti
-
-Allora:
-
+- $t_{\text{slot}} = 20 \, \mu s$, $k = 3$, $W_{\text{max}} = 16$  
+- Calcolo finestra:  
 $$
-W = \min(2^3 - 1, 16) = 7
+W = \min(2^3-1, 16) = 7
+$$  
+- Se $\text{Random}(0,7) = 5$, allora:  
 $$
-
-Il backoff sarà:
-
-$$
-T_{backoff} = \text{Random}(0,7) \cdot 20 \, \mu s
+T_{\text{backoff}} = 5 \cdot 20 = 100 \, \mu s
 $$
 
-Se, ad esempio, $\text{Random}(0,7) = 5$:
+**Caso server giù**:
 
+- $T_0 = 100 \, \text{ms}$, $T_{\text{max}} = 1600 \, \text{ms}$, $k = 3$  
+- Se $\text{Random}(0,1) = 0.6$, allora:  
 $$
-T_{backoff} = 5 \cdot 20 = 100 \, \mu s
+T_{\text{backoff}}^{(3)} = \min(1600, 100 \cdot 2^3) \cdot 0.6 = \min(1600, 800) \cdot 0.6 = 480 \, \text{ms}
 $$
 
 ---
 
 ## 📊 Andamento della finestra di backoff
 
-Il grafico seguente mostra come la finestra di backoff $W$ cresce con il numero di tentativi falliti $k$:
+Mostriamo come cresce la finestra con il numero di tentativi falliti $k$:
 
 ```mermaid
 xychart-beta
     title "Backoff esponenziale: finestra W in funzione dei tentativi k"
     x-axis ["0","1","2","3","4","5"]
-    y-axis "Finestra W" 0 --> 20
-    line [1,3,7,15,16,16]
+    y-axis "Finestra W / Tempo di attesa" 0 --> 2000
+    line [100,200,400,800,1600,1600]
 ````
 
-📌 **Interpretazione:**
+📌 **Interpretazione**:
 
-* La finestra di backoff cresce **esponenzialmente** dopo ogni collisione
-* Dopo un certo numero di tentativi, la finestra raggiunge $W_{max}$
-* L’attesa casuale riduce la probabilità di collisioni successive
+* La finestra cresce **esponenzialmente** ad ogni tentativo fallito.
+* Dopo un certo numero di tentativi, raggiunge il massimo $W_{\text{max}}$ o $T_{\text{max}}$.
+* Riduce il rischio di **collisioni in rete** e **sovraccarico dei server**.
+
+---
+
+## ⚙️ Casi d'Uso
+
+1. **Collisioni in rete**
+
+   * Ethernet (CSMA/CD) e Wi-Fi (CSMA/CA)
+   * Evita che più nodi trasmettano contemporaneamente
+
+2. **Server giù o sovraccarico**
+
+   * Retry con backoff esponenziale
+   * Evita di saturare il server con richieste continue
+   * Consente al server di recuperare gradualmente
+
+3. **Altri scenari**
+
+   * API rate-limiting
+   * Sistemi distribuiti che condividono risorse
+   * Job scheduler con risorse limitate
 
 ---
 
 ## 🔑 Concetti Chiave
 
-* **Backoff** = ritardo casuale dopo collisione
-* **Backoff esponenziale** riduce le collisioni multiple
-* Formula generale:
+* **Backoff** = ritardo casuale dopo un fallimento
+* **Backoff esponenziale** = ritardo crescente ad ogni tentativo
+* Riduce **collisioni**, **sovraccarico** e **congestione**
+* Formule principali:
   $$
-  T_{backoff} = \text{Random}(0, W) \cdot t_{slot}
+  T_{\text{backoff}} = \text{Random}(0, W) \cdot t_{\text{slot}}
   $$
-* Finestra esponenziale:
   $$
-  W = \min(2^k -1, W_{max})
+  W = \min(2^k - 1, W_{\text{max}})
+  $$
+  $$
+  T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k) \cdot \text{Random}(0,1)
   $$
 
-Questa strategia è alla base di molti protocolli di rete a contenuto condiviso, come Ethernet e Wi-Fi.
+
