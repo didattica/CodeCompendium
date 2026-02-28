@@ -20,8 +20,8 @@ In sintesi:
 
 ## 📝 Introduzione: metafora intuitiva
 
-Immagina di chiamare un amico al telefono e lui non risponde perché è occupato.
-Se provi a richiamarlo **subito**, rischi di intasare la linea.
+Immagina di chiamare un amico al telefono e lui non risponde perché è occupato.  
+Se provi a richiamarlo **subito**, rischi di intasare la linea.  
 Invece, aspetti qualche secondo e poi ritenti. Se non risponde ancora, aspetti un po’ di più, e così via.
 
 Questo è esattamente il principio del **backoff**.
@@ -30,17 +30,17 @@ Questo è esattamente il principio del **backoff**.
 
 ## 🔢 Backoff esponenziale (server non disponibile)
 
-Quando un server non risponde, il tempo di attesa per il tentativo (k) è:
+Quando un server non risponde, il tempo di attesa per il tentativo $k$ è:
 
-[
+$$
 T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k)
-]
+$$
 
 Dove:
 
-* (T_0) è il tempo di attesa iniziale
-* (k) è il numero di tentativi falliti
-* (T_{\text{max}}) è il tempo massimo di attesa
+* $T_0$ è il tempo di attesa iniziale
+* $k$ è il numero di tentativi falliti
+* $T_{\text{max}}$ è il tempo massimo di attesa
 
 ---
 
@@ -48,15 +48,15 @@ Dove:
 
 Nelle reti condivise, il backoff include una componente casuale:
 
-[
+$$
 T_{\text{backoff}} = \text{Random}(0, W) \cdot t_{\text{slot}}
-]
+$$
 
 con:
 
-[
+$$
 W = \min(2^k - 1, W_{\text{max}})
-]
+$$
 
 Il termine casuale riduce la probabilità che più nodi ritentino **nello stesso istante**.
 
