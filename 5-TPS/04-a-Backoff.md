@@ -61,29 +61,36 @@ $$
 Il termine casuale riduce la probabilità che più nodi ritentino **nello stesso istante**.
 
 ---
-## 📊 Grafico Backoff Esponenziale (Mermaid)
 
-```mermaid
-%% Diagramma a linee: Tentativi vs Tempo di Attesa
-%% X = tentativi, Y = tempo di attesa (esponenziale)
+## 🔢 Esempio di Backoff esponenziale (server non disponibile)
 
-%% Definiamo dati simulati: T0=1s, esponenziale 2^k
-%% Tentativi 1,2,3,4,5
+Quando un server non risponde, il tempo di attesa per il tentativo $k$ è:
 
-%% Mermaid non supporta direttamente grafici XY, ma possiamo usare il grafico a Gantt come workaround
+$$
+T_{\text{backoff}}^{(k)} = \min(T_{\text{max}}, T_0 \cdot 2^k)
+$$
 
-gantt
-    title Backoff esponenziale - tempo di attesa per tentativo
-    dateFormat  HH:mm:ss
-    axisFormat  %S s
+Dove:
 
-    section Tentativi
-    Tentativo 1 : t1, 00:00:00, 1s
-    Attesa 1    : after t1, 1s
-    Tentativo 2 : t2, after t1, 2s
-    Attesa 2    : after t2, 2s
-    Tentativo 3 : t3, after t2, 4s
-    Attesa 3    : after t3, 4s
-    Tentativo 4 : t4, after t3, 8s
-    Attesa 4    : after t4, 8s
-    Tentativo 5 : t5, after t4, 16s
+* $T_0$ è il tempo di attesa iniziale
+* $k$ è il numero di tentativi falliti
+* $T_{\text{max}}$ è il tempo massimo di attesa
+
+### 📋 Tabella dei tempi di backoff (esempio in ms)
+
+Assumiamo $T_0 = 500\text{ ms}$ e $T_{\text{max}} = 4000\text{ ms}$:
+
+| Tentativo (k) | Tempo di attesa $T_0 \cdot 2^k$ (ms) |
+| ------------- | ------------------------------------ |
+| 0             | 500                                  |
+| 1             | 1000                                 |
+| 2             | 2000                                 |
+| 3             | 4000                                 |
+| 4             | 4000 (limite massimo)                |
+| 5             | 4000 (limite massimo)                |
+| 6             | 4000 (limite massimo)                |
+
+> Nota: fino a $k=3$ il tempo **raddoppia** ad ogni tentativo, poi si **ferma** a $T_{\text{max}}$.
+
+
+
