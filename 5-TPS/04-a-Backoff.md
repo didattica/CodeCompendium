@@ -61,10 +61,29 @@ $$
 Il termine casuale riduce la probabilità che più nodi ritentino **nello stesso istante**.
 
 ---
+## 📊 Grafico Backoff Esponenziale (Mermaid)
 
-## 🔑 Concetti chiave
+```mermaid
+%% Diagramma a linee: Tentativi vs Tempo di Attesa
+%% X = tentativi, Y = tempo di attesa (esponenziale)
 
-* Il backoff gestisce i **ritentativi**
-* Riduce **congestione** e **collisioni**
-* Può essere **deterministico** o **randomizzato**
-* È fondamentale in reti, protocolli e sistemi distribuiti
+%% Definiamo dati simulati: T0=1s, esponenziale 2^k
+%% Tentativi 1,2,3,4,5
+
+%% Mermaid non supporta direttamente grafici XY, ma possiamo usare il grafico a Gantt come workaround
+
+gantt
+    title Backoff esponenziale - tempo di attesa per tentativo
+    dateFormat  HH:mm:ss
+    axisFormat  %S s
+
+    section Tentativi
+    Tentativo 1 : t1, 00:00:00, 1s
+    Attesa 1    : after t1, 1s
+    Tentativo 2 : t2, after t1, 2s
+    Attesa 2    : after t2, 2s
+    Tentativo 3 : t3, after t2, 4s
+    Attesa 3    : after t3, 4s
+    Tentativo 4 : t4, after t3, 8s
+    Attesa 4    : after t4, 8s
+    Tentativo 5 : t5, after t4, 16s
