@@ -63,7 +63,7 @@ AX = 0x0000    ; Parte bassa del risultato
 
 In questo caso, **DX** contiene la parte alta del risultato, mentre **AX** contiene la parte bassa (che in questo esempio è zero).
 
-### 3. **Caso con Overflow Maggiore di 32 bit**
+### 3. **Caso con Overflow Minore di 32 bit**
 
 #### Esempio 3: Moltiplicazione con risultato che richiede più di 32 bit
 
