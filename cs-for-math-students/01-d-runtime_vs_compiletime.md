@@ -1,4 +1,3 @@
-
 # Runtime vs Compile Time
 
 ## 1. Introduction
@@ -156,16 +155,39 @@ Languages such as:
 
 perform type checking mostly **at runtime**.
 
-Example in Python:
+**Important clarification for Python:**
+Python **does perform a compilation step to bytecode** before execution.
+
+* During this compilation, **syntax errors** are detected immediately (these are "compile-time errors").
+* Errors related to **types or values** are detected **only at runtime**.
+
+Example of a syntax error in Python:
+
+```python
+x = 5
+if x > 0    # missing colon
+    print(x)
+```
+
+This produces:
+
+```
+SyntaxError: invalid syntax
+```
+
+Example of a runtime type error:
 
 ```python
 x = 10
 y = "hello"
-
 print(x + y)
 ```
 
-This produces an error **only when the program executes that line**.
+This produces:
+
+```
+TypeError
+```
 
 ---
 
@@ -186,50 +208,12 @@ B --> C[Bytecode<br>.pyc files]
 
 C --> D[Python Virtual Machine]
 
-D --> E[Program Execution<br>Runtime]
+D --> E[Machine Code generated dynamically]
 
-E --> F[Output / Results]
+E --> F[Program Execution<br>Runtime]
+
+F --> G[Output / Results]
 ```
-
-### Step 1 — Source Code
-
-The programmer writes a `.py` file.
-
-Example:
-
-```python
-x = 5
-y = 10
-print(x + y)
-```
-
----
-
-### Step 2 — Bytecode Compilation
-
-Python converts the source code into **bytecode**.
-
-Bytecode is an intermediate representation that is easier for Python to execute.
-
-It may be stored in files such as:
-
-```
-__pycache__/
-```
-
-Example:
-
-```
-program.cpython-311.pyc
-```
-
----
-
-### Step 3 — Python Virtual Machine
-
-The **Python Virtual Machine (PVM)** reads and executes the bytecode instruction by instruction.
-
-This is the moment when the program actually **runs**.
 
 ---
 
@@ -313,10 +297,12 @@ JavaScript performs **implicit type coercion**.
 Key ideas:
 
 * **Compile time** is when the program is analyzed and translated before execution.
+* **Syntax errors** in Python are detected **at compile time** (bytecode compilation).
 * **Runtime** is when the program actually runs.
+* **Type and value errors** in Python are detected **at runtime**.
 * **Statically typed languages** detect many errors at compile time.
-* **Dynamically typed languages** detect many errors at runtime.
 * Python compiles code into **bytecode**, which is executed by the **Python Virtual Machine**.
 
 Understanding these concepts helps explain why different programming languages behave differently.
 
+```
