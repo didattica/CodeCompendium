@@ -126,3 +126,56 @@ print(type(Dog)) # <class 'type'>
 ```
 
 
+## 8. Python Objects, Classes, and Type – Visual Diagram
+
+Questo diagramma mostra chiaramente la relazione tra **variabili, oggetti concreti, classi e metaclasse `type`** in Python.
+
+```mermaid
+flowchart TD
+    %% Oggetti concreti
+    A[Variable: a<br/>etichetta] --> B[Object: 2<br/>oggetto concreto]
+    C[Variable: d1<br/>etichetta] --> D[Object: d1<br/>oggetto Dog]
+
+    %% Classi
+    B --> E[Class: int<br/>stampino dei numeri interi]
+    D --> F[Class: Dog<br/>stampino del cane]
+
+    %% Metaclasse universale
+    E --> G[Metaclass: type<br/>stampino supremo delle classi]
+    F --> G
+    G --> G[auto-referenziale<br/>type è classe e oggetto allo stesso tempo]
+
+    %% Stile
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#9f9,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style D fill:#9f9,stroke:#333,stroke-width:2px
+    style E fill:#9cf,stroke:#333,stroke-width:2px
+    style F fill:#9cf,stroke:#333,stroke-width:2px
+    style G fill:#fc9,stroke:#333,stroke-width:2px
+````
+
+---
+
+### Metafore intuitive
+
+| Concetto | Metafora                                                              |
+| -------- | --------------------------------------------------------------------- |
+| Variable | Etichetta sul tavolo che punta a un oggetto                           |
+| Object   | Oggetto concreto costruito con uno stampino                           |
+| Class    | Stampino / blueprint che definisce come creare oggetti                |
+| Type     | Stampino supremo delle classi, **classe e oggetto allo stesso tempo** |
+
+---
+
+### Spiegazione passo passo
+
+1. **Oggetti concreti** (`2`, `d1`) → istanze di classi (`int`, `Dog`)
+2. **Classi** → istanze di `type`
+3. **Metaclasse `type`** → auto-referenziale, chiude il ciclo
+4. Tutto il sistema è coerente e permette a Python di trattare **classi come oggetti**, rendendo tutto uniforme.
+
+
+
+
+
