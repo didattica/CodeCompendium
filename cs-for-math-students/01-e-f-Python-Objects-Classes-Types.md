@@ -7,12 +7,12 @@ This guide explains **variables, objects, classes, and types** in Python using *
 
 ## 1. Key Metaphors
 
-| Concept  | Metaphor |
-|----------|----------|
-| **Class** | Stampino / progetto / blueprint |
-| **Object** | Oggetto creato dallo stampino / casa costruita dal progetto |
-| **Variable** | Etichetta o nome che punta all’oggetto |
-| **Type** | Classe delle classi / metaclasse (lo stampino dello stampino) |
+| Concept      | Metaphor                                                      |
+| ------------ | ------------------------------------------------------------- |
+| **Class**    | Stampino / progetto / blueprint                               |
+| **Object**   | Oggetto creato dallo stampino / casa costruita dal progetto   |
+| **Variable** | Etichetta o nome che punta all’oggetto                        |
+| **Type**     | Classe delle classi / metaclasse (lo stampino dello stampino) |
 
 ---
 
@@ -22,7 +22,7 @@ Python code:
 
 ```python
 a = 2
-````
+```
 
 Diagram:
 
@@ -125,10 +125,64 @@ print(type(int)) # <class 'type'>
 print(type(Dog)) # <class 'type'>
 ```
 
+---
 
-## 8. Python Objects, Classes, and Type – Visual Diagram
+## 8. Built-in Classes in Python
 
-Questo diagramma mostra chiaramente la relazione tra **variabili, oggetti concreti, classi e metaclasse `type`** in Python.
+Python has many built-in classes and exceptions. To see **only the classes**, you can filter `__builtins__`:
+
+```python
+# List all built-in classes
+builtin_classes = [name for name in dir(__builtins__) if isinstance(getattr(__builtins__, name), type)]
+print(builtin_classes)
+```
+
+Example output:
+
+```text
+['bool', 'bytearray', 'bytes', 'complex', 'dict', 'float', 'frozenset', 'int', 'list', 'object', 'range', 'set', 'str', 'tuple', 'type', 'Exception', 'ValueError', 'TypeError', ...]
+```
+
+Notes:
+
+* Includes **basic types** (`int`, `str`, `list`, etc.)
+* Includes **exceptions** (`Exception`, `ValueError`, `ZeroDivisionError`, etc.)
+* All of these are **instances of `type`**, the universal metaclass.
+
+---
+
+## 9. Special Focus: `type`
+
+`type` is **special in Python**:
+
+1. **Metaclass of all classes**
+   Every class you define (`int`, `Dog`, `MyClass`) is an **instance of `type`**.
+
+2. **Itself an object**
+   In Python, `type` is also an **object**. That means:
+
+   ```python
+   print(type(int))  # <class 'type'>
+   print(type(Dog))  # <class 'type'>
+   print(type(type)) # <class 'type'>  <- auto-referenziale!
+   ```
+
+3. **Why this is powerful**
+
+   * `type` unifica Python: classi e oggetti seguono lo stesso schema.
+   * Puoi creare classi dinamicamente usando `type(name, bases, dict)`.
+
+**Diagram:**
+
+```text
+object (2, d1) ──> class (int, Dog)
+class ──> type  (stampino supremo)
+type ──> type  (auto-referenziale)
+```
+
+---
+
+## 10. Python Objects, Classes, and Type – Visual Diagram
 
 ```mermaid
 flowchart TD
@@ -153,7 +207,7 @@ flowchart TD
     style E fill:#9cf,stroke:#333,stroke-width:2px
     style F fill:#9cf,stroke:#333,stroke-width:2px
     style G fill:#fc9,stroke:#333,stroke-width:2px
-````
+```
 
 ---
 
@@ -173,9 +227,4 @@ flowchart TD
 1. **Oggetti concreti** (`2`, `d1`) → istanze di classi (`int`, `Dog`)
 2. **Classi** → istanze di `type`
 3. **Metaclasse `type`** → auto-referenziale, chiude il ciclo
-4. Tutto il sistema è coerente e permette a Python di trattare **classi come oggetti**, rendendo tutto uniforme.
-
-
-
-
-
+4. Tutto il sistema è coerente e permette a Python di trattare **classi come oggetti**, rendendo tutto uniforme
