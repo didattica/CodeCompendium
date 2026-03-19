@@ -148,9 +148,7 @@ In questo modulo studieremo:
 👉 Questo rappresenta il punto di incontro tra:
 - **reti (Sistemi)**
 - **sviluppo software (TPSIT)**
-```
 
----
 
 
 
