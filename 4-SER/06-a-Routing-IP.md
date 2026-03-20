@@ -1,192 +1,195 @@
 
-# 📡 Routing IP – Guida Introduttiva
+# 📡 Routing IP – Guida Introduttiva (con schemi Mermaid)
+
+---
 
 ## 🔹 Cos'è il Routing IP
+
 Il **routing IP** è il processo con cui un pacchetto dati viene instradato da una rete di origine a una rete di destinazione attraverso uno o più router.
 
-Un router decide **dove inviare un pacchetto** basandosi sull'indirizzo IP di destinazione.
+### 🧠 Schema concettuale
+
+```mermaid
+flowchart LR
+    A[Rete di origine] --> B[Router]
+    B --> C[Router intermedio]
+    C --> D[Rete di destinazione]
+````
 
 ---
 
 ## 🔹 Indirizzo IP e struttura binaria
 
-Un indirizzo IPv4 è composto da **32 bit**, divisi in 4 ottetti:
+Un indirizzo IPv4 è composto da **32 bit**:
+
+```mermaid
+flowchart LR
+    A[32 bit] --> B[Network bits]
+    A --> C[Host bits]
+```
 
 Esempio:
-192.168.1.10  
-→ in binario:  
-11000000.10101000.00000001.00001010
 
-### ✔ Divisione:
-- **Parte di rete (network bits)**
-- **Parte host (host bits)**
-
-Questa divisione è definita dalla **subnet mask**.
+```mermaid
+flowchart LR
+    A[192.168.1.10] --> B[11000000]
+    A --> C[10101000]
+    A --> D[00000001]
+    A --> E[00001010]
+```
 
 ---
 
 ## 🔹 Subnet Mask e logica AND
 
-La subnet mask serve a separare la parte rete dalla parte host.
+La subnet mask separa rete e host.
 
-Esempio:
-IP:        192.168.1.10  
-Mask:      255.255.255.0  
+### 🧠 AND logico
 
-Binario:
-IP:        11000000.10101000.00000001.00001010  
-Mask:      11111111.11111111.11111111.00000000  
+```mermaid
+flowchart TD
+    A[IP Address] --> C[AND]
+    B[Subnet Mask] --> C
+    C --> D[Network Address]
+```
 
-### 👉 Operazione AND logico
+Esempio pratico:
 
-IP AND Mask = Network Address
-
-Risultato:
-11000000.10101000.00000001.00000000  
-= 192.168.1.0
-
-✔ Questo è l'indirizzo di rete
-
----
-
-## 🔹 Indirizzo di rete, host e broadcast
-
-In ogni rete IP:
-
-- **Network address** → tutti i bit host = 0  
-- **Broadcast address** → tutti i bit host = 1  
-- **Host validi** → valori tra questi due
-
-Esempio: rete /24
-
-| Tipo        | Indirizzo        |
-|------------|------------------|
-| Network     | 192.168.1.0      |
-| Host        | 192.168.1.1 - 192.168.1.254 |
-| Broadcast   | 192.168.1.255    |
+```mermaid
+flowchart LR
+    A[192.168.1.10] --> C[AND]
+    B[255.255.255.0] --> C
+    C --> D[192.168.1.0]
+```
 
 ---
 
-## 🔹 Routing: come funziona
+## 🔹 Network, Host e Broadcast
 
-Quando un dispositivo invia un pacchetto:
+```mermaid
+flowchart LR
+    A[Rete] --> B[Host validi]
+    B --> C[Broadcast]
+```
 
-1. Controlla se la destinazione è nella stessa rete
-2. Se sì → invio diretto
-3. Se no → invio al **default gateway**
+Oppure più dettagliato:
 
-Il router:
-- legge l'IP di destinazione
-- consulta la **tabella di routing**
-- inoltra il pacchetto verso la rete corretta
+```mermaid
+flowchart LR
+    N[Network\nhost bits=0] --> H[Host validi]
+    H --> B[Broadcast\nhost bits=1]
+```
+
+---
+
+## 🔹 Calcolo Broadcast con OR
+
+```mermaid
+flowchart TD
+    A[Network Address] --> C[OR]
+    B[NOT Subnet Mask] --> C
+    C --> D[Broadcast Address]
+```
+
+---
+
+## 🔹 Come funziona il Routing
+
+```mermaid
+flowchart TD
+    A[Host invia pacchetto] --> B{Stessa rete?}
+    B -- SI --> C[Invio diretto]
+    B -- NO --> D[Invio al Gateway]
+    D --> E[Router]
+    E --> F[Tabella di routing]
+    F --> G[Scelta percorso]
+```
 
 ---
 
 ## 🔹 Tabella di Routing
 
-Contiene:
-
-- Network di destinazione
-- Subnet mask
-- Gateway
-- Interfaccia di uscita
-
-Esempio:
-
-| Destinazione | Mask        | Gateway     |
-|-------------|------------|-------------|
-| 192.168.1.0 | 255.255.255.0 | diretto |
-| 0.0.0.0     | 0.0.0.0     | 192.168.1.1 |
-
-👉 0.0.0.0 = default route
+```mermaid
+flowchart TD
+    A[Pacchetto in arrivo] --> B[Leggi IP destinazione]
+    B --> C[Confronto con rotte]
+    C --> D[Seleziona miglior match]
+    D --> E[Invia su interfaccia]
+```
 
 ---
 
-## 🔹 Matching: confronto binario
+## 🔹 Longest Prefix Match
 
-Il router usa una logica simile a:
-
-(IP destinazione) AND (subnet mask)
-
-per trovare la rete corretta.
-
-Sceglie la route con il **match più lungo** (Longest Prefix Match).
-
----
-
-## 🔹 OR logico e Broadcast
-
-Per ottenere il broadcast:
-
-Network OR (NOT subnet mask)
-
-Esempio:
-
-Network: 192.168.1.0  
-Mask:    255.255.255.0  
-
-NOT Mask:
-00000000.00000000.00000000.11111111
-
-OR:
-192.168.1.255
+```mermaid
+flowchart TD
+    A[Destinazione IP] --> B[Match con rete 1 /24]
+    A --> C[Match con rete 2 /16]
+    B --> D[Scelta migliore]
+    C --> D
+    D --> E[Prefisso più lungo vince]
+```
 
 ---
 
-## 🔹 Supernetting e Routing
+## 🔹 Supernetting
 
-Il supernetting (aggregazione) serve a:
-
-- Ridurre il numero di rotte
-- Migliorare l'efficienza
-
-Esempio:
-192.168.0.0/24  
-192.168.1.0/24  
-
-→ aggregato: 192.168.0.0/23
+```mermaid
+flowchart LR
+    A[192.168.0.0/24] --> C[Aggregazione]
+    B[192.168.1.0/24] --> C
+    C --> D[192.168.0.0/23]
+```
 
 ---
 
 ## 🔹 Tipi di Routing
 
-### ✔ Routing statico
-Configurato manualmente
-
-### ✔ Routing dinamico
-Router che si scambiano informazioni tramite protocolli:
-
-- RIP
-- OSPF
-- BGP
+```mermaid
+flowchart LR
+    A[Routing] --> B[Statico]
+    A --> C[Dinamico]
+    C --> D[RIP]
+    C --> E[OSPF]
+    C --> F[BGP]
+```
 
 ---
 
-## 🔹 Concetti chiave riassunti
+## 🔹 Riassunto logico (bit + operazioni)
 
-- IP = 32 bit
-- Subnet mask divide rete/host
-- AND → trova rete
-- OR → trova broadcast
-- Router usa tabelle per decidere il percorso
-- Longest prefix match = scelta migliore
+```mermaid
+flowchart TD
+    A[IP Address] --> B[AND con Mask]
+    B --> C[Network]
+    C --> D[OR con NOT Mask]
+    D --> E[Broadcast]
+```
 
 ---
 
 ## 📌 Conclusione
 
-Il routing IP combina:
-
-- **Logica binaria**
-- **Struttura degli indirizzi**
-- **Decisioni basate su tabelle**
-
-Capire bit, AND/OR e subnet è fondamentale per capire davvero come funzionano le reti.
+```mermaid
+flowchart LR
+    A[Bit e binario] --> B[Subnetting]
+    B --> C[Routing]
+    C --> D[Internet reale]
 ```
 
-<!--
-Se vuoi, posso anche prepararti:
+Il routing IP unisce:
 
-* esercizi pratici (tipo “trova rete e broadcast”)
-* oppure un secondo documento su **Routing dinamico (OSPF/BGP)** 👍
+* logica binaria (AND/OR)
+* indirizzamento
+* decisioni dinamiche
+
+<!--
+
+---
+
+Se vuoi fare un salto di qualità 🔥  
+posso trasformarti questo in:
+
+- mappa mentale completa stile “schema da interrogazione”
+- oppure aggiungere **esercizi con diagrammi già pronti in Mermaid** (molto utili per verifiche)
 -->
