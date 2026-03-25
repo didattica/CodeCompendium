@@ -173,7 +173,7 @@ L'accumulatore mantiene lo **stato parziale** della computazione: è l'analogo i
 
 ### 3.2 Contatore con predicato
 
-Calcolare $\#\{i \in \{1,\ldots,n\} : P(i)\}$:
+Calcolare $\lvert\{i \in \{1,\ldots,n\} : P(i)\}\rvert$:
 
 ```python
 count = 0
