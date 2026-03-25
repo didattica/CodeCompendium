@@ -166,7 +166,7 @@ print(f"{n}! = {fattoriale}")
 
 **Traccia:** Conta quanti multipli di $k$ esistono nell'intervallo $[1, N]$.
 
-**Concetto matematico:** $\#\{i \in \{1,\ldots,N\} : k \mid i\} = \lfloor N/k \rfloor$
+**Concetto matematico:** $\lvert\{i \in \{1,\ldots,N\} : k \mid i\}\rvert = \lfloor N/k \rfloor$
 
 **Soluzione:**
 
