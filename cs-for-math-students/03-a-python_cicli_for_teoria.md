@@ -46,6 +46,20 @@ In termini insiemistici:
 
 $$\text{for } x \in S: \quad \text{esegui } f(x)$$
 
+#### Il Ciclo `for`: Esplorare l'Infinito nel Finito
+
+Dal punto di vista puramente matematico, una successione $\{a_n\}_{n \in \mathbb{N}}$ è un **insieme ordinato e infinito** di elementi. La sua esistenza non dipende dal tempo o dalla memoria: esiste come concetto astratto "tutta insieme".
+
+In informatica, tuttavia, sorge un limite fisico (memoria e tempo di calcolo). Il **ciclo `for`** agisce come un "osservatore" che percorre una porzione di questa successione.
+
+* **L'Insieme Infinito:** La regola matematica (es. $a_{n+1} = a_n + 2$) definisce un potenziale illimitato.
+* **Lo Strumento di Esplorazione:** Il ciclo `for` è lo strumento perfetto perché permette di rendere **concreto** un segmento di quell'infinito. 
+
+
+Quando scriviamo `for i in range(1000)`, stiamo dicendo al computer: *"Prendi la successione infinita dei numeri naturali e proietta un fascio di luce solo sui primi 1000 elementi"*. Il ciclo `for` è dunque il **punto di contatto** tra l'astrazione illimitata della matematica e la capacità di calcolo limitata della macchina.
+
+> **Nota:** Mentre la matematica definisce l'intera struttura dell'insieme, il ciclo `for` ne definisce la **finestra di osservazione**.
+
 ---
 
 ### 1.2 La funzione `range()` come intervallo discreto
