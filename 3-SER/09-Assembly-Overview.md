@@ -3,79 +3,102 @@
 
 ## Cos'è Assembly
 
-L’Assembly è un linguaggio di programmazione a basso livello (*low-level*) che fornisce una rappresentazione simbolica delle istruzioni in linguaggio macchina (*machine code*). Ogni istruzione in Assembly corrisponde molto da vicino—spesso uno a uno—alle operazioni eseguite direttamente dalla CPU.
+Assembly è un linguaggio di programmazione **a basso livello** (*low-level*). Un linguaggio a basso livello è vicino al funzionamento fisico del processore, con poca o nessuna astrazione rispetto all'hardware.
 
-A differenza dei linguaggi ad alto livello (*high-level languages*), l’Assembly non astrae l’hardware sottostante. Espone invece dettagli architetturali come registri (*registers*), indirizzi di memoria (*memory addresses*) e set di istruzioni (*instruction sets*), permettendo di scrivere codice altamente ottimizzato e specifico per l’hardware.
+Ogni istruzione Assembly corrisponde a una singola operazione eseguita dalla CPU. Questa corrispondenza è spesso uno-a-uno.
 
-In sostanza, l’Assembly si colloca appena sopra le istruzioni binarie, offrendo mnemonici leggibili dall’uomo ma mantenendo il pieno controllo sull’esecuzione.
+Assembly espone direttamente i componenti interni del processore:
+
+- I **registri** (*registers*) sono piccole celle di memoria dentro la CPU, usate per calcoli immediati.
+- Gli **indirizzi di memoria** (*memory addresses*) sono identificatori numerici che indicano dove un dato è memorizzato nella RAM.
+- Il **set di istruzioni** (*instruction set*) è l'insieme di tutte le operazioni che una specifica CPU sa eseguire.
+
+Assembly si colloca tra il codice binario e i linguaggi ad alto livello come Python o C.
 
 ---
 
 ## Contesto Storico
 
-I linguaggi Assembly sono nati nei primi anni dell’informatica come alternativa pratica alla programmazione diretta in codice binario (*machine code*). Negli anni ’40 e ’50, i primi computer richiedevano l’inserimento manuale delle istruzioni in forma binaria o esadecimale.
+Nei primi anni '40 e '50, i computer non avevano linguaggi di programmazione. I programmatori scrivevano le istruzioni direttamente in formato binario o esadecimale.
 
-L’introduzione dell’Assembly ha semplificato questo processo sostituendo gli opcode numerici con mnemonici simbolici (ad esempio `MOV`, `ADD`, `JMP`). Questo ha migliorato significativamente la produttività mantenendo un controllo preciso sull’hardware.
+Assembly ha risolto questo problema. Ha sostituito i codici numerici con parole simboliche chiamate **mnemonici**. Un mnemonico è una parola breve che rappresenta un'operazione della CPU.
 
-Con l’evoluzione di linguaggi ad alto livello come C e Fortran, l’uso dell’Assembly è diminuito nello sviluppo generale, ma è rimasto fondamentale nella programmazione di sistema (*systems programming*), nei sistemi embedded (*embedded systems*) e nelle applicazioni critiche per le prestazioni.
+Esempi di mnemonici:
 
----
+| Mnemonico | Significato |
+|-----------|-------------|
+| `MOV` | Sposta un valore da un registro a un altro |
+| `ADD` | Somma due valori |
+| `JMP` | Salta a un'altra istruzione nel programma |
 
-## Collegamento con la Matematica e i Linguaggi
+I codici numerici sostituiti dai mnemonici si chiamano **opcode** (*operation code*). Un opcode è il numero binario che la CPU legge per capire quale operazione eseguire. Assembly traduce i mnemonici leggibili negli opcode binari corrispondenti.
 
-L’Assembly è profondamente legato alla logica matematica e ai sistemi formali. Alla base della computazione vi è l’esecuzione di operazioni deterministiche su dati—concetti radicati nella matematica discreta.
+Con l'arrivo di linguaggi come C e Fortran, l'uso di Assembly nella programmazione generale è diminuito. Assembly è però rimasto fondamentale in tre aree:
 
-Dal punto di vista matematico:
-
-* L’Assembly riflette le **macchine a stati finiti** (*finite state machines*), dove ogni istruzione rappresenta una transizione di stato.
-* Opera su **aritmetica binaria**, direttamente collegata all’algebra booleana (*Boolean algebra*) e alla logica digitale.
-
-Nel contesto più ampio dei linguaggi di programmazione:
-
-* I linguaggi ad alto livello (Python, Java) privilegiano astrazione e produttività.
-* L’Assembly offre un livello minimo di astrazione, esponendo direttamente il modello computazionale.
-* Compilatori (*compilers*) e interpreti (*interpreters*) fungono da ponte, traducendo costrutti ad alto livello in Assembly o codice macchina.
-
-L’Assembly rappresenta quindi un livello intermedio fondamentale tra il ragionamento umano e l’esecuzione della macchina.
+- **Programmazione di sistema** (*systems programming*): sviluppo di sistemi operativi e driver.
+- **Sistemi embedded** (*embedded systems*): dispositivi con risorse limitate come microcontrollori, elettrodomestici intelligenti o sensori industriali.
+- **Applicazioni critiche per le prestazioni**: codice dove la velocità di esecuzione è prioritaria.
 
 ---
 
-## Posizionamento nello Stack Tecnico
+## Collegamento con la Matematica e i Linguaggi Formali
 
-L’Assembly può essere visto come parte di uno stack computazionale che collega software e hardware.
+Assembly ha radici nella matematica e nella logica.
 
-```mermaid
-block-beta
-columns 1
-  APP["Applicazioni"]
-  blockArrowId1<[" "]>(down)
-  HL["Linguaggi ad Alto Livello (C, Python, Java)"]
-  blockArrowId2<[" "]>(down)
-  ASM["Assembly"]
-  blockArrowId3<[" "]>(down)
-  MC["Codice Macchina (Machine Code)"]
-  blockArrowId4<[" "]>(down)
-  HW["Hardware (CPU, Memoria)"]
+### Macchine a stati finiti
+
+Una **macchina a stati finiti** (*finite state machine*, FSM) è un modello matematico che descrive un sistema con un numero limitato di stati possibili. Il sistema si trova sempre in uno stato alla volta. Ogni evento o istruzione causa una **transizione**: il passaggio da uno stato al successivo.
+
+La CPU funziona secondo questo principio. Ogni istruzione Assembly rappresenta una transizione di stato: la CPU legge un'istruzione, cambia il proprio stato interno (registri, memoria, program counter) e si prepara all'istruzione successiva.
+
+### Aritmetica binaria e algebra booleana
+
+Assembly opera su **aritmetica binaria**: tutti i dati sono rappresentati come sequenze di 0 e 1. Questa rappresentazione è governata dall'**algebra booleana** (*Boolean algebra*), un sistema matematico basato su valori vero/falso e operatori logici (AND, OR, NOT). L'algebra booleana è il fondamento della logica digitale e dei circuiti elettronici.
+
+### Sistemi formali
+
+Un **sistema formale** (*formal system*) è un insieme di regole precise e non ambigue che governano la manipolazione di simboli. I linguaggi di programmazione sono sistemi formali: ogni istruzione ha una sintassi esatta e un significato deterministico. Assembly è uno dei sistemi formali più vicini all'hardware: le sue regole corrispondono direttamente alle operazioni fisiche della CPU.
+
+---
+
+## Assembly nello Stack Tecnologico
+
+Lo **stack tecnologico** (*technology stack*) è la gerarchia di livelli software e hardware che cooperano per eseguire un programma.
+
+```
+Applicazioni
+     ↓
+Linguaggi ad Alto Livello (C, Python, Java)
+     ↓
+Assembly
+     ↓
+Codice Macchina (Machine Code)
+     ↓
+Hardware (CPU, Memoria)
 ```
 
-### Interpretazione
+Ogni livello comunica con quello adiacente:
 
-* **Hardware**: componenti fisici che eseguono segnali elettrici.
-* **Codice Macchina**: istruzioni binarie direttamente comprese dalla CPU.
-* **Assembly**: rappresentazione leggibile del codice macchina.
-* **Linguaggi ad Alto Livello**: linguaggi astratti indipendenti dall’hardware.
-* **Applicazioni**: software utilizzato dall’utente finale.
+| Livello | Descrizione |
+|--------|-------------|
+| **Hardware** | Componenti fisici. Eseguono segnali elettrici. |
+| **Codice Macchina** | Sequenze di bit. La CPU le legge direttamente. |
+| **Assembly** | Versione leggibile del codice macchina. Un assemblatore (*assembler*) la converte in codice macchina. |
+| **Linguaggi ad Alto Livello** | Linguaggi come C o Python. Un compilatore (*compiler*) li traduce in Assembly o codice macchina. |
+| **Applicazioni** | Software usato dall'utente finale. |
 
-L’Assembly svolge un ruolo chiave come livello di traduzione:
-
-* È spesso il target dei compilatori per linguaggi come C.
-* Permette un controllo fine su prestazioni e memoria.
-* È utilizzato in debugging, reverse engineering e sistemi embedded.
+Assembly occupa una posizione strategica in questo stack. I compilatori di linguaggi come C producono spesso Assembly come fase intermedia. Assembly permette inoltre un controllo preciso su prestazioni e memoria, utile nel debugging, nel reverse engineering e nei sistemi embedded.
 
 ---
 
 ## Conclusione
 
-L’Assembly occupa una posizione unica nell’informatica: è vicino all’hardware ma ancora accessibile al ragionamento umano. Anche se raramente utilizzato per lo sviluppo di applicazioni su larga scala, resta fondamentale per comprendere come il software interagisce realmente con la macchina.
+Assembly è il livello più vicino all'hardware che un programmatore può leggere e scrivere direttamente. Non è usato per la maggior parte delle applicazioni moderne. È però essenziale per capire come il software interagisce con la macchina.
 
-Studiare l’Assembly permette di acquisire una comprensione profonda di prestazioni, gestione della memoria e principi fondamentali della computazione, rendendolo uno strumento concettuale essenziale anche nei contesti moderni.
+Studiare Assembly fornisce tre competenze fondamentali:
+
+1. **Comprensione delle prestazioni**: si impara perché alcune operazioni sono più veloci di altre.
+2. **Gestione della memoria**: si capisce come i dati vengono letti, scritti e organizzati fisicamente.
+3. **Fondamenti della computazione**: si acquisisce una visione chiara di come una CPU esegue le istruzioni.
+
+Queste competenze restano rilevanti anche nei contesti di programmazione moderni.
