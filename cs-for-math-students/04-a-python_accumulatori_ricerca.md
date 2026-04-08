@@ -167,6 +167,177 @@ print(f"{n}! = {result}")
 
 $$4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24 \quad \checkmark$$
 
+
+# Computational Complexity of Factorial (n!)
+
+## Overview
+
+Computing the factorial:
+
+```
+
+n! = 1 × 2 × 3 × ... × n
+
+```
+
+is often considered an **O(n)** problem, since it requires `n-1` multiplications.
+
+However, this analysis is incomplete from a computational perspective.
+
+---
+
+## Key Insight
+
+The cost of multiplication is **not constant**.
+
+- CPUs operate on fixed-size words (e.g., 64 bits)
+- Large integers require **multiple words**
+- Arithmetic on large numbers involves multiple low-level operations
+
+---
+
+## Cost of Multiplication
+
+If numbers have `k` bits:
+
+- Naive multiplication: `O(k²)`
+- Fast algorithms (e.g., FFT-based): `O(k log k)`
+
+Thus:
+
+> The larger the numbers, the more expensive the multiplication.
+
+---
+
+## Growth of n!
+
+The size of `n!` grows rapidly:
+
+```
+
+n! ≈ n log n  (in bits)
+
+```
+
+So later multiplications involve very large numbers.
+
+---
+
+## Sequential Approach
+
+```
+
+((((1×2)×3)×4)...×n)
+
+```
+
+### Characteristics:
+
+- Intermediate results grow quickly
+- Many operations involve:
+  
+```
+
+large_number × small_number
+
+```
+
+- Repeatedly processing large numbers → inefficient
+
+---
+
+## Product Tree (Divide & Conquer)
+
+```
+
+(1×2×3×4) × (5×6×7×8)
+
+```
+
+### Strategy:
+
+- Recursively split the range
+- Multiply subproducts
+- Combine results in a balanced way
+
+### Advantages:
+
+- Operands have **similar size**
+- Fewer operations on very large numbers
+- Better use of fast multiplication algorithms
+
+---
+
+## Why It’s Faster
+
+Sequential approach:
+
+- Many expensive operations on large numbers
+
+Product tree:
+
+- Most operations on small/medium numbers
+- Only a few operations on large numbers
+
+---
+
+## Complexity Comparison
+
+Let `M(k)` be the cost of multiplying `k`-bit numbers.
+
+- Sequential:
+  
+```
+
+O(n × M(n log n))
+
+```
+
+- Product tree:
+
+```
+
+O(M(n log n))
+
+```
+
+---
+
+## Fundamental Limit
+
+The output itself has size:
+
+```
+
+Θ(n log n) bits
+
+```
+
+Therefore:
+
+> It is impossible to compute `n!` exactly in `O(log n)` time.
+
+---
+
+## Conclusion
+
+- The naive algorithm is **O(n)** in number of operations
+- Real cost depends on **integer size growth**
+- Product tree improves performance by:
+  - balancing computations
+  - minimizing operations on large numbers
+
+---
+
+## Takeaway
+
+> The bottleneck is not the number of multiplications,  
+> but the cost of handling large integers.
+```
+
+---
+
+
 ---
 
 ### 🟡 Exercise 6 — Counting multiples
