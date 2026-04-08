@@ -333,10 +333,6 @@ Therefore:
 
 > The bottleneck is not the number of multiplications,  
 > but the cost of handling large integers.
-```
-
----
-
 
 ---
 
