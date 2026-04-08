@@ -430,7 +430,7 @@ The most robust solution in Python is to use `None` as a **sentinel** and handle
 
 **Loop invariant:** at the end of iteration $k$, the variable `current_max` holds:
 
-$$\text{current\_max}_k = \max\{a_1, a_2, \ldots, a_k\}$$
+$$\mathrm{current\_max}_k = \max\{a_1, a_2, \ldots, a_k\}$$
 
 This is an example of a *loop invariant*, a formal tool used to prove algorithm correctness.
 
