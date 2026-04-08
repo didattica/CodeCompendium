@@ -1,282 +1,336 @@
-# Python — Cicli `for` · Parte 2
-## Accumulatori e Ricerca — Esercizi 4–7
+# Python — `for` Loops · Part 2
+## Accumulators and Search — Exercises 4–7
 
-> **Corso:** Informatica per Matematici  
-> **Livello:** Primo anno universitario  
-> **Prerequisiti:** `python_cicli_for_esercizi_01.md` (esercizi 1–3)
+> **Course:** Computer Science for Mathematics Students  
+> **Level:** First year university  
+> **Prerequisites:** `python_cicli_for_esercizi_01.md` (exercises 1–3)
 
 ---
 
-## Legenda difficoltà
+## Difficulty legend
 
-| Simbolo | Livello | Descrizione |
+| Symbol | Level | Description |
 |:---:|:---|:---|
-| 🟡 | Medio | Richiede un pattern algoritmico (accumulatore, contatore) |
-| ⚫ | Challenge | Collegamento esplicito con matematica universitaria |
+| 🟡 | Medium | Requires an algorithmic pattern (accumulator, counter) |
+| ⚫ | Challenge | Direct connection with university mathematics |
 
 ---
 
-## Blocco 2 — Pattern Accumulatore
+## Block 2 — Accumulator Pattern
 
-Il **pattern accumulatore** è uno degli schemi algoritmici fondamentali.
-Consiste nell'inizializzare una variabile con l'**elemento neutro** di un'operazione, per poi aggiornarla ad ogni passo del ciclo:
+The **accumulator pattern** is one of the fundamental algorithmic schemes.
+It consists of initialising a variable with the **identity element** of an operation, then updating it at every step of the loop:
 
-| Operazione | Elemento neutro | Inizializzazione |
+| Operation | Identity element | Initialisation |
 |:---:|:---:|:---:|
-| Somma | $0$ | `s = 0` |
-| Prodotto | $1$ | `p = 1` |
-| Contatore | $0$ | `c = 0` |
+| Sum | $0$ | `total = 0` |
+| Product | $1$ | `product = 1` |
+| Counter | $0$ | `count = 0` |
 
 ---
 
-### 🟡 Esercizio 4 — Somma dei primi $N$ interi
+### 🟡 Exercise 4 — Sum of the first $N$ integers
 
-#### Traccia
+#### Statement
 
-Calcola la somma $S = \sum_{i=1}^{N} i$ per un $N$ inserito dall'utente.
-Verifica poi il risultato con la formula di Gauss.
+Compute the sum $S = \sum_{i=1}^{N} i$ for an $N$ entered by the user.
+Then verify the result using Gauss's formula.
 
 ---
 
-#### Considerazioni teoriche
+#### Theoretical notes
 
-**Formula di Gauss:**
+**Gauss's formula:**
 
 $$\sum_{i=1}^{N} i = \frac{N(N+1)}{2}$$
 
-La dimostrazione elementare si basa sull'osservazione che scrivendo la somma in ordine diretto e inverso e sommando termine a termine si ottengono sempre $N$ coppie di valore $N+1$:
+The elementary proof writes the sum in both forward and reverse order and adds term by term, obtaining $N$ pairs each equal to $N+1$:
 
-$$\underbrace{1 + 2 + \cdots + N}_{S} + \underbrace{N + (N-1) + \cdots + 1}_{S} = \underbrace{(N+1)+(N+1)+\cdots+(N+1)}_{N \text{ volte}}$$
+$$\underbrace{1 + 2 + \cdots + N}_{S} + \underbrace{N + (N-1) + \cdots + 1}_{S} = \underbrace{(N+1)+(N+1)+\cdots+(N+1)}_{N \text{ times}}$$
 
 $$2S = N(N+1) \implies S = \frac{N(N+1)}{2}$$
 
-**Complessità algoritmica:**
+**Algorithmic complexity:**
 
-| Approccio | Complessità |
+| Approach | Complexity |
 |:---|:---:|
-| Ciclo iterativo | $O(N)$ |
-| Formula chiusa | $O(1)$ |
+| Iterative loop | $O(N)$ |
+| Closed-form formula | $O(1)$ |
 
-Conoscere l'identità matematica permette di **eliminare il ciclo del tutto**.
+Knowing the mathematical identity makes it possible to **eliminate the loop entirely**.
 
-**Pattern usato:** accumulatore additivo — inizializzazione a $0$ (elemento neutro della somma).
+**Pattern used:** additive accumulator — initialised to $0$ (identity element of addition).
 
 ---
 
-#### Soluzione
+#### Solution
 
 ```python
-n = int(input("Inserisci N: "))
+n = int(input("Enter N: "))
 
-# Calcolo iterativo — pattern accumulatore
-somma = 0          # elemento neutro della somma
+# Iterative computation — accumulator pattern
+total = 0           # identity element of addition
 for i in range(1, n + 1):
-    somma += i     # aggiornamento accumulatore
+    total += i      # update accumulator
 
-# Verifica con formula chiusa di Gauss
-formula = n * (n + 1) // 2
+# Verification with Gauss's closed-form formula
+gauss = n * (n + 1) // 2
 
-print(f"Somma iterativa:  {somma}")
-print(f"Formula di Gauss: {formula}")
-print(f"Coincidono: {somma == formula}")
-```
-
-**Output per $N = 100$:**
-
-```
-Somma iterativa:  5050
-Formula di Gauss: 5050
-Coincidono: True
+print(f"Iterative sum: {total}")
+print(f"Gauss formula: {gauss}")
+print(f"Match: {total == gauss}")
 ```
 
 ---
 
-### 🟡 Esercizio 5 — Fattoriale
+#### Test cases
 
-#### Traccia
+| Input $N$ | `total` | `gauss` | `Match` |
+|:---:|:---:|:---:|:---:|
+| `1` | `1` | `1` | `True` |
+| `10` | `55` | `55` | `True` |
+| `100` | `5050` | `5050` | `True` |
+| `1000` | `500500` | `500500` | `True` |
 
-Calcola $n! = \prod_{i=1}^{n} i$ per un $n$ dato in input.
+**Manual check for $N = 10$:**
+
+$$\sum_{i=1}^{10} i = 1+2+3+4+5+6+7+8+9+10 = 55 \qquad \frac{10 \cdot 11}{2} = 55 \quad \checkmark$$
 
 ---
 
-#### Considerazioni teoriche
+### 🟡 Exercise 5 — Factorial
 
-Il fattoriale è definito come la **produttoria**:
+#### Statement
+
+Compute $n! = \prod_{i=1}^{n} i$ for an $n$ entered by the user.
+
+---
+
+#### Theoretical notes
+
+The factorial is defined as the **product notation**:
 
 $$n! = \prod_{i=1}^{n} i = 1 \cdot 2 \cdot 3 \cdots n$$
 
-con la convenzione $0! = 1$, che non è arbitraria: $1$ è l'elemento neutro del prodotto, esattamente come $0$ lo è per la somma.
+with the convention $0! = 1$, which is not arbitrary: $1$ is the identity element of multiplication, just as $0$ is for addition.
 
-**Principio generale:** l'inizializzazione dell'accumulatore deve sempre essere l'elemento neutro dell'operazione. Un errore comune è inizializzare a $0$ anche per i prodotti, ottenendo sempre $0$ come risultato.
+**General principle:** the accumulator must always be initialised to the identity element of the operation being applied. A common mistake is to initialise to $0$ even for products, which always yields $0$ as the result.
 
-**Valori notevoli:**
+**Notable values:**
 
 $$5! = 120 \qquad 6! = 720 \qquad 10! = 3\,628\,800 \qquad 20! \approx 2.4 \times 10^{18}$$
 
-**Crescita:** il fattoriale cresce più velocemente di qualsiasi esponenziale. Più precisamente, la **formula di Stirling** fornisce l'approssimazione asintotica:
+**Growth rate:** the factorial grows faster than any exponential function. More precisely, **Stirling's approximation** gives the asymptotic behaviour:
 
 $$n! \;\sim\; \sqrt{2\pi n}\left(\frac{n}{e}\right)^n \qquad (n \to \infty)$$
 
-**Pattern usato:** accumulatore moltiplicativo — inizializzazione a $1$ (elemento neutro del prodotto).
+**Pattern used:** multiplicative accumulator — initialised to $1$ (identity element of multiplication).
 
 ---
 
-#### Soluzione
+#### Solution
 
 ```python
-n = int(input("Inserisci n: "))
+n = int(input("Enter n: "))
 
-fattoriale = 1          # elemento neutro del prodotto
+result = 1              # identity element of multiplication
 for i in range(1, n + 1):
-    fattoriale *= i     # aggiornamento accumulatore
+    result *= i         # update accumulator
 
-print(f"{n}! = {fattoriale}")
+print(f"{n}! = {result}")
 ```
 
-**Output per $n = 6$:**
-
-```
-6! = 720
-```
-
-> **Nota:** Python gestisce nativamente interi di dimensione arbitraria, quindi `100!` è calcolabile senza overflow.
+> **Note:** Python handles arbitrarily large integers natively, so computing `100!` causes no overflow.
 
 ---
 
-### 🟡 Esercizio 6 — Contare i multipli
+#### Test cases
 
-#### Traccia
+| Input $n$ | Expected output | Notes |
+|:---:|:---|:---|
+| `0` | `0! = 1` | Convention: identity element |
+| `1` | `1! = 1` | Base case |
+| `5` | `5! = 120` | |
+| `6` | `6! = 720` | |
+| `10` | `10! = 3628800` | |
+| `20` | `20! = 2432902008176640000` | No overflow in Python |
 
-Conta quanti multipli di $k$ esistono nell'intervallo $[1, N]$.
+**Manual trace for $n = 4$:**
+
+| Step | `i` | `result` before | `result` after |
+|:---:|:---:|:---:|:---:|
+| — | — | `1` | — |
+| 1 | `1` | `1` | `1` |
+| 2 | `2` | `1` | `2` |
+| 3 | `3` | `2` | `6` |
+| 4 | `4` | `6` | **`24`** |
+
+$$4! = 1 \cdot 2 \cdot 3 \cdot 4 = 24 \quad \checkmark$$
 
 ---
 
-#### Considerazioni teoriche
+### 🟡 Exercise 6 — Counting multiples
 
-**Cardinalità dei multipli:** il numero di multipli di $k$ nell'insieme $\{1, 2, \ldots, N\}$ è:
+#### Statement
+
+Count how many multiples of $k$ exist in the interval $[1, N]$.
+
+---
+
+#### Theoretical notes
+
+**Cardinality of multiples:** the number of multiples of $k$ in $\{1, 2, \ldots, N\}$ is:
 
 $$\left|\{i \in \{1,\ldots,N\} : k \mid i\}\right| = \left\lfloor \frac{N}{k} \right\rfloor$$
 
-dove $\lfloor \cdot \rfloor$ è la **funzione pavimento** (parte intera inferiore).
+where $\lfloor \cdot \rfloor$ denotes the **floor function** (integer part).
 
-**Operatore modulo:** $i$ è multiplo di $k$ se e solo se il resto della divisione $i \div k$ è zero:
+**Modulo operator:** $i$ is a multiple of $k$ if and only if the remainder of $i \div k$ is zero:
 
 $$k \mid i \iff i \bmod k = 0 \iff \texttt{i \% k == 0}$$
 
-**Floor division in Python:** l'operatore `//` realizza esattamente $\lfloor \cdot \rfloor$:
+**Floor division in Python:** the `//` operator implements exactly $\lfloor \cdot \rfloor$:
 
 $$\left\lfloor \frac{N}{k} \right\rfloor \;\longleftrightarrow\; \texttt{n // k}$$
 
-**Pattern usato:** contatore con predicato — variante dell'accumulatore additivo dove si incrementa di $1$ solo quando una condizione è verificata.
+**Pattern used:** counter with predicate — a variant of the additive accumulator where the variable is incremented by $1$ only when a condition holds.
 
 ---
 
-#### Soluzione
+#### Solution
 
 ```python
-n = int(input("Inserisci N: "))
-k = int(input("Inserisci k: "))
+n = int(input("Enter N: "))
+k = int(input("Enter k: "))
 
 count = 0
 for i in range(1, n + 1):
-    if i % k == 0:      # predicato: k divide i?
-        count += 1      # incremento contatore
+    if i % k == 0:          # predicate: does k divide i?
+        count += 1          # increment counter
 
-# Verifica con formula matematica
-formula = n // k        # floor division = ⌊N/k⌋
+# Verification with closed-form formula
+expected = n // k           # floor division = ⌊N/k⌋
 
-print(f"Contatore iterativo: {count}")
-print(f"Formula (floor):     {formula}")
+print(f"Iterative count: {count}")
+print(f"Formula (floor): {expected}")
 ```
 
-**Output per $N = 20,\ k = 3$:**
+---
 
-```
-Contatore iterativo: 6
-Formula (floor):     6
-```
+#### Test cases
 
-> I 6 multipli di $3$ in $[1,20]$ sono: $3, 6, 9, 12, 15, 18$.  
-> Verifica: $\lfloor 20/3 \rfloor = \lfloor 6.666\ldots \rfloor = 6$ ✓
+| Input $N$ | Input $k$ | `count` | `expected` | Multiples |
+|:---:|:---:|:---:|:---:|:---|
+| `10` | `2` | `5` | `5` | $2,4,6,8,10$ |
+| `20` | `3` | `6` | `6` | $3,6,9,12,15,18$ |
+| `100` | `7` | `14` | `14` | $7,14,\ldots,98$ |
+| `7` | `7` | `1` | `1` | $7$ |
+| `6` | `7` | `0` | `0` | none |
+
+**Manual check for $N=20,\ k=3$:**
+
+$$\lfloor 20/3 \rfloor = \lfloor 6.666\ldots \rfloor = 6 \quad \checkmark$$
 
 ---
 
-## Blocco 3 — Ricerca e Confronto
+## Block 3 — Search and Comparison
 
-In questo blocco si abbandona l'idea di accumulare un valore numerico e si passa a **ricercare un elemento speciale** all'interno di una sequenza. Il pattern è: mantenere un *candidato corrente* e aggiornarlo ogni volta che si incontra un elemento che soddisfa un criterio di confronto.
-
----
-
-### 🟡 Esercizio 7 — Massimo di una sequenza
-
-#### Traccia
-
-Leggi 5 numeri inseriti dall'utente e stampa il massimo della sequenza.
+In this block we move away from accumulating a numeric value and instead **search for a special element** within a sequence. The pattern is: maintain a *current candidate* and update it whenever an element satisfying a comparison criterion is found.
 
 ---
 
-#### Considerazioni teoriche
+### 🟡 Exercise 7 — Maximum of a sequence
 
-**Definizione matematica di massimo:** dato un insieme finito $A = \{a_1, \ldots, a_n\} \subset \mathbb{R}$,
+#### Statement
 
-$$M = \max A \iff M \in A \;\text{ e }\; M \geq a_i \;\;\forall\, i \in \{1,\ldots,n\}$$
-
-L'algoritmo traduce questa definizione in modo **costruttivo**: si scandisce la sequenza mantenendo il massimo visto fino al passo corrente.
-
-**Problema dell'inizializzazione:** il valore iniziale del candidato non può essere un numero arbitrario:
-- inizializzare a $0$ fallirebbe se tutti gli elementi fossero negativi
-- inizializzare a $-\infty$ ($\texttt{float('-inf')}$ in Python) è corretto ma poco esplicito
-
-La soluzione più robusta in Python è usare `None` come **sentinella** e gestire il primo elemento in modo speciale con `massimo is None`.
-
-**Invariante di ciclo:** al termine dell'iterazione $k$, la variabile `massimo` contiene:
-
-$$\text{massimo}_k = \max\{a_1, a_2, \ldots, a_k\}$$
-
-Questo è un esempio di *loop invariant*, uno strumento formale per dimostrare la correttezza degli algoritmi.
-
-**Complessità:** $O(n)$ — è necessario esaminare ogni elemento almeno una volta.
+Read 5 numbers entered by the user and print the maximum.
 
 ---
 
-#### Soluzione
+#### Theoretical notes
+
+**Mathematical definition of maximum:** given a finite set $A = \{a_1, \ldots, a_n\} \subset \mathbb{R}$,
+
+$$M = \max A \iff M \in A \;\text{ and }\; M \geq a_i \;\;\forall\, i \in \{1,\ldots,n\}$$
+
+The algorithm translates this definition **constructively**: it scans the sequence keeping track of the maximum seen so far.
+
+**Initialisation problem:** the initial value of the candidate cannot be an arbitrary number:
+- initialising to $0$ would fail if all elements were negative
+- initialising to $-\infty$ (`float('-inf')` in Python) is always correct
+
+The most robust solution in Python is to use `None` as a **sentinel** and handle the first element specially via `current_max is None`.
+
+**Loop invariant:** at the end of iteration $k$, the variable `current_max` holds:
+
+$$\text{current\_max}_k = \max\{a_1, a_2, \ldots, a_k\}$$
+
+This is an example of a *loop invariant*, a formal tool used to prove algorithm correctness.
+
+**Complexity:** $O(n)$ — every element must be examined at least once.
+
+---
+
+#### Solution
 
 ```python
-massimo = None          # sentinella: nessun massimo visto ancora
+current_max = None      # sentinel: no maximum seen yet
 for i in range(5):
-    num = int(input(f"Inserisci il numero {i+1}: "))
-    if massimo is None or num > massimo:
-        massimo = num   # aggiorna il candidato
+    num = int(input(f"Enter number {i + 1}: "))
+    if current_max is None or num > current_max:
+        current_max = num   # update candidate
 
-print(f"Massimo: {massimo}")
+print(f"Maximum: {current_max}")
 ```
 
-**Variante:** inizializzazione con $-\infty$ (utile quando si conosce il tipo numerico):
+**Variant:** initialisation with $-\infty$ (useful when the numeric type is known):
 
 ```python
-massimo = float('-inf')     # -∞ è minore di qualsiasi numero reale
+current_max = float('-inf')     # -∞ is less than any real number
 for i in range(5):
-    num = int(input(f"Inserisci il numero {i+1}: "))
-    if num > massimo:
-        massimo = num
+    num = int(input(f"Enter number {i + 1}: "))
+    if num > current_max:
+        current_max = num
 
-print(f"Massimo: {massimo}")
+print(f"Maximum: {current_max}")
 ```
 
-> **Perché funziona?** Poiché $-\infty < a_i$ per ogni $a_i \in \mathbb{R}$, il primo elemento aggiorna sempre il candidato, e l'invariante di ciclo è soddisfatto fin dal primo passo.
+> **Why does this work?** Since $-\infty < a_i$ for every $a_i \in \mathbb{R}$, the first element always updates the candidate, and the loop invariant is satisfied from the very first step.
 
 ---
 
-## Riepilogo pattern — Parte 2
+#### Test cases
 
-| Pattern | Struttura base | Elemento neutro | Esercizi |
+| Input sequence | Expected output | Notes |
+|:---|:---:|:---|
+| `3 1 4 1 5` | `Maximum: 5` | Maximum at last position |
+| `9 7 5 3 1` | `Maximum: 9` | Maximum at first position |
+| `4 4 4 4 4` | `Maximum: 4` | All equal |
+| `-3 -1 -4 -1 -5` | `Maximum: -1` | All negative — `0` init would fail |
+| `0 0 0 0 1` | `Maximum: 1` | Single non-zero element |
+
+**Manual trace for input `3 1 4 1 5`:**
+
+| Step $k$ | `num` | `current_max` before | Update? | `current_max` after |
+|:---:|:---:|:---:|:---:|:---:|
+| 0 | `3` | `None` | ✓ | `3` |
+| 1 | `1` | `3` | ✗ | `3` |
+| 2 | `4` | `3` | ✓ | `4` |
+| 3 | `1` | `4` | ✗ | `4` |
+| 4 | `5` | `4` | ✓ | **`5`** |
+
+---
+
+## Pattern summary — Part 2
+
+| Pattern | Basic structure | Identity element | Exercises |
 |:---|:---|:---:|:---:|
-| Accumulatore additivo | `s = 0` · `for ...: s += f(i)` | $0$ | 4, 6 |
-| Accumulatore moltiplicativo | `p = 1` · `for ...: p *= f(i)` | $1$ | 5 |
-| Contatore con predicato | `c = 0` · `if P(i): c += 1` | $0$ | 6 |
-| Ricerca massimo / minimo | sentinella + confronto iterativo | $-\infty$ | 7 |
+| Additive accumulator | `total = 0` · `for ...: total += f(i)` | $0$ | 4, 6 |
+| Multiplicative accumulator | `result = 1` · `for ...: result *= f(i)` | $1$ | 5 |
+| Counter with predicate | `count = 0` · `if P(i): count += 1` | $0$ | 6 |
+| Maximum / minimum search | sentinel + iterative comparison | $-\infty$ | 7 |
 
 ---
 
-> **Prossima parte:** `python_algoritmi_sequenze.md`  
-> Numeri primi · Congruenze · Successione di Fibonacci · Serie di Leibniz
+> **Next part:** `python_algoritmi_sequenze.md`  
+> Prime numbers · Congruences · Fibonacci sequence · Leibniz series
