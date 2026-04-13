@@ -24,7 +24,8 @@ Scriviamo:
 $$n \mid a$$
 
 e si legge:
-👉 “$n$ divide $a$”
+👉 
+"$n$ divide $a$"
 
 Significa che esiste un intero $k$ tale che:
 $$a = n \cdot k$$
@@ -73,7 +74,7 @@ Scriviamo:
 $$a \equiv b \pmod{n}$$
 
 e si legge:
-👉 “$a$ è congruo a $b$ modulo $n$”
+👉 “ $a$ è congruo a $b$ modulo $n$”
 
 Definizione:
 $$a \equiv b \pmod{n} \iff n \mid (a - b)$$
