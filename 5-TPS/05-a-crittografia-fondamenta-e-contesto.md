@@ -31,20 +31,65 @@ Oggi è ovunque:
 
 ---
 
+
 ## 2. Definizioni fondamentali
 
 | Termine | Definizione |
 |---|---|
-| **Plaintext** $m$ | Messaggio originale in chiaro |
-| **Ciphertext** $c$ | Messaggio cifrato |
-| **Chiave** $k$ | Parametro segreto dell'algoritmo |
-| **Cifratura** $E$ | Funzione $c = E(k, m)$ |
-| **Decifratura** $D$ | Funzione $m = D(k, c)$ |
-| **Crittanalisi** | L'arte di violare un sistema crittografico |
+| **Plaintext** $m \in \mathcal{M}$ | Messaggio originale in chiaro |
+| **Ciphertext** $c \in \mathcal{C}$ | Messaggio cifrato |
+| **Chiave** $k \in \mathcal{K}$ | Parametro segreto dell'algoritmo |
+| **Cifratura** $E_k$ | Funzione che trasforma $m$ in $c$: $c = E_k(m)$ |
+| **Decifratura** $D_k$ | Funzione che ricostruisce $m$: $m = D_k(c)$ |
+| **Crittanalisi** | Studio delle tecniche per violare un sistema crittografico |
 
-Un sistema crittografico è una quintupla $(\mathcal{M}, \mathcal{C}, \mathcal{K}, E, D)$ tale che:
+---
 
-$$D(k, E(k, m)) = m \quad \forall m \in \mathcal{M},\ k \in \mathcal{K}$$
+### Spazi fondamentali
+
+- $\mathcal{M}$: insieme di tutti i possibili messaggi (plaintext)  
+- $\mathcal{C}$: insieme di tutti i possibili messaggi cifrati  
+- $\mathcal{K}$: insieme di tutte le possibili chiavi  
+
+---
+
+### Definizione di sistema crittografico
+
+Un sistema crittografico è una quintupla:
+
+$$
+(\mathcal{M}, \mathcal{C}, \mathcal{K}, E, D)
+$$
+
+dove:
+
+- $E$ è l’insieme delle funzioni di cifratura $E_k: \mathcal{M} \to \mathcal{C}$
+- $D$ è l’insieme delle funzioni di decifratura $D_k: \mathcal{C} \to \mathcal{M}$
+
+---
+
+### Proprietà fondamentale (correttezza)
+
+$$
+D_k(E_k(m)) = m \quad \forall m \in \mathcal{M},\ k \in \mathcal{K}
+$$
+
+👉 In parole semplici:  
+se cifri un messaggio e poi lo decifri con la stessa chiave, ottieni esattamente il messaggio originale.
+
+---
+
+### Nota intuitiva
+
+Si può vedere così:
+
+```
+
+messaggio (m) --[cifratura con k]--> (c) --[decifratura con k]--> (m)
+
+```
+
+La crittografia funziona correttamente solo se questo “andata e ritorno” restituisce sempre il messaggio iniziale.
 
 ### Principio di Kerckhoffs (1883)
 
