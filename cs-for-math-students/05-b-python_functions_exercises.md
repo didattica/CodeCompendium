@@ -1,22 +1,24 @@
-# Python — Functions  
+# Python — Functions
+
 ### Esercizi con Soluzione
 
 **Informatica per Matematici · Primo anno universitario**
 
-**Prerequisiti:**  
+**Prerequisiti:**
 `python_functions_theory.md` · `for` · `if/else` · funzioni built-in
 
 ---
 
 # 📘 Struttura
 
-- ★★☆ MEDIO → 3 esercizi  
-- ★★★ CHALLENGE → 3 esercizi  
-- ★★★ RICORSIONE → 3 esercizi  
+* ★★☆ MEDIO → 3 esercizi
+* ★★★ CHALLENGE → 3 esercizi
+* ★★★ RICORSIONE → 3 esercizi
 
 ---
 
-# 01 · Difficoltà Media  
+# 01 · Difficoltà Media
+
 *Funzioni, return, scope, if/else, for*
 
 ---
@@ -27,10 +29,10 @@
 
 Scrivi una funzione `classify_triangle(a, b, c)` che restituisce:
 
-- `"equilateral"` → tutti i lati uguali  
-- `"isosceles"` → due lati uguali  
-- `"scalene"` → tutti diversi  
-- `"invalid"` → non è un triangolo  
+* `"equilateral"` → tutti i lati uguali
+* `"isosceles"` → due lati uguali
+* `"scalene"` → tutti diversi
+* `"invalid"` → non è un triangolo
 
 📌 Disuguaglianza triangolare:
 
@@ -53,11 +55,23 @@ def classify_triangle(a, b, c):
         return "isosceles"
     else:
         return "scalene"
-````
+```
 
 ---
 
 ## 🟢 Esercizio 1.2 — Conta vocali e consonanti
+
+### ▌💡 Tip
+
+* `in` → operatore di **appartenenza**: verifica se un elemento è dentro una collezione
+
+  ```python
+  'a' in "aeiou"  # True
+  ```
+* `isalpha()` → **metodo delle stringhe**, non dei char (in Python i char sono stringhe di lunghezza 1)
+  → restituisce `True` se il carattere è una lettera
+
+---
 
 ### ▌Traccia
 
@@ -101,7 +115,7 @@ def count_vowels_consonants(text):
 Un numero è perfetto se:
 
 $$
-n = \sum_{\substack{d \mid n \\ d < n}} d
+n = \sum_{\substack{d \mid n \ d < n}} d
 $$
 
 ---
@@ -131,13 +145,42 @@ def is_perfect(n):
 
 ## 🟡 Esercizio 2.1 — Cifrario di Cesare
 
-### ▌Idea matematica
+### ▌💡 Tip (fondamentale)
 
-Shift circolare:
+* `ord('a')` → funzione **built-in** che converte un carattere nel suo codice numerico (Unicode)
+
+  ```python
+  ord('a')  # 97
+  ```
+* `chr(97)` → operazione inversa (numero → carattere)
+
+👉 Quindi lavoriamo con lettere come numeri.
+
+---
+
+### ▌💡 Tip matematico — Shift circolare
+
+Non serve pensare subito ad anelli astratti 🙂
+
+Qui è più concreto:
+
+👉 L’alfabeto è **circolare**
+dopo `z` si torna a `a`
+
+Esempio con shift di 2:
+
+```
+y → a
+z → b
+```
+
+Questo si ottiene con:
 
 $$
-\text{char} \rightarrow (x + k) \mod 26
+(x + k) \mod 26
 $$
+
+👉 Il modulo `% 26` fa “ripartire da zero” → esattamente come un orologio.
 
 ---
 
@@ -169,6 +212,14 @@ def caesar_decrypt(text, k):
 ---
 
 ## 🟡 Esercizio 2.2 — Run-Length Encoding
+
+### ▌💡 Tip
+
+* `isdigit()` → metodo delle stringhe
+  → controlla se un carattere è una cifra (`0–9`)
+* le stringhe sono **iterabili** → puoi scorrerle con `for`
+
+---
 
 ### ▌Traccia
 
@@ -219,7 +270,7 @@ def rle_decode(encoded):
 
 ## 🟡 Esercizio 2.3 — Numeri di Armstrong
 
-### ▌Definizione
+### ▌Traccia
 
 $$
 n = \sum (\text{cifra})^{k}
@@ -267,18 +318,6 @@ def armstrong_in_range(start, end):
 
 ## 🔴 Esercizio 3.1 — Fattoriale ricorsivo
 
-### ▌Definizione
-
-$$
-0! = 1
-$$
-
-$$
-n! = n \cdot (n-1)!
-$$
-
----
-
 ### ▌Soluzione
 
 ```python
@@ -296,11 +335,12 @@ def factorial(n):
 
 ## 🔴 Esercizio 3.2 — Somma delle cifre
 
-### ▌Formula
+### ▌💡 Tip
 
-$$
-\mathrm{digit\_sum}(n) = (n \bmod 10) + \mathrm{digit\_sum}(n // 10)
-$$
+* `n % 10` → prende **ultima cifra**
+* `n // 10` → rimuove ultima cifra
+
+👉 È una “divisione ricorsiva” del numero.
 
 ---
 
@@ -324,18 +364,6 @@ def digital_root(n):
 ---
 
 ## 🔴 Esercizio 3.3 — Sequenza di Collatz
-
-### ▌Definizione
-
-$$
-f(n) =
-\begin{cases}
-n/2 & \text{se pari} \
-3n + 1 & \text{se dispari}
-\end{cases}
-$$
-
----
 
 ### ▌Soluzione
 
@@ -372,5 +400,4 @@ Questo documento mostra come:
 * la **ricorsione** modella definizioni matematiche
 
 👉 La programmazione è una traduzione operativa della matematica.
-
 
