@@ -1,3 +1,6 @@
+Ecco il documento aggiornato. Ho integrato le tue osservazioni su **SSH** e sulla distinzione tra **Interfacce Fisiche** e **Linee Virtuali** utilizzando i blocchi di avviso (*admonition*) di GitHub per renderle immediatamente visibili.
+
+---
 
 # 🖥️ Legenda dei Prompt Cisco IOS
 > I prompt del terminale Cisco non sono casuali — ogni simbolo indica **dove sei** nel sistema e **cosa puoi fare**.
@@ -42,18 +45,33 @@ Questa tabella illustra i comandi fondamentali per configurare e proteggere il d
 
 ---
 
+> [!NOTE]
+> ### 🌐 Focus SSH: Perché usiamo le linee VTY?
+> Le linee **VTY (Virtual Teletype)** sono terminali virtuali per l'accesso via rete. A differenza della porta Console fisica, le VTY gestiscono le connessioni remote (**SSH** o Telnet).
+> * **Percorso:** Si configurano partendo da Global Config -> `line vty 0 4`.
+> * **Sicurezza:** Il comando `transport input ssh` è fondamentale perché blocca Telnet e permette solo connessioni cifrate.
+> * **Autenticazione:** Con `login local` si obbliga il router a controllare username/password creati nel database locale.
+
+> [!TIP]
+> ### 🛣️ Osservazione: Interfaccia Fisica vs Servizio Virtuale
+> Per collegarti in SSH, devi puntare a un **indirizzo IP** di una qualsiasi interfaccia attiva del router.
+> * **È indifferente** quale interfaccia fisica usi (G0/0, G0/1, ecc.): una volta che il pacchetto "bussa" all'IP del router, viene gestito dalle linee VTY.
+> * Non serve configurare SSH su ogni singola interfaccia; basta farlo una volta sola a livello di **Line Configuration**.
+
+---
+
 ## Come si scende (e come si risale)
 
 ```
-Router>          👁️  User EXEC
+Router>           👁️  User EXEC
    │
    │  enable
    ▼
-Router#          ⚡  Privileged EXEC
+Router#           ⚡  Privileged EXEC
    │
    │  configure terminal
    ▼
-Router(config)#  🔧  Global Configuration
+Router(config)#   🔧  Global Configuration
    │
    ├── interface fa0/0   →  Router(config-if)#    🔌
    ├── line vty 0 4      →  Router(config-line)#  📡
