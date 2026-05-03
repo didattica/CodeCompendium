@@ -163,7 +163,7 @@ Questa rappresentazione è utile per visualizzare espressioni logiche come:
 
 `(A AND B) OR C`
 
-![Diagramma Venn tre insiemi](./images/venn3.svg)
+![Diagramma Venn tre insiemi](./images/venn_tre_insiemi_logica.svg)
 
 ---
 
