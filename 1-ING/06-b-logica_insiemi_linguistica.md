@@ -237,7 +237,7 @@ Nel diagramma di Venn:
 * Il numero 3 sta nella zona centrale.
 * Il numero 6 sta fuori da entrambi i cerchi.
 
-![Esempio completo Venn](./images/esempio_completo.svg)
+![Esempio completo Venn](./images/venn_esempio_completo_U123456.svg)
 
 ---
 
