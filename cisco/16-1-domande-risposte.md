@@ -56,3 +56,65 @@ Per rispondere correttamente, identifica l'obiettivo o l'azione principale del *
 **Scenario:** Un threat actor impersona un'altra persona per ottenere informazioni di credito su quella persona.
 * **Risposta Corretta:** **Furto d'identità**
 * *Nota:* L'impersonificazione è il fattore scatenante del furto d'identità.
+
+```
+Modulo 16.1
+
+Domanda 1
+Di che tipo di minaccia si tratta quando un threat actor ti invia un virus che può riformattare il tuo disco rigido?
+Furto di informazioni
+Interruzione del servizio
+Furto d'identità
+Perdita o manipolazione di dati
+
+
+Domanda 2
+Di che tipo di minaccia si tratta quando un threat actor effettua acquisti online illegali utilizzando informazioni di credito rubate?
+Interruzione del servizio
+Perdita o manipolazione di dati
+Furto d'identità
+Furto di informazioni
+
+Domanda 3
+Di che tipo di minaccia si tratta quando un threat actor impedisce agli utenti legali di accedere ai servizi dati?
+Interruzione del servizio
+Furto di informazioni
+Perdita o manipolazione di dati
+Furto d'identita
+
+Domanda 4
+Di che tipo di minaccia si tratta quando un threat actor ruba dati di ricerca scientifica?
+Interruzione del servizio
+Perdita o manipolazione di dati
+Furto di informazioni
+Furto d'identità
+
+Domanda 5
+Di che tipo di minaccia si tratta quando un threat actor sovraccarica una rete per negare l'accesso alla rete ad altri utenti?
+Furto di informazioni
+Furto d'identità
+Perdita o manipolazione di dati
+Interruzione del servizio
+
+Domanda 6
+Di che tipo di minaccia si tratta quando un threat actor minaccia modifica i record dei dati?
+Perdita o manipolazione di dati
+Furto d'identità
+Furto di informazioni
+Interruzione del servizio
+
+Domanda 7
+Di che tipo di minaccia si tratta quando un threat actor sta rubando il database degli utenti di un'azienda?
+Interruzione del servizio
+Furto d'identità
+Furto di informazioni
+Perdita o manipolazione di dati
+
+Domanda 8
+Di che tipo di minaccia si tratta quando un threat actor impersona un'altra persona per ottenere informazioni di credito su quella persona?
+
+Perdita o manipolazione di dati
+Interruzione del servizio
+Furto d'identità
+Furto di informazioni
+```
