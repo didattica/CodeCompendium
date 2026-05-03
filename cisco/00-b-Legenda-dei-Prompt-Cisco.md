@@ -31,14 +31,14 @@ Questa tabella illustra i comandi fondamentali per configurare e proteggere il d
 
 ## Gerarchia dei Prompt
 
-| Prompt | Emoji | Nome del Modo | Cosa puoi fare | Esempi di comandi | Come si entra |
-|---|---|---|---|---|---|
-| `Router>` | 👁️ | **User EXEC** | Solo visualizzazione di base — comandi limitati, nessuna modifica | `ping 8.8.8.8` `show version` `traceroute 192.168.1.1` | Accesso iniziale al dispositivo |
-| `Router#` | ⚡ | **Privileged EXEC** | Visualizzazione completa, diagnostica, salvataggio config, riavvio | `show running-config` `copy running-config startup-config` `reload` `debug ip route` | `enable` (da `>`) |
-| `Router(config)#` | 🔧 | **Global Configuration** | Modifica della configurazione globale del dispositivo | `hostname R1` `enable secret cisco` `ip domain-name lab.it` `service password-encryption` | `configure terminal` (da `#`) |
-| `Router(config-if)#` | 🔌 | **Interface Configuration** | Configurazione di una singola interfaccia (es. `Fa0/0`, `vlan 1`) | `ip address 192.168.1.1 255.255.255.0` `no shutdown` `description LAN-principale` | `interface <nome>` (da `config`) |
-| `Router(config-line)#` | 📡 | **Line Configuration** | Configurazione delle linee di accesso (console, VTY, AUX) | `password cisco` `login local` `transport input ssh` `exec-timeout 5 30` | `line <tipo> <numero>` (da `config`) |
-| `Router(config-router)#` | 🗺️ | **Router Configuration** | Configurazione dei protocolli di routing (RIP, OSPF, EIGRP) | `network 192.168.1.0` `passive-interface fa0/1` `default-information originate` | `router <protocollo>` (da `config`) |
+| Prompt | Nome del Modo | Cosa puoi fare | Esempi di comandi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Come si entra |
+|:---|:---|:---|:---|:---|
+| `Router>` | **User EXEC** | Solo visualizzazione di base — comandi limitati, nessuna modifica | `ping 8.8.8.8` <br>`show version` <br>`traceroute 192.168.1.1` | Accesso iniziale al dispositivo |
+| `Router#` | **Privileged EXEC** | Visualizzazione completa, diagnostica, salvataggio config, riavvio | `show running-config`<br><br> `copy running-config startup-config` <br><br>`reload` <br><br>`debug ip route` | `enable` (da `>`) |
+| `Router(config)#` | **Global Configuration** | Modifica della configurazione globale del dispositivo | `hostname R1`<br> `enable secret cisco`<br> `ip domain-name lab.it` <br> <br>`service password-encryption` | `configure terminal` (da `#`) |
+| `Router(config-if)#` | **Interface Configuration** | Configurazione di una singola interfaccia (es. `Fa0/0`, `vlan 1`) | `ip address 192.168.1.1 255.255.255.0` <br> <br>`no shutdown` <br> <br>`description LAN-principale` | `interface <nome>` (da `config`) |
+| `Router(config-line)#` | **Line Configuration** | Configurazione delle linee di accesso (console, VTY, AUX) | `password cisco`<br> `login local`<br>  <br>`transport input ssh` <br> <br>`exec-timeout 5 30` | `line <tipo> <numero>` (da `config`) |
+| `Router(config-router)#` | **Router Configuration** | Configurazione dei protocolli di routing (RIP, OSPF, EIGRP) | `network 192.168.1.0` <br><br> `passive-interface fa0/1`<br>  <br>`default-information originate` | `router <protocollo>` (da `config`) |
 
 ---
 
