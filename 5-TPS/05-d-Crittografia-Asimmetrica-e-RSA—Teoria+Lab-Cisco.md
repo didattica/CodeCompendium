@@ -1,19 +1,20 @@
-# 🔐 Crittografia Asimmetrica e RSA — Teoria + Lab Cisco
-> **Livello:** 5° anno Liceo Scientifico / Informatico  
-> **Durata:** 2 ore (120 minuti)  
+# 🔐 Crittografia Asimmetrica e RSA — Teoria e Lab Cisco
+
+> **Livello:** 5° anno Liceo Scientifico / Informatico
+> **Durata:** 2 ore (120 minuti)
 > **Prerequisiti:** Aritmetica modulare, Piccolo Teorema di Fermat
 
 ---
 
 ## Connessione tra Teoria e Pratica
 
-Questo documento unifica la teoria della crittografia asimmetrica con la sua applicazione concreta su router Cisco. Il comando `crypto key generate rsa` che eseguirai in laboratorio **non è magia**: è esattamente l'algoritmo RSA che studierai qui sotto.
+Il comando `crypto key generate rsa` che eseguirai in laboratorio non è magia: è esattamente l'algoritmo RSA che studierai in questo documento.
 
 ```
 TEORIA                          PRATICA CISCO
 ──────                          ─────────────
 Scegli p, q primi     ───►      Il router genera p, q internamente (CSPRNG)
-Calcola n = p·q       ───►      La "modulus size" che inserisci (es. 1024 bit) è |n|
+Calcola n = p·q       ───►      La "modulus size" che inserisci (es. 2048 bit) è |n|
 Calcola (e, d)        ───►      Il router ricava la coppia di chiavi
 Pubblica (e, n)       ───►      Il client SSH riceve la chiave pubblica
 Cifra con e           ───►      Handshake SSH: sessione cifrata
@@ -25,30 +26,24 @@ Decifra con d         ───►      Solo il router (con d segreto) può deci
 
 ---
 
-## Parte 1 — Teoria (sintesi)
+## Parte 1 — Fondamenti Teorici
 
+### 1.1 Storia e Origine di RSA
 
-### 1.1 Origine e Storia di RSA
+L'algoritmo **RSA** prende il nome da **Ron Rivest**, **Adi Shamir** e **Leonard Adleman**, i tre crittografi del MIT che lo pubblicarono per la prima volta nel **1977**.
 
-L'algoritmo **RSA** prende il nome da **Ron Rivest**, **Adi Shamir** e **Leonard Adleman**, i tre crittografi e informatici del MIT (Massachusetts Institute of Technology) che lo descrissero pubblicamente per la prima volta nel **1977**.
+Prima di RSA, la crittografia era esclusivamente **simmetrica**: per comunicare in segreto, due parti dovevano scambiarsi fisicamente una chiave condivisa prima di separarsi. Il problema centrale era quindi: *come scambiarsi una chiave segreta su una rete pubblica senza che qualcuno la intercetti?*
 
-
-
-#### La "Rivoluzione" della Chiave Pubblica
-Prima di RSA, il mondo della crittografia si basava sulla **crittografia simmetrica**: per comunicare in segreto, due persone dovevano scambiarsi fisicamente una chiave (una password o un codice) prima di separarsi. Se un Generale voleva inviare un messaggio cifrato a una base lontana, doveva prima mandare un corriere fidato con la chiave.
-
-*   **Il Problema:** Come scambiarsi una chiave segreta su una rete pubblica (come Internet) senza che qualcuno la intercetti?
-*   **La Soluzione RSA:** Nel 1976, Whitfield Diffie e Martin Hellman ipotizzarono l'esistenza della crittografia asimmetrica, ma furono Rivest, Shamir e Adleman a trovare la soluzione pratica basata sulla **difficoltà di fattorizzare i numeri primi**.
-
-#### Curiosità Storica: Il GCHQ
-Per decenni si è creduto che RSA fosse un'invenzione puramente americana. Solo nel 1997 è stato reso pubblico che un matematico britannico, **Clifford Cocks**, che lavorava per i servizi segreti del Regno Unito (GCHQ), aveva sviluppato un sistema equivalente già nel **1973**. Tuttavia, la sua scoperta fu classificata come segreto militare e non fu mai resa nota, né utilizzata su larga scala, fino alla "scoperta" ufficiale del team RSA.
+Nel 1976 Whitfield Diffie e Martin Hellman ipotizzarono l'esistenza della crittografia asimmetrica, ma furono Rivest, Shamir e Adleman a trovare la soluzione pratica, basata sulla **difficoltà di fattorizzare grandi numeri**.
 
 > [!NOTE]
-> Nel 2002, Rivest, Shamir e Adleman hanno ricevuto il **Premio Turing** (considerato il "Nobel dell'informatica") proprio per il loro contributo fondamentale alla sicurezza delle comunicazioni moderne. Ogni volta che fai un acquisto online o ti colleghi via SSH a un router Cisco, stai usando l'eredità del loro lavoro.
+> **Curiosità storica:** Solo nel 1997 fu reso pubblico che il matematico britannico **Clifford Cocks**, del GCHQ (i servizi segreti del Regno Unito), aveva sviluppato un sistema equivalente già nel **1973**. La sua scoperta rimase classificata e non fu mai applicata su larga scala. Nel 2002 Rivest, Shamir e Adleman ricevettero il **Premio Turing** per il loro contributo.
 
-### 1.2 Funzioni a senso unico e Trapdoor
+---
 
-Una funzione **one-way** è facile da calcolare in una direzione, computazionalmente impossibile da invertire senza un'informazione segreta detta **trapdoor**.
+### 1.2 Funzioni a Senso Unico e Trapdoor
+
+Una funzione **one-way** è facile da calcolare in una direzione ma computazionalmente impossibile da invertire senza un'informazione segreta detta **trapdoor**.
 
 | Operazione | Direzione | Difficoltà |
 |:---|:---|:---|
@@ -56,53 +51,57 @@ Una funzione **one-way** è facile da calcolare in una direzione, computazionalm
 | $f^{-1}(n) = (p, q)$ | Fattorizzazione | **Difficile** — nessun algoritmo polinomiale noto |
 
 > [!IMPORTANT]
-> **Idea chiave della crittografia asimmetrica:** rendi pubblica la funzione $f$ (chiunque può cifrare), tieni segreta la trapdoor $t$ (solo tu puoi decifrare). Questo è il motivo per cui puoi pubblicare la tua chiave pubblica senza rischi.
+> **Idea chiave:** rendi pubblica la funzione $f$ (chiunque può cifrare), tieni segreta la trapdoor (solo tu puoi decifrare). Per questo puoi distribuire liberamente la tua chiave pubblica senza rischi.
+
+**L'analogia dei colori:** mescolare Giallo e Blu per ottenere Verde è facile. Partire dal Verde e ricavare esattamente le due tinte originali è praticamente impossibile. Allo stesso modo, moltiplicare $p \times q$ per ottenere $n$ è istantaneo; fattorizzare $n$ per ricavare $p$ e $q$ richiede, con le chiavi odierne, migliaia di anni di calcolo.
 
 ---
 
-### 1.3 Il Teorema di Eulero (base matematica di RSA)
+### 1.3 Base Matematica: il Teorema di Eulero
 
-La **funzione di Eulero** $\phi(n)$ conta gli interi in $\{1, \dots, n\}$ coprimi con $n$.
+La **funzione di Eulero** $\phi(n)$ conta gli interi in $\{1, \dots, n\}$ coprimi con $n$. Per due primi distinti $p$ e $q$:
 
-Per $p, q$ primi distinti:
 $$\phi(p \cdot q) = (p-1)(q-1)$$
 
 Il **Teorema di Eulero** afferma che se $\gcd(a, n) = 1$:
+
 $$a^{\phi(n)} \equiv 1 \pmod{n}$$
 
-**Corollario fondamentale** (è esattamente ciò che rende RSA corretto):
+Da cui segue il corollario fondamentale su cui si basa la correttezza di RSA:
+
 $$a^{k \cdot \phi(n) + 1} \equiv a \pmod{n} \quad \forall k \in \mathbb{Z}$$
 
 ---
 
-### 1.4 Algoritmo RSA — Generazione delle Chiavi
+### 1.4 Generazione delle Chiavi RSA
 
 ```
 Step 1:  Scegli due primi grandi p e q
 Step 2:  Calcola  n = p·q  e  φ(n) = (p-1)(q-1)
 Step 3:  Scegli e  tale che  gcd(e, φ(n)) = 1
-Step 4:  Calcola  d = e⁻¹ mod φ(n)  (con Euclide esteso)
+Step 4:  Calcola  d = e⁻¹ mod φ(n)  (con l'algoritmo di Euclide esteso)
 
 Chiave pubblica  →  (e, n)   ← condividi liberamente
 Chiave privata   →  (d, n)   ← tieni segreta
 ```
 
 > [!WARNING]
-> Dopo la generazione, **elimina** $p$, $q$ e $\phi(n)$. Se un avversario li conosce, può ricalcolare $d$ in pochi millisecondi. Il router Cisco non li espone mai all'esterno per questo motivo.
+> Dopo la generazione, **elimina** $p$, $q$ e $\phi(n)$. Se un avversario li conosce, può ricalcolare $d$ in pochi millisecondi. I router Cisco non li espongono mai all'esterno per questo motivo.
 
 ---
 
-### 1.5 Cifratura e Decifratura
+### 1.5 Cifratura, Decifratura e Correttezza
 
 $$\text{Cifratura (chiave pubblica):} \quad c = m^e \pmod{n}$$
 $$\text{Decifratura (chiave privata):} \quad m = c^d \pmod{n}$$
 
-**Perché funziona?** Per costruzione $e \cdot d = k \cdot \phi(n) + 1$, quindi:
-$$c^d = (m^e)^d = m^{ed} = m^{k\phi(n)+1} = \underbrace{(m^{\phi(n)})^k}_{\equiv\, 1^k \,=\, 1} \cdot m \equiv m \pmod{n} \quad \blacksquare$$
+**Dimostrazione di correttezza.** Per costruzione $e \cdot d = k \cdot \phi(n) + 1$, quindi:
+
+$$c^d = (m^e)^d = m^{ed} = m^{k\phi(n)+1} = \underbrace{(m^{\phi(n)})^k}_{\equiv\, 1} \cdot m \equiv m \pmod{n} \quad \blacksquare$$
 
 ---
 
-### 1.6 Esempio numerico completo (piccoli numeri)
+### 1.6 Esempio Numerico Completo
 
 | Parametro | Valore |
 |:---|:---|
@@ -124,128 +123,107 @@ Verifica in Python: `pow(2790, 2753, 3233)`
 
 ### 1.7 Firma Digitale
 
-RSA permette anche di **firmare** messaggi: Alice usa la sua **chiave privata** per firmare, chiunque usa la sua **chiave pubblica** per verificare.
+RSA permette anche di **firmare** messaggi: il mittente usa la propria **chiave privata** per produrre la firma, chiunque usa la **chiave pubblica** per verificarla.
 
-$$\sigma = m^{d_A} \pmod{n_A} \quad \text{(firma)}$$
-$$m' = \sigma^{e_A} \pmod{n_A} \stackrel{?}{=} m \quad \text{(verifica)}$$
+$$\sigma = m^{d_A} \pmod{n_A} \quad \text{(firma)} \qquad m' = \sigma^{e_A} \pmod{n_A} \stackrel{?}{=} m \quad \text{(verifica)}$$
 
 | Proprietà | Significato |
 |:---|:---|
-| **Autenticità** | Solo chi possiede $d_A$ ha potuto produrre $\sigma$ |
-| **Integrità** | Se $m$ è modificato, $\sigma$ non è più valido |
-| **Non ripudio** | Alice non può negare di aver firmato |
+| **Autenticità** | Solo chi possiede $d_A$ può produrre $\sigma$ |
+| **Integrità** | Se $m$ viene modificato, $\sigma$ non è più valido |
+| **Non ripudio** | Il firmatario non può negare di aver firmato |
 
 > [!NOTE]
-> In pratica non si firma $m$ direttamente (RSA è lento), ma il suo **hash** crittografico: $\sigma = H(m)^d \pmod{n}$, dove $H$ è SHA-256 o SHA-3. Questo è esattamente ciò che accade nel certificato del router durante un handshake SSH.
+> In pratica si firma l'**hash** del messaggio, non il messaggio diretto: $\sigma = H(m)^d \pmod{n}$, dove $H$ è SHA-256 o SHA-3. RSA è lento e questa ottimizzazione è fondamentale. È esattamente ciò che avviene nel certificato del router durante un handshake SSH.
 
 ---
 
+### 1.8 Sicurezza e Dimensione delle Chiavi
 
-### 1.8 Perché RSA è sicuro? (Il cuore del problema)
+La sicurezza di RSA dipende dalla difficoltà di fattorizzare $n$. Il miglior algoritmo noto (General Number Field Sieve) ha complessità sub-esponenziale: aggiungere pochi bit alla chiave aumenta enormemente il tempo necessario per violarla.
 
-La sicurezza di RSA si basa su un concetto matematico chiamato **funzione a senso unico con trappola** (*trapdoor one-way function*). 
-
-#### L'Analogia dei Colori e dei Numeri Primi
-
-Per capire cosa succede nel router quando digiti `crypto key generate rsa`, immagina questa situazione:
-
-> [!TIP]
-> **1. L'operazione facile (Cifratura/Generazione):**
-> È come mescolare due colori, ad esempio **Giallo** e **Blu**, per ottenere il **Verde**. 
-> In matematica, il router sceglie due numeri primi giganti ($p$ e $q$) e li moltiplica tra loro per ottenere il modulo $n$.
-> *   Fare $p \times q = n$ è velocissimo.
-> *   Il risultato $n$ (il "Verde") fa parte della **Chiave Pubblica** che il router distribuisce a tutti.
-
-> [!IMPORTANT]
-> **2. L'operazione difficile (Attacco/Decifratura):**
-> Se ti do un secchio di vernice **Verde**, puoi dirmi esattamente quali tonalità di giallo e blu ho usato? No, dovresti andare per tentativi infiniti.
-> In matematica, partendo dal numero enorme $n$, è difficilissimo risalire ai due numeri primi originali $p$ e $q$. Questa operazione si chiama **Fattorizzazione**.
-> *   Senza conoscere $p$ e $q$, un hacker non può calcolare la **Chiave Privata** ($d$).
-> *   La sicurezza sta tutta qui: rompere il modulo $n$ per trovare i fattori primi è un'impresa che richiederebbe migliaia di anni ai computer attuali.
-
-#### Difficoltà Computazionale
-
-Il miglior algoritmo di fattorizzazione noto (General Number Field Sieve) ha una complessità sub-esponenziale. Questo significa che aggiungere pochi bit alla chiave aumenta enormemente il tempo necessario per violarla.
-
-**Dimensioni delle chiavi raccomandate:**
-
-| Bit del Modulo ($n$) | Grado di Sicurezza | Note per il Lab Cisco |
+| Bit del modulo ($n$) | Livello di sicurezza | Note |
 |:---|:---|:---|
-| **512 bit** | **Insicuro** | Violabile in pochi minuti/ore. |
-| **1024 bit** | **Minimo** | Standard legacy, ancora comune nei vecchi router. |
-| **2048 bit** | **Sicuro** | Lo standard attuale (raccomandato fino al 2030). |
-| **4096 bit** | **Militare** | Molto lento da generare, usato per dati sensibilissimi. |
+| **512 bit** | **Insicuro** | Violabile in pochi minuti/ore |
+| **1024 bit** | **Legacy** | Standard minimo su vecchi router |
+| **2048 bit** | **Sicuro** | Raccomandato fino al 2030 |
+| **4096 bit** | **Alta sicurezza** | Lento da generare, per dati molto sensibili |
 
 > [!CAUTION]
-> **La fine di RSA? (Minaccia Quantistica)**
-> Esiste un algoritmo teorico, l'**Algoritmo di Shor**, che se eseguito su un computer quantistico sufficientemente potente, potrebbe separare i "colori" (fattorizzare $n$) in pochi minuti. 
-> In quel giorno, il calcolo $O((\log n)^2 \cdot \log \log n)$ diventerà realtà e dovremo sostituire RSA con nuovi algoritmi "Post-Quantistici" (come CRYSTALS-Kyber) che si basano su problemi matematici diversi dalla fattorizzazione.
-
-### Cosa abbiamo imparato?
-Quando esegui il laboratorio, ricorda: il comando `crypto key generate rsa 2048` sta creando un "colore verde" così complesso che nessun computer attuale può separare nel "giallo" e "blu" originali. È questa impossibilità matematica che protegge la tua password amministrativa su SSH!
+> **La minaccia quantistica:** l'**Algoritmo di Shor**, eseguito su un computer quantistico sufficientemente potente, potrebbe fattorizzare $n$ in pochi minuti. Quando ciò diventerà realtà, RSA dovrà essere sostituito da algoritmi **post-quantistici** (come CRYSTALS-Kyber), basati su problemi matematici diversi dalla fattorizzazione.
 
 ---
 
-## Parte 2 — Lab Cisco: Configurazione SSH
+## Parte 2 — Lab Cisco: Telnet (Insicuro)
 
-### Connessione teoria → pratica
+### Obiettivo
+
+Dimostrare perché Telnet non è accettabile come protocollo di accesso remoto.
+
+---
+
+### Configurazione e Connessione
+
+```bash
+RTR-A(config)# line vty 0 4
+RTR-A(config-line)# password cisco
+RTR-A(config-line)# login
+RTR-A(config-line)# transport input telnet
+RTR-A(config)# enable secret classe5A
+```
+
+Dal PC:
+
+```bash
+PC> telnet 192.168.1.1
+Password: cisco
+```
+
+---
+
+### Il Problema di Telnet
+
+| Protocollo | Trasmissione |
+|:---|:---|
+| Telnet | ❌ In chiaro — ogni carattere in ASCII |
+| SSH | ✅ Cifrato con AES |
+
+> [!CAUTION]
+> **Il paradosso di Telnet:** anche se si configura `enable secret` (memorizzato come hash), Telnet trasmette la password **in chiaro durante il login**. L'attaccante non deve craccare nulla: legge direttamente il traffico con uno sniffer (es. Wireshark, filtrando `tcp.port == 23`).
+>
+> La sicurezza locale è inutile senza un canale cifrato. SSH risolve questo perché cifra la comunicazione **prima** che qualsiasi credenziale venga trasmessa.
+
+---
+
+## Parte 3 — Lab Cisco: SSH (Soluzione Sicura)
+
+### Dalla Teoria alla Pratica
 
 | Concetto RSA | Comando Cisco | Cosa succede |
 |:---|:---|:---|
-| Scelta di $n$ (modulus) | `crypto key generate rsa` + dimensione | Il router genera $p, q$ e calcola $n$ |
-| Chiave pubblica $(e, n)$ | Scambiata automaticamente nell'handshake | Il client SSH la riceve e la memorizza |
-| Chiave privata $(d, n)$ | Rimane nel router, non esce mai | Usata per decifrare e firmare la sessione |
-| Autenticazione utente | `username ... secret` | Credenziali locali per `login local` |
+| Scelta del modulo $n$ | `crypto key generate rsa` + dimensione | Il router genera $p, q$ e calcola $n$ |
+| Chiave pubblica $(e, n)$ | Scambiata nell'handshake | Il client SSH la riceve e la memorizza |
+| Chiave privata $(d, n)$ | Rimane nel router | Usata per decifrare e firmare la sessione |
+| Autenticazione utente | `username ... secret` | Credenziali verificate dopo che il canale è cifrato |
 
 ---
 
-### A — Prima di tutto: dimostrare perché Telnet non è sicuro
+### A — Rafforzare la Sicurezza delle Password
 
-Prima di configurare SSH, collegati al router tramite **Telnet** — il protocollo che SSH è nato per sostituire. L'obiettivo è vedere con i tuoi occhi perché non è accettabile usarlo.
-
-#### Connessione Telnet dal PC
-
-```
-PC> telnet 192.168.1.1
-```
-
-Di default, Telnet è abilitato sulle linee VTY. Dovresti riuscire a entrare (se è configurata una password di linea) oppure ricevere un prompt di accesso. La connessione **funziona** — questo è il problema.
-
-> [!WARNING]
-> Telnet funziona, ma trasmette **tutto in chiaro**: username, password, e ogni singolo comando che digiti. Chiunque sulla stessa rete con uno sniffer può leggere la tua sessione come se fosse testo normale.
-
-#### Cosa vede un attaccante (simulazione con Wireshark)
-
-Se in lab avete Wireshark disponibile su un PC nella stessa rete, avviatelo e filtrate per `telnet` oppure `tcp.port == 23`. Durante una sessione Telnet vedrete i dati **in chiaro**, inclusa la password digitata carattere per carattere.
-
-Confrontatelo con una sessione SSH: i pacchetti saranno illeggibili — solo dati cifrati con AES.
-
-> [!NOTE]
-> Questo esperimento rende visibile in pochi secondi il motivo per cui Telnet è stato abbandonato. RSA non serve solo a "fare crittografia in astratto": serve a rendere impossibile esattamente questo tipo di intercettazione.
-
----
-
-### B — Rafforzare la sicurezza delle password
-
-Prima di creare gli utenti, imponiamo una **lunghezza minima** per tutte le password configurate sul dispositivo:
+Prima di creare gli utenti, imponi una lunghezza minima globale per tutte le password:
 
 ```bash
 RTR-A(config)# security passwords min-length 10
 ```
 
 > [!IMPORTANT]
-> Questo comando si applica **globalmente** a tutte le password configurate da quel momento in poi (`enable secret`, `username secret`, password di linea). Se provi a impostare una password più corta di 10 caratteri, IOS la rifiuterà con un errore. È la prima linea di difesa contro password banali come `cisco` o `1234`.
-
-> [!NOTE]
-> Una password di 10 caratteri con lettere, numeri e simboli ha circa $72^{10} \approx 3.7 \times 10^{18}$ combinazioni possibili. Anche con un attacco brute force da 1 miliardo di tentativi al secondo ci vorrebbero oltre 100 anni — e il `login block-for` che configureremo dopo riduce ulteriormente la velocità degli attacchi.
+> Questo comando si applica a tutte le password configurate da quel momento in poi (`enable secret`, `username secret`, password di linea). Una password di 10 caratteri con lettere, numeri e simboli ha circa $72^{10} \approx 3{,}7 \times 10^{18}$ combinazioni: oltre 100 anni di brute force a 1 miliardo di tentativi al secondo. La protezione anti-brute force configurata più avanti riduce ulteriormente questa velocità.
 
 ---
 
-### C — Configurazione SSH (Accesso Remoto Sicuro)
+### B — Configurazione SSH
 
-#### Step 1 — Preparare l'identità (Hostname e Dominio)
-
-Prima di generare le chiavi, il router deve avere un'identità univoca.
+#### Step 1 — Identità del Router (Hostname e Dominio)
 
 ```bash
 RTR-A(config)# hostname RTR-A
@@ -253,43 +231,35 @@ RTR-A(config)# ip domain-name lab.sicuro.it
 ```
 
 > [!CAUTION]
-> **Il vincolo dell'identità:** Senza un `hostname` (diverso da quello di default "Router") e un `ip domain-name`, il comando di generazione chiavi **fallirà**. Il sistema IOS combina questi due parametri per creare il nome dell'identità (es: `RTR-A.lab.sicuro.it`) che verrà inserito nei metadati della chiave RSA.
+> Senza un `hostname` non predefinito e un `ip domain-name`, il comando di generazione delle chiavi **fallirà**. IOS combina i due valori (es. `RTR-A.lab.sicuro.it`) per costruire i metadati della chiave RSA.
 
 ---
 
-#### Step 2 — Creare le credenziali dell'utente
+#### Step 2 — Creazione delle Credenziali Utente
 
 ```bash
 RTR-A(config)# username SSHadmin secret @AdminPass123!
 ```
 
 > [!NOTE]
-> **Il comando `username` abilita SSH?**
-> **No.** Questo comando si limita a popolare il database locale del router.
-> - **Cosa fa:** Crea un account con privilegi di accesso.
-> - **Cosa NON fa:** Non attiva protocolli, non apre porte e non abilita la crittografia. È semplicemente la definizione di "chi" è autorizzato a entrare, ma il "come" (SSH) non è ancora configurato.
+> Questo comando **non abilita SSH**: popola soltanto il database locale degli utenti autorizzati. Il "chi" è definito; il "come" (SSH) viene configurato nei passi successivi.
 
 ---
 
-#### Step 3 — Generare il "motore" crittografico (RSA)
+#### Step 3 — Generazione delle Chiavi RSA
 
 ```bash
 RTR-A(config)# crypto key generate rsa
 ```
-*Quando richiesto, inserisci la dimensione del modulo: `1024`*
+
+*Quando richiesto, inserisci la dimensione del modulo: `2048`*
 
 > [!IMPORTANT]
-> **Questo comando abilita SSH?**
-> **Sì e No.** Dal punto di vista software, questo è il comando che "sblocca" il servizio SSH. Appena le chiavi vengono generate, il router avvia il demone SSH (puoi verificarlo con `show ip ssh`). Tuttavia, **nessun utente può ancora collegarsi** perché le linee di accesso (VTY) non sanno ancora di dover usare queste chiavi.
-
-> [!TIP]
-> **Relazione con la teoria:** Scegliere 1024 o 2048 bit significa decidere quanto grande sarà il numero $n = p \cdot q$. Più è grande, più l'operazione di fattorizzazione (invertire la funzione a senso unico) diventa impossibile per un attaccante.
+> Questo comando **avvia il demone SSH** (verificabile con `show ip ssh`). Tuttavia, nessun client può ancora connettersi: le linee VTY non sono ancora istruite a usare queste chiavi. Scegliere 2048 bit significa rendere $n = p \cdot q$ abbastanza grande da rendere la fattorizzazione computazionalmente impossibile con i computer attuali.
 
 ---
 
-#### Step 4 — Aprire la porta e forzare la sicurezza (Line VTY)
-
-Questo è il passaggio finale dove tutto si unisce: l'utente creato allo Step 2 e le chiavi generate allo Step 3.
+#### Step 4 — Configurazione delle Linee VTY
 
 ```bash
 RTR-A(config)# line vty 0 4
@@ -298,201 +268,138 @@ RTR-A(config-line)# login local
 ```
 
 > [!WARNING]
-> **Perché SSH non funziona senza questi comandi?**
-> Anche se le chiavi RSA sono attive, le linee VTY di default potrebbero accettare Telnet o non richiedere un utente specifico.
-> 1. **`transport input ssh`**: È il comando "escludente". Dice al router: "Smetti di accettare connessioni in chiaro (Telnet). Se la comunicazione non è cifrata con le chiavi RSA, rifiutala."
-> 2. **`login local`**: Dice al router: "Non chiedere solo una password generica. Chiedi il binomio Username/Password che abbiamo definito nel database locale."
+> Questi due comandi completano la configurazione:
+> - **`transport input ssh`** — rifiuta qualsiasi connessione non cifrata (Telnet incluso).
+> - **`login local`** — impone l'autenticazione con il database utenti locale invece di una semplice password di linea.
 
 ---
 
-### Riepilogo Funzionale dei Comandi
+### Riepilogo: Ruolo di Ogni Comando
 
-Per capire meglio la differenza tra "preparare" e "abilitare", ecco una tabella comparativa:
-
-| Comando | Cosa "accende"? | Senza di esso... |
-| :--- | :--- | :--- |
-| `ip domain-name` | L'identità FQDN | Non puoi generare le chiavi RSA. |
-| `username ... secret` | Il database utenti | SSH non saprebbe chi far entrare (accesso negato). |
-| `crypto key generate rsa` | Il protocollo SSH | Il router non può cifrare i dati. SSH resta "Disabled". |
-| `transport input ssh` | La protezione della linea | Il router continua ad accettare Telnet (insicuro). |
+| Comando | Funzione | Senza di esso… |
+|:---|:---|:---|
+| `ip domain-name` | Identità FQDN del router | Impossibile generare le chiavi RSA |
+| `username ... secret` | Database utenti locale | SSH non sa a chi concedere l'accesso |
+| `crypto key generate rsa` | Abilita il protocollo SSH | Il router non può cifrare; SSH resta "Disabled" |
+| `transport input ssh` | Protegge la linea VTY | Il router continua ad accettare Telnet |
+| `login local` | Richiede username + password | L'autenticazione non usa il database locale |
 
 > [!TIP]
-> In sintesi: `crypto key` crea la **serratura elettronica** (la crittografia), mentre `line vty` con `login local` decide **chi ha la chiave** e su quale porta può inserirla.
+> Sintesi: `crypto key generate rsa` crea la **serratura crittografica**; `line vty` con `login local` decide **chi ha la chiave** e su quale porta può usarla.
 
 ---
 
-### D — Blocco Attacchi Brute Force
+### C — Protezione Anti-Brute Force
 
 ```bash
 RTR-A(config)# login block-for 120 attempts 3 within 60
 ```
 
-**Lettura del comando:**
-
-> *"Se si verificano 3 tentativi di login falliti nell'arco di 60 secondi, blocca tutti gli accessi per 120 secondi."*
+> *"Se si verificano 3 tentativi falliti in 60 secondi, blocca tutti gli accessi per 120 secondi."*
 
 > [!CAUTION]
-> **Attenzione in lab:** se sbagli la password 3 volte, verrai bloccato fuori dal router per 2 minuti. Questo è intenzionale — è esattamente la difesa contro attacchi brute force che volete testare. Assicurati di avere accesso alla console fisica prima di attivare questa funzione.
+> **Importante in lab:** sbagliare la password 3 volte ti bloccherà fuori per 2 minuti. Assicurati di avere accesso fisico alla porta console prima di attivare questa funzione. L'accesso via `line con 0` non è soggetto al blocco.
 
 > [!WARNING]
-> Senza questa protezione, un attaccante può tentare migliaia di password al secondo contro SSH. Il comando `login block-for` è la contromisura diretta: anche se RSA rende il canale cifrato, le credenziali di autenticazione rimangono vulnerabili agli attacchi a dizionario se non si limita il numero di tentativi.
+> Senza questa protezione, un attaccante può tentare migliaia di password al secondo contro SSH. RSA protegge il canale, ma le credenziali di autenticazione rimangono vulnerabili agli attacchi a dizionario senza un limite sui tentativi.
 
 ---
 
-### E — Test della Connessione SSH
+### D — Test e Verifica
 
-Una volta completata la configurazione, è il momento di verificare che tutto funzioni. Il test si esegue **dal PC** verso il router.
-
-#### Test base — Connessione SSH dal PC
-
-In Cisco Packet Tracer, apri il **Command Prompt** del PC e digita:
+#### Connessione SSH dal PC
 
 ```
 PC> ssh -l SSHadmin 192.168.1.1
-```
-
-> Il flag `-l` specifica il **username** (la `l` sta per *login*). L'IP è quello dell'interfaccia del router raggiungibile dal PC.
-
-Quando richiesto, inserisci la password:
-```
 Password: @AdminPass123!
-```
-
-Se la configurazione è corretta, vedrai il prompt del router:
-```
 RTR-A>
 ```
 
-> [!TIP]
-> Puoi specificare anche la versione SSH da usare. Per forzare SSH versione 2 (più sicuro):
-> ```
-> PC> ssh -v 2 -l SSHadmin 192.168.1.1
-> ```
-> SSH v2 corregge diverse vulnerabilità di v1 ed è sempre preferibile in ambienti reali.
+Per forzare SSH versione 2 (preferibile in ambienti reali):
 
----
+```
+PC> ssh -v 2 -l SSHadmin 192.168.1.1
+```
 
-#### Verifica lato router — Comandi di debug
-
-Dal router, puoi confermare che SSH sia attivo e ispezionare le sessioni:
+#### Verifica lato Router
 
 ```bash
-RTR-A# show ip ssh
+RTR-A# show ip ssh        # Stato SSH, versione, parametri
+RTR-A# show ssh           # Sessioni attive con IP sorgente e utente
+RTR-A# show login         # Stato del blocco anti-brute force
+RTR-A# show crypto key mypubkey rsa  # Conferma esistenza delle chiavi
 ```
-Dovresti vedere `SSH Enabled - version 2.0` e i parametri di timeout/autenticazione.
-
-```bash
-RTR-A# show ssh
-```
-Mostra le **sessioni SSH attive** in questo momento, con IP sorgente e utente connesso.
-
-```bash
-RTR-A# show login
-```
-Mostra lo stato del sistema anti-brute force: quanti tentativi falliti, se il blocco è attivo e quanto manca al termine.
 
 > [!NOTE]
-> Se `show ip ssh` riporta `SSH disabled`, le cause più comuni sono: chiavi RSA non generate, nome di dominio non configurato, o versione di IOS che non supporta SSH. Verifica con `show crypto key mypubkey rsa` che le chiavi esistano.
+> Se `show ip ssh` riporta `SSH disabled`, le cause più comuni sono: chiavi non generate, nome di dominio assente, o versione di IOS che non supporta SSH.
 
----
-
-#### Test del blocco brute force
-
-Per verificare che la protezione anti-brute force funzioni, prova intenzionalmente a inserire la password **sbagliata** 3 volte di fila:
-
-```
-PC> ssh -l SSHadmin 192.168.1.1
-Password: wrongpass
-Password: wrongpass
-Password: wrongpass
-```
-
-Dopo il terzo tentativo, il router bloccherà tutti gli accessi per 120 secondi. Dal router (via console), verifica con:
-
-```bash
-RTR-A# show login
-```
-
-> [!CAUTION]
-> Esegui questo test **solo se hai accesso fisico alla console del router**. Durante il blocco, SSH sarà completamente inaccessibile da rete. L'accesso via cavo console (porta `line con 0`) rimane sempre disponibile e non è soggetto al blocco.
-
----
-
-#### Verifica che Telnet sia disabilitato
-
-Un controllo importante: assicurati che il vecchio protocollo Telnet (non cifrato) non sia più accettato:
+#### Verifica che Telnet sia Disabilitato
 
 ```
 PC> telnet 192.168.1.1
 ```
 
-Il router dovrebbe rifiutare la connessione o non rispondere. Questo conferma che `transport input ssh` ha sostituito correttamente `transport input all` (o `telnet`).
+Il router deve rifiutare la connessione, confermando che `transport input ssh` ha escluso correttamente Telnet.
 
-> [!WARNING]
-> Telnet trasmette username, password e tutti i dati **in chiaro**. Chiunque sulla stessa rete con uno sniffer (es. Wireshark) può leggere tutto. RSA e SSH esistono esattamente per eliminare questo rischio — un test con Wireshark in lab può rendere visivamente evidente la differenza tra i due protocolli.
+#### Test del Blocco Brute Force
+
+Inserisci intenzionalmente la password sbagliata 3 volte, poi verifica con `show login` dal router (via console) che il blocco sia attivo.
 
 ---
 
-## Collegamento Finale: Cosa Succede Davvero durante SSH
+### Cosa Succede Realmente Durante una Sessione SSH
 
 ```
-Client (PC)                        Router Cisco (RTR-A)
-──────────                         ──────────────────────
-1. Connessione TCP porta 22   ──►  Accetta connessione
+Client (PC)                         Router Cisco (RTR-A)
+───────────                         ────────────────────
+1. Connessione TCP porta 22    ──►  Accetta connessione
 
-2. Riceve chiave pubblica     ◄──  Invia (e, n) — generata con crypto key generate rsa
-   del router
+2. Riceve chiave pubblica      ◄──  Invia (e, n) generata con crypto key generate rsa
 
-3. Verifica impronta          ──►  [prima connessione: l'utente deve fidarsi]
-   (fingerprint RSA)
+3. Verifica fingerprint RSA    ──►  [prima connessione: l'utente deve fidarsi]
 
-4. Genera chiave di sessione  ──►  Decifra con chiave privata (d, n)
-   cifrata con (e, n)               → ottiene la chiave di sessione AES
+4. Genera chiave AES casuale,  ──►  Decifra con chiave privata (d, n):  m = c^d mod n
+   la cifra con (e, n):              → ottiene la chiave di sessione AES
+   c = m^e mod n
 
-5. Da qui in poi: tutto       ◄──► Comunicazione cifrata con AES
-   cifrato con AES
+5. Da qui: tutto cifrato       ◄──► Comunicazione AES — dati illeggibili da rete
 
-6. Invia username + password  ──►  Verifica con database locale (login local)
-   (cifrati nel tunnel AES)         → accesso concesso o negato
+6. Invia username + password   ──►  Verifica con database locale (login local)
+   (dentro il tunnel AES)            → accesso concesso o negato
 ```
 
 > [!NOTE]
-> Il passo 4 è esattamente la cifratura RSA: $c = m^e \pmod{n}$ eseguita dal client, $m = c^d \pmod{n}$ eseguita dal router. Il messaggio $m$ è la chiave AES generata casualmente per quella sessione.
+> Il passo 4 è esattamente la cifratura RSA: $c = m^e \pmod{n}$ eseguita dal client, $m = c^d \pmod{n}$ eseguita dal router. Il messaggio $m$ è la chiave AES generata casualmente per quella sessione — non viene mai trasmessa in chiaro.
 
 ---
 
 ## Esercizi
 
-### Esercizio 1 — Generazione chiavi RSA (piccola)
-Con $p = 11$, $q = 13$:
-- Calcola $n$ e $\phi(n)$
-- Scegli un $e$ valido
-- Calcola $d$
-- Cifra $m = 7$ e verifica la decifratura
+### Esercizio 1 — Generazione Chiavi RSA
+Con $p = 11$, $q = 13$: calcola $n$ e $\phi(n)$, scegli un $e$ valido, ricava $d$, cifra $m = 7$ e verifica la decifratura.
 
-### Esercizio 2 — Verifica del Teorema di Eulero
+### Esercizio 2 — Teorema di Eulero
 Verifica che $3^{\phi(10)} \equiv 1 \pmod{10}$.
 
-### Esercizio 3 — Firma digitale
-Con la chiave dell'Esercizio 1, firma $m = 5$:
-- Calcola $\sigma = m^d \pmod n$
-- Verifica che $\sigma^e \equiv m \pmod n$
+### Esercizio 3 — Firma Digitale
+Con la chiave dell'Esercizio 1, firma $m = 5$: calcola $\sigma = m^d \pmod n$ e verifica che $\sigma^e \equiv m \pmod n$.
 
-### Esercizio 4 — Ragionamento sulla sicurezza
-Un avversario conosce $n = 3233$ e lo fattorizza come $61 \times 53$. Sapendo che la chiave pubblica è $(e = 17, n = 3233)$, come calcolerebbe $d$? Perché eliminare $p$ e $q$ dopo la generazione non salva la chiave se $n$ è già stato fattorizzato?
+### Esercizio 4 — Analisi della Sicurezza
+Un avversario conosce $n = 3233$ e lo fattorizza come $61 \times 53$. Sapendo che la chiave pubblica è $(e = 17, n = 3233)$, come calcolerebbe $d$? Perché eliminare $p$ e $q$ dopo la generazione non protegge la chiave se $n$ è già stato fattorizzato?
 
-### Esercizio 5 — Lab Cisco esteso
-Dopo aver configurato SSH con i passaggi descritti:
-1. Verifica con `show ip ssh` che SSH sia attivo
+### Esercizio 5 — Lab Cisco Esteso
+Dopo aver configurato SSH:
+1. Verifica con `show ip ssh` che SSH sia attivo in versione 2
 2. Testa il blocco brute force sbagliando intenzionalmente la password 3 volte
-3. Con `show login` verifica lo stato del blocco
+3. Controlla lo stato del blocco con `show login`
 
-### Esercizio 6 — Python
+### Esercizio 6 — Implementazione Python
+
 ```python
 # Verifica RSA con Python
 p, q = 61, 53
 n = p * q
-phi_n = (p-1) * (q-1)
+phi_n = (p - 1) * (q - 1)
 e = 17
 d = pow(e, -1, phi_n)   # inverso modulare — Python 3.8+
 m = 42
@@ -503,7 +410,7 @@ assert m == m_dec, "Errore!"
 ```
 
 > [!TIP]
-> `pow(base, exp, mod)` in Python usa internamente l'**esponenziazione rapida** (square-and-multiply), lo stesso algoritmo che il router Cisco usa per RSA. Senza questo trucco, calcolare $2790^{2753}$ prima di prendere il modulo richiederebbe numeri con migliaia di cifre.
+> `pow(base, exp, mod)` usa internamente l'**esponenziazione rapida** (square-and-multiply), lo stesso algoritmo che il router Cisco impiega per RSA. Senza questo metodo, calcolare $2790^{2753}$ produrrebbe un numero con migliaia di cifre prima di applicare il modulo.
 
 ---
 
