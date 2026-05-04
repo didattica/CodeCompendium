@@ -151,9 +151,53 @@ $$m' = \sigma^{e_A} \pmod{n_A} \stackrel{?}{=} m \quad \text{(verifica)}$$
 
 ---
 
-### B — Configurazione SSH (Accesso Remoto Sicuro)
+### A — Prima di tutto: dimostrare perché Telnet non è sicuro
+
+Prima di configurare SSH, collegati al router tramite **Telnet** — il protocollo che SSH è nato per sostituire. L'obiettivo è vedere con i tuoi occhi perché non è accettabile usarlo.
+
+#### Connessione Telnet dal PC
+
+```
+PC> telnet 192.168.1.1
+```
+
+Di default, Telnet è abilitato sulle linee VTY. Dovresti riuscire a entrare (se è configurata una password di linea) oppure ricevere un prompt di accesso. La connessione **funziona** — questo è il problema.
+
+> [!WARNING]
+> Telnet funziona, ma trasmette **tutto in chiaro**: username, password, e ogni singolo comando che digiti. Chiunque sulla stessa rete con uno sniffer può leggere la tua sessione come se fosse testo normale.
+
+#### Cosa vede un attaccante (simulazione con Wireshark)
+
+Se in lab avete Wireshark disponibile su un PC nella stessa rete, avviatelo e filtrate per `telnet` oppure `tcp.port == 23`. Durante una sessione Telnet vedrete i dati **in chiaro**, inclusa la password digitata carattere per carattere.
+
+Confrontatelo con una sessione SSH: i pacchetti saranno illeggibili — solo dati cifrati con AES.
+
+> [!NOTE]
+> Questo esperimento rende visibile in pochi secondi il motivo per cui Telnet è stato abbandonato. RSA non serve solo a "fare crittografia in astratto": serve a rendere impossibile esattamente questo tipo di intercettazione.
+
+---
+
+### B — Rafforzare la sicurezza delle password
+
+Prima di creare gli utenti, imponiamo una **lunghezza minima** per tutte le password configurate sul dispositivo:
+
+```bash
+RTR-A(config)# security passwords min-length 10
+```
+
+> [!IMPORTANT]
+> Questo comando si applica **globalmente** a tutte le password configurate da quel momento in poi (`enable secret`, `username secret`, password di linea). Se provi a impostare una password più corta di 10 caratteri, IOS la rifiuterà con un errore. È la prima linea di difesa contro password banali come `cisco` o `1234`.
+
+> [!NOTE]
+> Una password di 10 caratteri con lettere, numeri e simboli ha circa $72^{10} \approx 3.7 \times 10^{18}$ combinazioni possibili. Anche con un attacco brute force da 1 miliardo di tentativi al secondo ci vorrebbero oltre 100 anni — e il `login block-for` che configureremo dopo riduce ulteriormente la velocità degli attacchi.
+
+---
+
+### C — Configurazione SSH (Accesso Remoto Sicuro)
 
 #### Step 1 — Definire il dominio e creare l'utente
+
+
 
 ```bash
 RTR-A(config)# ip domain-name lab.sicuro.it
@@ -205,7 +249,7 @@ RTR-A(config-line)# exit
 
 ---
 
-### C — Blocco Attacchi Brute Force
+### D — Blocco Attacchi Brute Force
 
 ```bash
 RTR-A(config)# login block-for 120 attempts 3 within 60
@@ -220,6 +264,100 @@ RTR-A(config)# login block-for 120 attempts 3 within 60
 
 > [!WARNING]
 > Senza questa protezione, un attaccante può tentare migliaia di password al secondo contro SSH. Il comando `login block-for` è la contromisura diretta: anche se RSA rende il canale cifrato, le credenziali di autenticazione rimangono vulnerabili agli attacchi a dizionario se non si limita il numero di tentativi.
+
+---
+
+### E — Test della Connessione SSH
+
+Una volta completata la configurazione, è il momento di verificare che tutto funzioni. Il test si esegue **dal PC** verso il router.
+
+#### Test base — Connessione SSH dal PC
+
+In Cisco Packet Tracer, apri il **Command Prompt** del PC e digita:
+
+```
+PC> ssh -l SSHadmin 192.168.1.1
+```
+
+> Il flag `-l` specifica il **username** (la `l` sta per *login*). L'IP è quello dell'interfaccia del router raggiungibile dal PC.
+
+Quando richiesto, inserisci la password:
+```
+Password: @AdminPass123!
+```
+
+Se la configurazione è corretta, vedrai il prompt del router:
+```
+RTR-A>
+```
+
+> [!TIP]
+> Puoi specificare anche la versione SSH da usare. Per forzare SSH versione 2 (più sicuro):
+> ```
+> PC> ssh -v 2 -l SSHadmin 192.168.1.1
+> ```
+> SSH v2 corregge diverse vulnerabilità di v1 ed è sempre preferibile in ambienti reali.
+
+---
+
+#### Verifica lato router — Comandi di debug
+
+Dal router, puoi confermare che SSH sia attivo e ispezionare le sessioni:
+
+```bash
+RTR-A# show ip ssh
+```
+Dovresti vedere `SSH Enabled - version 2.0` e i parametri di timeout/autenticazione.
+
+```bash
+RTR-A# show ssh
+```
+Mostra le **sessioni SSH attive** in questo momento, con IP sorgente e utente connesso.
+
+```bash
+RTR-A# show login
+```
+Mostra lo stato del sistema anti-brute force: quanti tentativi falliti, se il blocco è attivo e quanto manca al termine.
+
+> [!NOTE]
+> Se `show ip ssh` riporta `SSH disabled`, le cause più comuni sono: chiavi RSA non generate, nome di dominio non configurato, o versione di IOS che non supporta SSH. Verifica con `show crypto key mypubkey rsa` che le chiavi esistano.
+
+---
+
+#### Test del blocco brute force
+
+Per verificare che la protezione anti-brute force funzioni, prova intenzionalmente a inserire la password **sbagliata** 3 volte di fila:
+
+```
+PC> ssh -l SSHadmin 192.168.1.1
+Password: wrongpass
+Password: wrongpass
+Password: wrongpass
+```
+
+Dopo il terzo tentativo, il router bloccherà tutti gli accessi per 120 secondi. Dal router (via console), verifica con:
+
+```bash
+RTR-A# show login
+```
+
+> [!CAUTION]
+> Esegui questo test **solo se hai accesso fisico alla console del router**. Durante il blocco, SSH sarà completamente inaccessibile da rete. L'accesso via cavo console (porta `line con 0`) rimane sempre disponibile e non è soggetto al blocco.
+
+---
+
+#### Verifica che Telnet sia disabilitato
+
+Un controllo importante: assicurati che il vecchio protocollo Telnet (non cifrato) non sia più accettato:
+
+```
+PC> telnet 192.168.1.1
+```
+
+Il router dovrebbe rifiutare la connessione o non rispondere. Questo conferma che `transport input ssh` ha sostituito correttamente `transport input all` (o `telnet`).
+
+> [!WARNING]
+> Telnet trasmette username, password e tutti i dati **in chiaro**. Chiunque sulla stessa rete con uno sniffer (es. Wireshark) può leggere tutto. RSA e SSH esistono esattamente per eliminare questo rischio — un test con Wireshark in lab può rendere visivamente evidente la differenza tra i due protocolli.
 
 ---
 
