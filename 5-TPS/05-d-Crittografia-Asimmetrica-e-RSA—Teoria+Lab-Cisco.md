@@ -195,57 +195,81 @@ RTR-A(config)# security passwords min-length 10
 
 ### C — Configurazione SSH (Accesso Remoto Sicuro)
 
-#### Step 1 — Definire il dominio e creare l'utente
+#### Step 1 — Preparare l'identità (Hostname e Dominio)
 
-
+Prima di generare le chiavi, il router deve avere un'identità univoca.
 
 ```bash
+RTR-A(config)# hostname RTR-A
 RTR-A(config)# ip domain-name lab.sicuro.it
+```
+
+> [!CAUTION]
+> **Il vincolo dell'identità:** Senza un `hostname` (diverso da quello di default "Router") e un `ip domain-name`, il comando di generazione chiavi **fallirà**. Il sistema IOS combina questi due parametri per creare il nome dell'identità (es: `RTR-A.lab.sicuro.it`) che verrà inserito nei metadati della chiave RSA.
+
+---
+
+#### Step 2 — Creare le credenziali dell'utente
+
+```bash
 RTR-A(config)# username SSHadmin secret @AdminPass123!
 ```
 
 > [!NOTE]
-> Il **nome di dominio** è necessario perché Cisco lo usa per costruire il nome completo del router (FQDN), che diventa parte dell'identità crittografica nella chiave generata. Senza dominio, il comando `crypto key generate rsa` non funzionerà.
+> **Il comando `username` abilita SSH?**
+> **No.** Questo comando si limita a popolare il database locale del router.
+> - **Cosa fa:** Crea un account con privilegi di accesso.
+> - **Cosa NON fa:** Non attiva protocolli, non apre porte e non abilita la crittografia. È semplicemente la definizione di "chi" è autorizzato a entrare, ma il "come" (SSH) non è ancora configurato.
 
 ---
 
-#### Step 2 — Generare le chiavi crittografiche RSA
+#### Step 3 — Generare il "motore" crittografico (RSA)
 
 ```bash
 RTR-A(config)# crypto key generate rsa
 ```
-
-Quando richiesto, inserisci la dimensione del modulo: `1024`
-
-> [!TIP]
-> **1024 bit è il minimo per SSH, ma non è più consigliato per ambienti di produzione.** In lab è accettabile per velocità di generazione. In ambienti reali usa **2048 bit** (raccomandato fino al 2030). Ricorda: la dimensione che inserisci è $|n|$ in bit — maggiore è $n$, più è difficile fattorizzarlo.
+*Quando richiesto, inserisci la dimensione del modulo: `1024`*
 
 > [!IMPORTANT]
-> Il router genera $p$ e $q$ usando un **CSPRNG** (Generatore di Numeri Casuali Crittograficamente Sicuro). La casualità è fondamentale: se $p$ o $q$ fossero prevedibili, la chiave sarebbe vulnerabile. In Cisco IOS la sorgente di entropia include il traffico di rete, i timer hardware e altri eventi imprevedibili.
+> **Questo comando abilita SSH?**
+> **Sì e No.** Dal punto di vista software, questo è il comando che "sblocca" il servizio SSH. Appena le chiavi vengono generate, il router avvia il demone SSH (puoi verificarlo con `show ip ssh`). Tuttavia, **nessun utente può ancora collegarsi** perché le linee di accesso (VTY) non sanno ancora di dover usare queste chiavi.
+
+> [!TIP]
+> **Relazione con la teoria:** Scegliere 1024 o 2048 bit significa decidere quanto grande sarà il numero $n = p \cdot q$. Più è grande, più l'operazione di fattorizzazione (invertire la funzione a senso unico) diventa impossibile per un attaccante.
 
 ---
 
-#### Step 3 — Attivare SSH sulle linee virtuali (VTY)
+#### Step 4 — Aprire la porta e forzare la sicurezza (Line VTY)
+
+Questo è il passaggio finale dove tutto si unisce: l'utente creato allo Step 2 e le chiavi generate allo Step 3.
 
 ```bash
 RTR-A(config)# line vty 0 4
 RTR-A(config-line)# transport input ssh
 RTR-A(config-line)# login local
-RTR-A(config-line)# exit
 ```
 
-> [!TIP]
-> SSH si configura sulle **linee virtuali (VTY)** e non sulle interfacce fisiche. Una volta attivato, SSH funzionerà su **qualsiasi** indirizzo IP del router raggiungibile dalla rete.
+> [!WARNING]
+> **Perché SSH non funziona senza questi comandi?**
+> Anche se le chiavi RSA sono attive, le linee VTY di default potrebbero accettare Telnet o non richiedere un utente specifico.
+> 1. **`transport input ssh`**: È il comando "escludente". Dice al router: "Smetti di accettare connessioni in chiaro (Telnet). Se la comunicazione non è cifrata con le chiavi RSA, rifiutala."
+> 2. **`login local`**: Dice al router: "Non chiedere solo una password generica. Chiedi il binomio Username/Password che abbiamo definito nel database locale."
 
-> [!NOTE]
-> ### `login` vs `login local` — Quale scegliere?
->
-> | Comando | Cosa richiede | Come funziona |
-> |:---|:---|:---|
-> | `login` | Solo la **Password** | Cerca la password impostata direttamente in `line vty` |
-> | `login local` | **Username + Password** | Cerca le credenziali nel database locale (comando `username`) |
->
-> **Perché `login local` per SSH?** Con `login`, chiunque conosca l'unica password può entrare anonimamente. Con `login local` puoi tracciare esattamente **chi** è entrato nel router, e puoi revocare singoli accessi senza cambiare la password globale. È anche il requisito minimo per poter usare autenticazione a più fattori in futuro.
+---
+
+### Riepilogo Funzionale dei Comandi
+
+Per capire meglio la differenza tra "preparare" e "abilitare", ecco una tabella comparativa:
+
+| Comando | Cosa "accende"? | Senza di esso... |
+| :--- | :--- | :--- |
+| `ip domain-name` | L'identità FQDN | Non puoi generare le chiavi RSA. |
+| `username ... secret` | Il database utenti | SSH non saprebbe chi far entrare (accesso negato). |
+| `crypto key generate rsa` | Il protocollo SSH | Il router non può cifrare i dati. SSH resta "Disabled". |
+| `transport input ssh` | La protezione della linea | Il router continua ad accettare Telnet (insicuro). |
+
+> [!TIP]
+> In sintesi: `crypto key` crea la **serratura elettronica** (la crittografia), mentre `line vty` con `login local` decide **chi ha la chiave** e su quale porta può inserirla.
 
 ---
 
