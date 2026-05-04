@@ -121,20 +121,51 @@ $$m' = \sigma^{e_A} \pmod{n_A} \stackrel{?}{=} m \quad \text{(verifica)}$$
 
 ---
 
-### 1.7 Sicurezza e Minacce
 
-**Perché è sicuro?** Il miglior algoritmo di fattorizzazione noto (General Number Field Sieve) ha complessità sub-esponenziale: per $n$ di 2048 bit è impraticabile con hardware classico.
+### 1.7 Perché RSA è sicuro? (Il cuore del problema)
+
+La sicurezza di RSA si basa su un concetto matematico chiamato **funzione a senso unico con trappola** (*trapdoor one-way function*). 
+
+#### L'Analogia dei Colori e dei Numeri Primi
+
+Per capire cosa succede nel router quando digiti `crypto key generate rsa`, immagina questa situazione:
+
+> [!TIP]
+> **1. L'operazione facile (Cifratura/Generazione):**
+> È come mescolare due colori, ad esempio **Giallo** e **Blu**, per ottenere il **Verde**. 
+> In matematica, il router sceglie due numeri primi giganti ($p$ e $q$) e li moltiplica tra loro per ottenere il modulo $n$.
+> *   Fare $p \times q = n$ è velocissimo.
+> *   Il risultato $n$ (il "Verde") fa parte della **Chiave Pubblica** che il router distribuisce a tutti.
+
+> [!IMPORTANT]
+> **2. L'operazione difficile (Attacco/Decifratura):**
+> Se ti do un secchio di vernice **Verde**, puoi dirmi esattamente quali tonalità di giallo e blu ho usato? No, dovresti andare per tentativi infiniti.
+> In matematica, partendo dal numero enorme $n$, è difficilissimo risalire ai due numeri primi originali $p$ e $q$. Questa operazione si chiama **Fattorizzazione**.
+> *   Senza conoscere $p$ e $q$, un hacker non può calcolare la **Chiave Privata** ($d$).
+> *   La sicurezza sta tutta qui: rompere il modulo $n$ per trovare i fattori primi è un'impresa che richiederebbe migliaia di anni ai computer attuali.
+
+#### Difficoltà Computazionale
+
+Il miglior algoritmo di fattorizzazione noto (General Number Field Sieve) ha una complessità sub-esponenziale. Questo significa che aggiungere pochi bit alla chiave aumenta enormemente il tempo necessario per violarla.
 
 **Dimensioni delle chiavi raccomandate:**
 
-| Periodo | Minimo raccomandato |
-|:---|:---|
-| Fino al 2010 | 1024 bit |
-| 2010–2030 | 2048 bit |
-| Dopo il 2030 | 3072 bit o più |
+| Bit del Modulo ($n$) | Grado di Sicurezza | Note per il Lab Cisco |
+|:---|:---|:---|
+| **512 bit** | **Insicuro** | Violabile in pochi minuti/ore. |
+| **1024 bit** | **Minimo** | Standard legacy, ancora comune nei vecchi router. |
+| **2048 bit** | **Sicuro** | Lo standard attuale (raccomandato fino al 2030). |
+| **4096 bit** | **Militare** | Molto lento da generare, usato per dati sensibilissimi. |
 
 > [!CAUTION]
-> **Minaccia quantistica:** L'algoritmo di Shor, su un computer quantistico sufficientemente grande, fattorizza $n$ in tempo **polinomiale** $O((\log n)^2 \cdot \log \log n)$. Questo renderebbe RSA completamente insicuro. Il NIST sta già standardizzando algoritmi **post-quantistici** (CRYSTALS-Kyber, CRYSTALS-Dilithium) come sostituti futuri.
+> **La fine di RSA? (Minaccia Quantistica)**
+> Esiste un algoritmo teorico, l'**Algoritmo di Shor**, che se eseguito su un computer quantistico sufficientemente potente, potrebbe separare i "colori" (fattorizzare $n$) in pochi minuti. 
+> In quel giorno, il calcolo $O((\log n)^2 \cdot \log \log n)$ diventerà realtà e dovremo sostituire RSA con nuovi algoritmi "Post-Quantistici" (come CRYSTALS-Kyber) che si basano su problemi matematici diversi dalla fattorizzazione.
+
+
+
+### Cosa abbiamo imparato?
+Quando esegui il laboratorio, ricorda: il comando `crypto key generate rsa 2048` sta creando un "colore verde" così complesso che nessun computer attuale può separare nel "giallo" e "blu" originali. È questa impossibilità matematica che protegge la tua password amministrativa su SSH!
 
 ---
 
