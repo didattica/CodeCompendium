@@ -27,7 +27,26 @@ Decifra con d         ───►      Solo il router (con d segreto) può deci
 
 ## Parte 1 — Teoria (sintesi)
 
-### 1.1 Funzioni a senso unico e Trapdoor
+
+### 1.1 Origine e Storia di RSA
+
+L'algoritmo **RSA** prende il nome da **Ron Rivest**, **Adi Shamir** e **Leonard Adleman**, i tre crittografi e informatici del MIT (Massachusetts Institute of Technology) che lo descrissero pubblicamente per la prima volta nel **1977**.
+
+
+
+#### La "Rivoluzione" della Chiave Pubblica
+Prima di RSA, il mondo della crittografia si basava sulla **crittografia simmetrica**: per comunicare in segreto, due persone dovevano scambiarsi fisicamente una chiave (una password o un codice) prima di separarsi. Se un Generale voleva inviare un messaggio cifrato a una base lontana, doveva prima mandare un corriere fidato con la chiave.
+
+*   **Il Problema:** Come scambiarsi una chiave segreta su una rete pubblica (come Internet) senza che qualcuno la intercetti?
+*   **La Soluzione RSA:** Nel 1976, Whitfield Diffie e Martin Hellman ipotizzarono l'esistenza della crittografia asimmetrica, ma furono Rivest, Shamir e Adleman a trovare la soluzione pratica basata sulla **difficoltà di fattorizzare i numeri primi**.
+
+#### Curiosità Storica: Il GCHQ
+Per decenni si è creduto che RSA fosse un'invenzione puramente americana. Solo nel 1997 è stato reso pubblico che un matematico britannico, **Clifford Cocks**, che lavorava per i servizi segreti del Regno Unito (GCHQ), aveva sviluppato un sistema equivalente già nel **1973**. Tuttavia, la sua scoperta fu classificata come segreto militare e non fu mai resa nota, né utilizzata su larga scala, fino alla "scoperta" ufficiale del team RSA.
+
+> [!NOTE]
+> Nel 2002, Rivest, Shamir e Adleman hanno ricevuto il **Premio Turing** (considerato il "Nobel dell'informatica") proprio per il loro contributo fondamentale alla sicurezza delle comunicazioni moderne. Ogni volta che fai un acquisto online o ti colleghi via SSH a un router Cisco, stai usando l'eredità del loro lavoro.
+
+### 1.2 Funzioni a senso unico e Trapdoor
 
 Una funzione **one-way** è facile da calcolare in una direzione, computazionalmente impossibile da invertire senza un'informazione segreta detta **trapdoor**.
 
@@ -41,7 +60,7 @@ Una funzione **one-way** è facile da calcolare in una direzione, computazionalm
 
 ---
 
-### 1.2 Il Teorema di Eulero (base matematica di RSA)
+### 1.3 Il Teorema di Eulero (base matematica di RSA)
 
 La **funzione di Eulero** $\phi(n)$ conta gli interi in $\{1, \dots, n\}$ coprimi con $n$.
 
@@ -56,7 +75,7 @@ $$a^{k \cdot \phi(n) + 1} \equiv a \pmod{n} \quad \forall k \in \mathbb{Z}$$
 
 ---
 
-### 1.3 Algoritmo RSA — Generazione delle Chiavi
+### 1.4 Algoritmo RSA — Generazione delle Chiavi
 
 ```
 Step 1:  Scegli due primi grandi p e q
@@ -73,7 +92,7 @@ Chiave privata   →  (d, n)   ← tieni segreta
 
 ---
 
-### 1.4 Cifratura e Decifratura
+### 1.5 Cifratura e Decifratura
 
 $$\text{Cifratura (chiave pubblica):} \quad c = m^e \pmod{n}$$
 $$\text{Decifratura (chiave privata):} \quad m = c^d \pmod{n}$$
@@ -83,7 +102,7 @@ $$c^d = (m^e)^d = m^{ed} = m^{k\phi(n)+1} = \underbrace{(m^{\phi(n)})^k}_{\equiv
 
 ---
 
-### 1.5 Esempio numerico completo (piccoli numeri)
+### 1.6 Esempio numerico completo (piccoli numeri)
 
 | Parametro | Valore |
 |:---|:---|
@@ -103,7 +122,7 @@ Verifica in Python: `pow(2790, 2753, 3233)`
 
 ---
 
-### 1.6 Firma Digitale
+### 1.7 Firma Digitale
 
 RSA permette anche di **firmare** messaggi: Alice usa la sua **chiave privata** per firmare, chiunque usa la sua **chiave pubblica** per verificare.
 
@@ -122,7 +141,7 @@ $$m' = \sigma^{e_A} \pmod{n_A} \stackrel{?}{=} m \quad \text{(verifica)}$$
 ---
 
 
-### 1.7 Perché RSA è sicuro? (Il cuore del problema)
+### 1.8 Perché RSA è sicuro? (Il cuore del problema)
 
 La sicurezza di RSA si basa su un concetto matematico chiamato **funzione a senso unico con trappola** (*trapdoor one-way function*). 
 
@@ -161,8 +180,6 @@ Il miglior algoritmo di fattorizzazione noto (General Number Field Sieve) ha una
 > **La fine di RSA? (Minaccia Quantistica)**
 > Esiste un algoritmo teorico, l'**Algoritmo di Shor**, che se eseguito su un computer quantistico sufficientemente potente, potrebbe separare i "colori" (fattorizzare $n$) in pochi minuti. 
 > In quel giorno, il calcolo $O((\log n)^2 \cdot \log \log n)$ diventerà realtà e dovremo sostituire RSA con nuovi algoritmi "Post-Quantistici" (come CRYSTALS-Kyber) che si basano su problemi matematici diversi dalla fattorizzazione.
-
-
 
 ### Cosa abbiamo imparato?
 Quando esegui il laboratorio, ricorda: il comando `crypto key generate rsa 2048` sta creando un "colore verde" così complesso che nessun computer attuale può separare nel "giallo" e "blu" originali. È questa impossibilità matematica che protegge la tua password amministrativa su SSH!
