@@ -185,7 +185,8 @@ SSH richiede un domain name per generare le chiavi RSA. Senza di esso, la genera
 ```bash
 Router> enable
 Router# configure terminal
-Router(config)# ip domain-name cisco.local
+Router(config)# hostname R1
+R1(config)# ip domain-name cisco.local
 ```
 
 > [!WARNING]
