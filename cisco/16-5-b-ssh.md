@@ -27,7 +27,7 @@ SSH (Secure Shell) è il protocollo standard per l'accesso remoto sicuro ai disp
 | Versione sicura | Non esiste | SSH v2 (raccomandata) |
 | Uso consigliato | Solo laboratorio isolato | Ambienti di produzione |
 
-> [!DANGER]
+> [!CAUTION]
 > **TELNET IN PRODUZIONE È UN RISCHIO CRITICO!**
 >
 > Con Wireshark, chiunque sulla stessa rete può catturare le tue credenziali in pochi secondi.
@@ -352,7 +352,7 @@ SSH v2 è molto più sicuro di v1: corregge vulnerabilità crittografiche e aggi
 Router(config)# ip ssh version 2
 ```
 
-> [!DANGER]
+> [!CAUTION]
 > **SSH v1 è obsoleto e vulnerabile!**
 >
 > SSH v1 ha vulnerabilità crittografiche note dal 2001. Non usare **mai** `ip ssh version 1` in produzione.
@@ -428,7 +428,7 @@ IOS Keys in SECSH format(ssh-rsa, base64 encoded): Router.cisco.local
 
 ## 🚫 Fase 5 — Disabilitare Telnet Definitivamente
 
-> [!DANGER]
+> [!CAUTION]
 > **ATTENZIONE: Telnet potrebbe essere ancora attivo!**
 >
 > Anche con SSH configurato, se non hai esplicitamente vietato Telnet, il router potrebbe ancora accettarlo. Verifica subito:
