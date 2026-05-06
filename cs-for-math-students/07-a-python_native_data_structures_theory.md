@@ -187,6 +187,22 @@ print(griglia[(1, 1)])   # diagonale
 | Ricerca `x in t` | $O(n)$ | Scansione lineare |
 | Hashing `hash(t)` | $O(n)$ | Dipende dal contenuto |
 
+> [!IMPORTANT]
+> ### 🧠 Immutabilità, Hashability e Memoria
+>
+> In Python, esiste un legame indissolubile tra la natura di un oggetto e il modo in cui il computer lo archivia. Ecco i punti chiave da ricordare:
+>
+> *   **Immutabilità = Integrità dell'Identità:** Una `tuple` è immutabile; una volta creata, il suo contenuto è scolpito nella pietra. Questo permette a Python di generare un **Hash** (un'impronta digitale numerica) univoco e permanente.
+> *   **Il Divieto per le Liste:** Una `list` è mutabile. Se Python permettesse di calcolarne l'hash, aggiungendo anche un solo elemento l'impronta cambierebbe, rendendo l'oggetto "introvabile" nella posizione di memoria in cui era stato originariamente salvato.
+>
+> #### ⚡ Cosa avviene nella Hash Table (Dizionari e Set)?
+> 1.  **Computazione O(1):** Quando cerchi una chiave, Python non esegue un confronto elemento per elemento. Applica la funzione di hash alla chiave e ottiene un "indirizzo" numerico.
+> 2.  **Accesso Diretto:** Il sistema salta direttamente a quell'indirizzo di memoria. È un'operazione a **tempo costante**, rendendo la ricerca istantanea indipendentemente dalla dimensione dei dati.
+> 3.  **Il Vincolo Tecnico:** Solo gli oggetti **Hashable** (immutabili come tuple, stringhe, int) possono essere chiavi di un dizionario.
+>
+> [!TIP]
+> **Regola d'oro:** Se i dati devono fungere da "etichetta" o "chiave" univoca, usa una **Tupla**. Se i dati devono evolvere nel tempo, usa una **Lista**, ma rinuncia alla possibilità di usarla come chiave.
+
 ---
 
 ## 3. Dizionari — funzioni come struttura dati
