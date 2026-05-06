@@ -72,6 +72,62 @@ print(7 in distinti) # False
 In matematica, un insieme non ammette duplicati ($\{1,1\} = \{1\}$). Python usa le **Hash Table** per implementare i set: questo significa che non deve scorrere tutta la lista per trovare un numero, ma "calcola" direttamente la sua posizione in memoria.
 </details>
 
+
+### ⚡ Analisi delle Performance: List vs Set
+
+Questo esperimento dimostra la differenza computazionale tra la ricerca in una **Lista** ($O(n)$) e in un **Set** ($O(1)$) utilizzando il modulo `time.perf_counter()`.
+
+#### 🧪 Il Codice
+
+Ho raggruppato la logica in una funzione `measure_time` per rendere il codice più pulito e modulare.
+```python
+import time
+
+def measure_time(container, element, label):
+    start = time.perf_counter()
+    _ = element in container
+    end = time.perf_counter()
+    tempo = end - start
+    print(f"{label:<20} | Completata in: {tempo:.8f}s")
+    return tempo
+
+# Configurazione test
+GRANDEZZA = 10_000_000
+target = -1  # Caso peggiore: elemento non presente
+
+# Preparazione dati
+campione_list = list(range(GRANDEZZA))
+campione_set = set(campione_list)
+
+print(f"Test su {GRANDEZZA:,} elementi:\n" + "-"*45)
+
+# Esecuzione test
+t_list = measure_time(campione_list, target, "Ricerca in Lista")
+t_set = measure_time(campione_set, target, "Ricerca in Set")
+
+# Risultato finale
+print("-"*45)
+print(f"🚀 Il Set è circa {int(t_list/t_set):,} volte più veloce!")
+```
+
+#### 📉 Analisi Tecnica
+
+
+
+##### 1. Lista: Ricerca Lineare $O(n)$
+Nella lista, Python deve controllare ogni elemento uno per uno partendo dall'inizio. 
+- **Tempo:** Cresce proporzionalmente al numero di elementi.
+- **Operazione:** "Sei tu l'elemento? No. E tu? No..." fino alla fine.
+
+##### 2. Set: Hash Look-up $O(1)$
+Il Set utilizza una **Hash Table**. Python calcola l'hash del valore cercato e "salta" direttamente all'indirizzo di memoria corrispondente.
+- **Tempo:** Costante. Non importa se ci sono 10 o 10 milioni di elementi, l'accesso richiede sempre un singolo calcolo.
+- **Operazione:** Calcolo Hash -> Accesso diretto alla cella.
+
+> [!IMPORTANT]
+> Sebbene il Set sia infinitamente più veloce nella ricerca, ricorda che la sua creazione (`set(lista)`) richiede tempo e memoria aggiuntiva. È una strategia vincente quando devi effettuare **molteplici ricerche** sulla stessa collezione di dati.
+
+
 ---
 
 ## Esercizio 3: Algebra degli Insiemi (Livello: Intermedio)
