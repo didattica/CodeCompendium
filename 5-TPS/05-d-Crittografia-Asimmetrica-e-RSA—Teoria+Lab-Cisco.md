@@ -8,6 +8,9 @@
 
 ## Connessione tra Teoria e Pratica
 
+
+![crittografia-asimmetrica.png](./images/crittografia-asimmetrica.png)
+
 Il comando `crypto key generate rsa` che eseguirai in laboratorio non è magia: è esattamente l'algoritmo RSA che studierai in questo documento.
 
 ```
