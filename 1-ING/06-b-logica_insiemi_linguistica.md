@@ -248,6 +248,9 @@ Nel diagramma di Venn:
 
 ![insiemi-linguistica](./images/insiemi-linguistica.png)
 
+
+
+
 ---
 
 ### 6.1 Antonimia → Complementare / NOT
@@ -260,6 +263,15 @@ L'**antonimo** di una parola è la parola di significato opposto.
 | vero    | falso     |
 | grande  | piccolo   |
 | presente | assente  |
+
+> [!NOTE]
+> Dal greco:
+> * **anti-** (ἀντί) = “contro”, “opposto”
+> * **ónoma / ónyma** (ὄνομα) = “nome”, “parola”
+> Quindi:
+> [
+> \text{antonimo} = \text{“nome opposto”}
+> ]
 
 **Connessione con la logica:**
 
@@ -293,6 +305,21 @@ In termini insiemistici: se B è l'iperonimo di A, allora **A ⊆ B**.
 | veicolo        | auto, bici, treno   |
 | colore         | rosso, blu, verde   |
 
+> [!NOTE]
+> Dal greco:
+> * **hypér** (ὑπέρ) = “sopra”, “al di sopra”
+> * **ónoma / ónyma** (ὄνομα) = “nome”, “parola”
+>
+> Quindi:
+>
+> [
+> \text{iperonimo} = \text{“nome superiore”}
+> ]
+>
+> oppure:
+>
+> “termine più generale”.
+
 > [!IMPORTANT]
 > **Iperonimo = termine più generale.**
 > Se A è "mela" e B è "frutto", allora ogni mela è un frutto: **A ⊂ B**.
@@ -323,6 +350,22 @@ Se B è l'iperonimo di A, allora A è l'**iponimo** di B.
 | mela         | frutto         |
 | Toyota Yaris | automobile     |
 | calcio       | sport          |
+
+> [!NOTE]
+> Dal greco:
+> * **hypó** (ὑπό) = “sotto”
+> * **ónoma / ónyma** (ὄνομα) = “nome”, “parola”
+>
+> Quindi:
+>
+> \[
+> \text{iponimo} = \text{“nome sottostante”}
+> \]
+>
+> oppure:
+>
+> “termine più specifico”.
+
 
 > [!NOTE]
 > La relazione **iperonimo / iponimo** è simmetrica per definizione:
