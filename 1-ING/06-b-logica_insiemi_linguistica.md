@@ -246,6 +246,8 @@ Nel diagramma di Venn:
 > [!NOTE]
 > Le stesse strutture che abbiamo usato per descrivere insiemi e logica si ritrovano nel **lessico** delle lingue naturali. La semantica lessicale studia le relazioni di significato tra le parole, e molte di queste relazioni hanno una **struttura insiemistica**.
 
+![insiemi-linguistica](./images/insiemi-linguistica.png)
+
 ---
 
 ### 6.1 Antonimia → Complementare / NOT
