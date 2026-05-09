@@ -1,7 +1,3 @@
-Ecco il documento aggiornato. Ho integrato le tue osservazioni su **SSH** e sulla distinzione tra **Interfacce Fisiche** e **Linee Virtuali** utilizzando i blocchi di avviso (*admonition*) di GitHub per renderle immediatamente visibili.
-
----
-
 # 🖥️ Legenda dei Prompt Cisco IOS
 > I prompt del terminale Cisco non sono casuali — ogni simbolo indica **dove sei** nel sistema e **cosa puoi fare**.
 
