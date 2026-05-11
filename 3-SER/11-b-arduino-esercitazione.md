@@ -69,6 +69,26 @@ Imparare a costruire circuiti elettronici passo dopo passo usando :contentRefere
 ### Risultato:
 - Il LED si accende e si spegne a intervalli regolari
 
+### code del Led che lampeggia
+
+// Definiamo i pin
+int led = 13;
+
+void setup() {
+}
+
+void loop() {
+    
+    // --- INIZIO SEQUENZA LAMPEGGIO ---
+    digitalWrite(led, HIGH); // 1. Accendi il LED
+    delay(300);              // 2. Aspetta 0.3 secondi
+    digitalWrite(led, LOW);  // 3. Spegni il LED
+    delay(300);              // 4. Aspetta 0.3 secondi
+    // --- FINE SEQUENZA LAMPEGGIO ---
+    
+
+}
+
 ---
 
 # Livello 4 — Circuito Interattivo (Pulsante)
@@ -89,6 +109,27 @@ Imparare a costruire circuiti elettronici passo dopo passo usando :contentRefere
 
 ### Risultato:
 - Il LED si accende solo quando il pulsante è premuto
+
+  ### code del pulsante
+
+const int pinPulsante = 2;
+const int pinLED = 13;
+
+void setup() {
+  pinMode(pinPulsante, INPUT_PULLUP); // Usa la resistenza interna di Arduino
+  pinMode(pinLED, OUTPUT);
+}
+
+void loop() {
+  int statoPulsante = digitalRead(pinPulsante);
+
+  // Se il pulsante è premuto (collegato a GND), lo stato è LOW
+  if (statoPulsante == LOW) {
+    digitalWrite(pinLED, HIGH);
+  } else {
+    digitalWrite(pinLED, LOW);
+  }
+}
 
 ---
 
