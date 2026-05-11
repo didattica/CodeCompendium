@@ -7,7 +7,6 @@
 ### 17.1.1 Topologie di Reti di Piccole Dimensioni
 
 La maggior parte delle imprese sono piccole; pertanto, anche la maggior parte delle reti aziendali sono piccole.
-
 Un progetto di rete di piccole dimensioni è solitamente semplice. Il numero e il tipo di dispositivi inclusi sono notevolmente ridotti rispetto a quelli di una rete più ampia.
 
 **Esempio — Componenti tipici di una piccola rete aziendale:**
@@ -28,8 +27,45 @@ Le reti di piccole dimensioni hanno in genere una **singola connessione WAN** fo
 - Connessione Ethernet
 
 > [!NOTE]
->  Le reti di grandi dimensioni richiedono un reparto IT dedicato per gestire, proteggere e risolvere i problemi dei dispositivi e dei dati. Le piccole reti sono invece gestite da un **tecnico IT locale** o da un **professionista appaltato**. Nonostante le dimensioni ridotte, le competenze necessarie sono molte delle stesse richieste per reti di maggiori dimensioni.
+> Le reti di grandi dimensioni richiedono un reparto IT dedicato per gestire, proteggere e risolvere i problemi dei dispositivi e dei dati. Le piccole reti sono invece gestite da un **tecnico IT locale** o da un **professionista appaltato**. Nonostante le dimensioni ridotte, le competenze necessarie sono molte delle stesse richieste per reti di maggiori dimensioni.
 
+---
+
+> [!WARNING]
+> **Nota di aggiornamento — Il contenuto sopra riflette il curriculum Cisco CCNA nella versione originale (circa 2019-2020).**
+>
+> I corsi Cisco vengono revisionati con cadenza pluriennale, e alcuni riferimenti tecnologici possono risultare datati rispetto allo stato attuale del mercato. In particolare, la lista delle connessioni WAN necessita di un aggiornamento significativo.
+
+#### Aggiornamento 2026: connettività WAN per piccole reti
+
+**DSL: tecnologia in dismissione**
+
+Il DSL (e in particolare l'ADSL) era la tecnologia WAN dominante per le piccole aziende fino a metà anni 2010. Ad oggi è considerata una tecnologia **legacy in fase di dismissione progressiva**: in Italia, le linee ADSL rappresentano meno del 12% degli accessi fissi totali, e la maggior parte degli operatori non la propone più per nuove attivazioni.
+
+**Il panorama WAN nel 2026**
+
+Una rete aziendale di piccole dimensioni progettata oggi dovrebbe considerare le seguenti opzioni di connettività WAN, in ordine di preferenza:
+
+| Tecnologia | Descrizione | Quando sceglierla |
+|---|---|---|
+| **FTTH** (Fiber To The Home/Building) | Fibra ottica fino all'edificio. Velocità simmetriche fino a 10 Gbps. Standard de facto nelle aree coperte. | Prima scelta ovunque disponibile |
+| **FWA** (Fixed Wireless Access) | Connessione wireless fissa via 4G/5G con antenna dedicata. Alternativa concreta alla fibra. | Zone non raggiunte da FTTH |
+| **5G business** | Connessione 5G come accesso primario o di failover. Sempre più usata anche come unica WAN in sedi temporanee o filiali. | Mobilità, filiali, backup |
+| **Cavo / Ethernet broadband** | Ancora presente in alcuni mercati, in particolare negli Stati Uniti. | Dove disponibile e competitivo |
+| **Satellite (es. Starlink Business)** | Connettività satellitare a bassa latenza. Opzione concreta per sedi rurali o remote. | Zone rurali, sedi isolate |
+| **DSL / ADSL** | Tecnologia su rame. Ancora attiva in alcune zone non coperte da alternative, ma in dismissione. | Solo dove non esistono alternative migliori |
+
+**Evoluzione dei dispositivi di rete**
+
+Oltre alla connettività, anche i **componenti della rete locale** si sono evoluti rispetto al modello classico del curriculum:
+
+- Il **router tradizionale** è spesso sostituito o affiancato da dispositivi **SD-WAN** (Software-Defined WAN), che permettono di gestire più connessioni WAN simultaneamente, scegliendo automaticamente il percorso migliore per ogni tipo di traffico.
+- Il **punto di accesso wireless separato** è oggi frequentemente integrato in dispositivi **all-in-one** (router/switch/AP) o in sistemi **Wi-Fi mesh**, che semplificano la gestione nelle piccole sedi.
+- Il **server fisico locale** è in molti casi sostituito da **servizi cloud** (Microsoft 365, Google Workspace, ecc.), riducendo o eliminando la necessità di infrastruttura server on-premises.
+- Il **Telefono IP** fisico è in declino: molte piccole aziende adottano soluzioni **VoIP software** (softphone) o servizi di comunicazione unificata (UCaaS) accessibili da qualsiasi dispositivo.
+
+> [!TIP]
+> Per chi studia per la certificazione Cisco CCNA, è utile **conoscere entrambi i livelli**: il modello classico descritto nel curriculum (fondamentale per comprendere i concetti base) e il panorama tecnologico attuale, che riflette ciò che si trova nei contesti lavorativi reali. Le basi concettuali — routing, switching, indirizzamento IP, protocolli — rimangono valide indipendentemente dalla tecnologia WAN utilizzata.
 ---
 
 ### 17.1.2 Scelta dei Dispositivi per una Piccola Rete
