@@ -50,7 +50,7 @@ Una rete aziendale di piccole dimensioni progettata oggi dovrebbe considerare le
 |---|---|---|
 | **FTTH** (Fiber To The Home/Building) | Fibra ottica fino all'edificio. Velocità simmetriche fino a 10 Gbps. Standard de facto nelle aree coperte. | Prima scelta ovunque disponibile |
 | **FWA** (Fixed Wireless Access) | Connessione wireless fissa via 4G/5G con antenna dedicata. Alternativa concreta alla fibra. | Zone non raggiunte da FTTH |
-| **5G business** | Connessione 5G come accesso primario o di failover. Sempre più usata anche come unica WAN in sedi temporanee o filiali. | Mobilità, filiali, backup |
+| **5G business** | Connessione 5G come accesso primario o di failover. Sempre più usata anche come unica WAN in sedi temporanee o filiali. Circa 331 Mbps, con upload a circa 58 Mbps e latenza media di circa 28 ms | Mobilità, filiali, backup |
 | **Cavo / Ethernet broadband** | Ancora presente in alcuni mercati, in particolare negli Stati Uniti. | Dove disponibile e competitivo |
 | **Satellite (es. Starlink Business)** | Connettività satellitare a bassa latenza. Opzione concreta per sedi rurali o remote. | Zone rurali, sedi isolate |
 | **DSL / ADSL** | Tecnologia su rame. Ancora attiva in alcune zone non coperte da alternative, ma in dismissione. | Solo dove non esistono alternative migliori |
