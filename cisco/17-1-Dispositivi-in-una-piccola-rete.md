@@ -209,6 +209,10 @@ I router e gli switch in una piccola rete devono essere configurati per supporta
 
 Un buon progetto di rete implementa la **Qualità del Servizio (QoS)** per classificare il traffico in base alla priorità.
 
+> [!note]
+> Il QoS agisce come un vigile urbano per il traffico dati.
+> Senza QoS, i dati vengono gestiti secondo il principio "Best Effort" (chi arriva prima passa, senza distinzioni). Con il QoS, il sistema analizza i pacchetti e decide chi ha la precedenza.
+
 **Esempio di classificazione del traffico con QoS:**
 
 | Tipo di Traffico | Priorità | Note |
