@@ -20,6 +20,9 @@ Una piccola rete richiede generalmente i seguenti elementi per connettere utenti
 - **Stampante**
 - **Server**
 
+> [!CAUTION] L'Access Point agisce come uno switch poiché utilizza i MAC address per indirizzare i dati in modo specifico ai dispositivi connessi, evitando di trasmettere a vuoto come un hub.
+> Tuttavia, poiché l'aria è un mezzo condiviso, i dispositivi devono comunque fare a turno per comunicare, rendendo le prestazioni fisiche simili a quelle di un hub in termini di collisioni e gestione del traffico.
+
 Le reti di piccole dimensioni hanno in genere una **singola connessione WAN** fornita da:
 
 - DSL
