@@ -1,3 +1,4 @@
+
 # 17.7.6 Packet Tracer - Risoluzione dei problemi di connettività
 L'obiettivo di questa attività Packet Tracer è la risoluzione dei problemi di connettività, se possibile. In caso contrario, i problemi devono essere documentati chiaramente in modo da poter effettuare la riassegnazione.
 
