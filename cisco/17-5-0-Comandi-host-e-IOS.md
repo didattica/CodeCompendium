@@ -22,6 +22,14 @@
 
 ## 17.5.1 Configurazione IP su un host Windows
 
+> [!TIP]
+> ### Strumenti di Verifica: Host vs Router
+> Per un troubleshooting efficace, bisogna saper usare gli strumenti giusti su ogni dispositivo:
+>
+> * **Sul PC (End Device):** Usa `ipconfig /all` per verificare la tua "identità" in rete e `arp -a` per vedere chi altro è presente nel tuo segmento locale.
+> * **Sul Router (Network Device):** Usa `show ip interface brief` per lo stato fisico e `show ip route` per capire il percorso dei pacchetti verso reti remote.
+> * **Risoluzione conflitti:** Se due PC hanno lo stesso IP, il comando `release/renew` forza il protocollo DHCP a rinegoziare un indirizzo univoco, risolvendo l'errore senza riavviare la macchina.
+
 ### Descrizione
 
 Quando si verificano problemi di connettività, il primo passo è controllare la **configurazione IP dei dispositivi host**. Su sistemi Windows è possibile farlo sia tramite interfaccia grafica (Network and Sharing Center) che da riga di comando.
