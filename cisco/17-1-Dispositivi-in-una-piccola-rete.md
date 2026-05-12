@@ -120,6 +120,16 @@ I dispositivi di rete sono disponibili in due tipologie:
 
 > **Suggerimento:** Selezionare con attenzione i moduli e le interfacce appropriati per i supporti specifici.
 
+> [!IMPORTANT]
+> ### Scalabilità: Configurazione Fissa vs. Modulare
+> 
+> La scelta dell'hardware è un compromesso tra costo iniziale e flessibilità futura:
+> 
+> * **Dispositivi a Configurazione Fissa:** Hanno un numero di porte predefinito (es. 24 o 48 porte) e non possono essere espansi fisicamente. Sono più economici, ma richiedono la sostituzione o l'aggiunta di nuovi apparati in caso di crescita della rete.
+> * **Dispositivi Modulari:** Sono composti da uno chassis con slot liberi. Permettono di installare moduli aggiuntivi (interfacce in fibra, schede di rete extra, alimentatori ridondanti) man mano che le esigenze aumentano, proteggendo l'investimento iniziale nel lungo termine.
+>
+> **In sintesi:** I dispositivi fissi sono ideali per reti stabili e budget ridotti; quelli modulari sono fondamentali per reti che prevedono una crescita significativa o necessità di diverse tecnologie di connessione.
+
 ---
 
 #### Funzioni e Servizi del Sistema Operativo
@@ -180,6 +190,18 @@ Ha adottato il seguente schema di indirizzamento coerente per ogni rete `192.168
 
 > **Nota:** Gli intervalli di indirizzi IP assegnabili sono stati deliberatamente allocati sui **limiti della rete di subnet** per semplificare il riepilogo per gruppo di dispositivi. Ad esempio, se alla rete viene aggiunto un secondo switch con indirizzo `192.168.2.6`, per identificare tutti gli switch in un criterio di rete è sufficiente specificare il blocco riepilogato `192.168.x.4/30`.
 
+> [!TIP]
+> ### Pianificazione dell'Indirizzamento IP
+> La progettazione di una sottorete non deve basarsi solo sul numero attuale di host, ma deve prevedere la crescita futura e la segmentazione logica.
+>
+> * **Relazione Bit-Host:** Maggiore è il numero di bit presi in prestito dalla parte host (aumentando il prefisso CIDR, es. da /24 a /26), minore sarà il numero di dispositivi ospitabili, ma maggiore sarà il numero di sottoreti create.
+> * **Criteri di Segmentazione:** Non limitarti a creare una sola LAN. Dividi la rete in base a:
+>   1. **Funzione:** Amministrazione, Vendite, Ospiti.
+>   2. **Sicurezza:** Isolare dispositivi critici (Server) da quelli meno sicuri (IoT/Wi-Fi).
+>   3. **Performance:** Contenere i domini di broadcast per evitare rallentamenti.
+>
+> **Nota Bene:** Ricorda di includere nel conteggio degli IP anche gli indirizzi per le interfacce dei router, gli switch gestiti e le stampanti di rete.
+
 ---
 
 ### 17.1.4 Ridondanza in una Piccola Rete
@@ -198,6 +220,16 @@ Per mantenere un alto grado di affidabilità, è richiesta la **ridondanza** nel
 | **Router ridondanti** | Disponibili in caso di errore del router o del percorso |
 
 > **Considerazione pratica:** Le reti di piccole dimensioni forniscono in genere un **unico punto di uscita verso Internet** tramite uno o più gateway predefiniti. Se il router si guasta, l'intera rete perde la connettività. Per questo motivo, per una piccola impresa può essere consigliabile valutare la sottoscrizione di un **secondo provider di servizi come backup**.
+
+> [!CAUTION]
+> ### Ridondanza e Continuità Operativa
+> La ridondanza mira a eliminare i **Single Points of Failure (SPOF)** per garantire che la rete resti operativa anche in caso di guasti.
+>
+> 1. **Dispositivi Ridondanti:** Duplicare apparati critici come Router e Server. In ambito Cisco, protocolli come **HSRP** permettono a due router di apparire come un unico "gateway virtuale".
+> 2. **Collegamenti Ridondanti:** Prevedere percorsi fisici alternativi tra gli switch (gestiti dal protocollo **STP**) per evitare che il guasto di un singolo cavo isoli un intero reparto.
+> 3. **Protezione Energetica:** L'uso di **UPS** (Uninterruptible Power Supplies) e generatori è essenziale per proteggere l'hardware e garantire il servizio durante interruzioni elettriche.
+>
+> **Attenzione:** Non confondere la ridondanza con il *Load Balancing*. Mentre la prima garantisce la disponibilità del servizio, il secondo ottimizza l'uso delle risorse distribuendo il traffico su più link o dispositivi attivi.
 
 ---
 
@@ -256,6 +288,19 @@ graph LR
     style P3 fill:#9e9d24,color:#fff
     style P4 fill:#2e7d32,color:#fff
 ```
+
+
+> [!TIP]
+> ### QoS: Dare Ordine al Caos
+> Il **Quality of Service (QoS)** è l'insieme di tecnologie che gestiscono le congestioni di rete assicurando che il traffico prioritario non venga penalizzato.
+>
+> * **Classificazione e Marcatura:** I pacchetti vengono analizzati e "etichettati" in base alla loro importanza (es. traffico Voip vs traffico Email).
+> * **Gestione delle Code:** Quando un router riceve più dati di quanti possa inviarne, utilizza algoritmi di accodamento per trasmettere prima i pacchetti sensibili al tempo.
+> * **Obiettivo:** Ridurre la **Latenza** (ritardo totale) e il **Jitter** (instabilità del ritardo) per servizi critici come le videoconferenze o la telefonia IP.
+>
+> **Esempio:** Senza QoS, un pesante download di un aggiornamento Windows potrebbe interrompere o disturbare una chiamata su Google Meet. Con il QoS, il router rallenta leggermente il download per garantire fluidità alla chiamata.
+
+
 ---
 
 # Modulo 17 — Creazione di una Piccola Rete
