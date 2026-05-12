@@ -1,3 +1,199 @@
+<!--
+QUESTO DOCUEMTNO E' STATO OTTENUTO UTILIZZANDO IL SEGUENTE PROMPT!
+
+
+Sto per inviarti un file Markdown (.md) relativo alla sezione Cisco:
+
+# 17.7.6 — Packet Tracer: Risoluzione dei problemi di connettività
+
+L’obiettivo dell’attività è trasformare il contenuto originale in un documento Markdown professionale, ben organizzato e compatibile con GitHub.
+
+## Obiettivo principale
+
+NON devi risolvere gli esercizi o fornire direttamente le soluzioni ai problemi di troubleshooting.
+
+Il tuo compito è invece:
+
+* migliorare la leggibilità del materiale,
+
+* aggiungere contesto tecnico utile,
+
+* spiegare concetti chiave,
+
+* inserire definizioni e chiarimenti,
+
+* aiutare lo studente a comprendere il significato delle attività richieste.
+
+Devi comportarti come un assistente didattico che arricchisce il materiale, NON come un motore che risolve il laboratorio Cisco.
+
+---
+
+# Cosa devi fare
+
+## Conversione Markdown
+
+* Mantieni il documento in formato Markdown compatibile con GitHub.
+
+* Conserva la struttura originale della sezione Cisco.
+
+* Usa correttamente le intestazioni Markdown:
+
+  * #
+
+  * ##
+
+  * ###
+
+  * ecc.
+
+* Mantieni la terminologia tecnica Cisco coerente con il testo originale.
+
+---
+
+# Arricchimento del contenuto
+
+Puoi aggiungere brevi sezioni di supporto per aiutare lo studente a capire meglio il contesto tecnico.
+
+Ad esempio puoi aggiungere:
+
+* definizioni di protocolli,
+
+* spiegazioni sintetiche dei concetti di networking,
+
+* descrizioni generali dei comandi Cisco,
+
+* chiarimenti sul significato di errori comuni,
+
+* note sul troubleshooting,
+
+* osservazioni operative,
+
+* best practice generali.
+
+## Importante
+
+NON fornire:
+
+* la soluzione completa degli esercizi,
+
+* configurazioni finali complete,
+
+* diagnosi definitive,
+
+* output inventati,
+
+* risposte dirette alle domande del laboratorio.
+
+Se il contesto non è sufficiente per determinare una soluzione, limita la risposta a spiegazioni teoriche o suggerimenti generali.
+
+---
+
+# Linee guida per il contenuto aggiuntivo
+
+Le spiegazioni devono essere:
+
+* brevi,
+
+* chiare,
+
+* tecnicamente corrette,
+
+* utili allo studio,
+
+* contestuali alla sezione.
+
+Evita lunghe spiegazioni teoriche non necessarie.
+
+L’obiettivo è supportare la comprensione del materiale originale, non sostituirlo.
+
+---
+
+# Admonition Block GitHub
+
+Usa blocchi Admonition GitHub per evidenziare concetti importanti o suggerimenti utili.
+
+Esempi:
+
+md
+
+> [!IMPORTANT]
+
+> Verificare sempre la configurazione IP prima di analizzare il routing.
+
+
+md
+
+> [!NOTE]
+
+> Il comando `ping` verifica solo la raggiungibilità Layer 3.
+
+
+Puoi usare anche:
+
+* [!TIP]
+
+* [!WARNING]
+
+* [!CAUTION]
+
+---
+
+# Glossario finale
+
+Alla fine del documento crea una sezione:
+
+# Glossario dei concetti chiave
+
+Inserisci una tabella con:
+
+* termini tecnici,
+
+* protocolli,
+
+* acronimi,
+
+* comandi Cisco,
+
+* concetti di networking,
+
+* tecnologie citate nel documento.
+
+Formato esempio:
+
+md
+
+| Termine | Definizione |
+
+|----------|-------------|
+
+| DHCP | Protocollo per l’assegnazione automatica degli indirizzi IP |
+
+| VLAN | Segmentazione logica di una rete Layer 2 |
+
+
+---
+
+# Output richiesto
+
+Il risultato finale deve essere:
+
+* in formato .md,
+
+* compatibile con GitHub,
+
+* ben strutturato,
+
+* leggibile,
+
+* adatto a materiale didattico tecnico.
+
+* tradotto in italiano
+
+Di seguito ti fornirò il file Markdown da elaborare.
+
+-->
+
+
 # 17.7.6 — Packet Tracer: Risoluzione dei problemi di connettività
 
 ## Obiettivo dell’attività
