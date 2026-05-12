@@ -72,6 +72,19 @@ Ogni carattere nell'output rappresenta lo stato di una singola risposta echo ICM
 > [!NOTE]
 > Altre possibili risposte ping includono `Q`, `M`, `?`, `0` e `&`. Il loro significato non è trattato in questo modulo.
 
+> [!IMPORTANT]
+> ### Troubleshooting con PING e ICMP
+> Il comando `ping` è il primo passo per verificare la connettività, ma richiede un'analisi critica dei risultati:
+>
+> * **ICMP (Echo Request/Reply):** È il protocollo alla base del ping. Ricorda che opera al **Livello 3 (Network)**, quindi non testa le porte (Livello 4) o le applicazioni (Livello 7).
+> * **Ping all'IP vs Ping al Nome:** 
+>   - Se il ping verso `8.8.8.8` funziona ma quello verso `google.com` fallisce, il problema è il **DNS**.
+>   - Se entrambi falliscono, il problema è il **Routing** o la connessione fisica.
+> * **Risposte comuni:**
+>   - *Reply from...*: Connessione riuscita.
+>   - *Request Timed Out*: Il dispositivo non risponde (o un firewall scarta il pacchetto).
+>   - *Destination Host Unreachable*: Il gateway non ha una rotta per la destinazione.
+
 ---
 
 ### 17.4.2 Ping Esteso
@@ -116,6 +129,14 @@ R1#
 
 > [!NOTE]
 > Per i ping estesi in ambiente **IPv6**, utilizzare il comando `ping ipv6`.
+
+> [!TIP]
+> ### Il Potere del Ping Esteso (Extended Ping)
+> Mentre il ping standard verifica solo la raggiungibilità di base, il **Ping Esteso** su Cisco IOS permette di isolare i problemi di routing e firewall complessi.
+>
+> * **Accesso:** Si attiva digitando `ping` in modalità `Router#` senza argomenti.
+> * **Parametro Critico (Source Address):** Permette di testare la connettività simulando che il traffico provenga da una specifica interfaccia o VLAN. È fondamentale per diagnosticare problemi di rotte di ritorno o liste di controllo degli accessi (ACL).
+> * **Test di Stress:** Modificando la dimensione del pacchetto (`Size`) e il numero di ripetizioni (`Repeat Count`), è possibile individuare colli di bottiglia o problemi di integrità fisica dei cavi che un ping normale non rileverebbe.
 
 ---
 
@@ -193,6 +214,18 @@ I timeout a partire dall'hop 3 indicano che PC B non è raggiungibile.
 > [!IMPORTANT]
 > L'implementazione Windows di `tracert` invia **Echo Request ICMP**. Cisco IOS e Linux utilizzano invece **UDP con numero di porta non valido**: la destinazione finale risponderà con un messaggio ICMP **Port Unreachable**.
 
+> [!IMPORTANT]
+> ### Traceroute: Analisi dei Salti (Hop-by-Hop)
+> Il comando `traceroute` è essenziale per localizzare guasti lungo il percorso di rete sfruttando il campo **TTL** dell'intestazione IP.
+>
+> * **Funzionamento:** Incrementa il TTL di un'unità per ogni serie di pacchetti inviati, forzando ogni router lungo il percorso a generare un messaggio di errore "ICMP Time Exceeded".
+> * **Diagnostica:**
+>   - **Latenza:** Permette di individuare quale router o link sta causando ritardi.
+>   - **Routing Loop:** Se vedi il pacchetto rimbalzare tra due IP, hai identificato un loop di routing.
+> * **Comandi:** Ricorda la distinzione tra `tracert` (Windows/ICMP) e `traceroute` (Cisco-Linux/UDP).
+>
+> **Nota:** Molti amministratori di rete bloccano i messaggi ICMP in entrata. In questi casi, il traceroute potrebbe mostrare `* * *` anche se la connessione verso la destinazione finale è attiva.
+
 ---
 
 ### 17.4.4 Traceroute Esteso
@@ -256,6 +289,13 @@ R1#
 > [!TIP]
 > Premere **Invio** ai prompt interattivi per accettare i valori di default indicati tra parentesi quadre.
 
+> [!TIP]
+> ### Quando usare il Traceroute Esteso?
+> Il Traceroute Esteso è lo strumento definitivo per diagnosticare problemi di instradamento complesso in reti aziendali:
+>
+> * **Test delle Rotte di Ritorno:** Specificando una sorgente diversa (es. l'IP della VLAN interna), puoi verificare se i router remoti sanno come "tornare indietro" verso i tuoi client.
+> * **Isolamento dei Firewall:** Cambiando le porte UDP o i parametri di timeout, puoi capire se un apparato di sicurezza sta scartando il traffico in base al tipo di pacchetto.
+> * **Ottimizzazione:** L'opzione `Numeric Display` è consigliata se il server DNS della rete è lento o non raggiungibile, evitando attese inutili tra un salto e l'altro.
 ---
 
 ### 17.4.5 Baseline di Rete
@@ -328,6 +368,16 @@ Round-trip time: **~48 ms** → aumento significativo rispetto alla baseline, po
 
 > [!TIP]
 > Per le reti aziendali sono disponibili **strumenti software professionali** per l'archiviazione e l'aggiornamento automatico delle informazioni di baseline. Per approfondire le best practice Cisco, cercare su Internet: *"Baseline Process Best Practices"*.
+
+> [!IMPORTANT]
+> ### La Baseline di Rete: Il tuo "Termometro" Aziendale
+> Una baseline è un insieme di dati storici che definiscono il comportamento normale della rete. Senza di essa, è impossibile diagnosticare anomalie in modo oggettivo.
+>
+> * **Cosa misurare:** Non limitarti al `ping`. Documenta l'utilizzo della banda, i tempi di risposta dei servizi core e il carico di lavoro degli apparati (CPU/RAM).
+> * **Quando misurare:** Effettua rilevazioni periodiche (giornaliere, settimanali e mensili) per catturare i diversi pattern di utilizzo.
+> * **Utilità nel Troubleshooting:** Quando un utente dice "la rete è lenta", confronta i dati attuali con la baseline. Se la latenza media è passata da 20ms (baseline) a 200ms, hai la prova statistica del degrado.
+>
+> **Ricorda:** La baseline va aggiornata ogni volta che la topologia di rete cambia (es. aggiunta di nuovi switch o aumento della banda internet).
 
 ---
 
