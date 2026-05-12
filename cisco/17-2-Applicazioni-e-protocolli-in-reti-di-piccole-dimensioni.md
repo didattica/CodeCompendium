@@ -223,6 +223,15 @@ L'amministratore di rete deve garantire che:
 > * **Protocolli Real-Time:** La voce e il video utilizzano **UDP** combinato con **RTP** (Real-Time Transport Protocol). A differenza del TCP, l'RTP non chiede la rispedizione dei pacchetti persi (che causerebbe ritardi inaccettabili), ma aiuta il ricevente a riordinare i pacchetti.
 > * **Infrastruttura Moderna:** La maggiore velocità delle linee attuali riduce la latenza, ma il design della rete deve comunque prevedere una **VLAN Voce** dedicata e politiche di **QoS** per proteggere il traffico durante i picchi di utilizzo.
 
+> [!CAUTION]
+> ### RTP: L'alleato di UDP per il Real-Time
+> È un errore comune pensare che RTP sia un'alternativa a UDP. In realtà, lavorano insieme:
+> 
+> * **UDP (Livello 4):** Si occupa del trasporto veloce "senza fronzoli". Non garantisce l'ordine né la consegna.
+> * **RTP (Livello 7):** Viene incapsulato dentro UDP e aggiunge le informazioni necessarie per la multimedialità: **numeri di sequenza** per l'ordine e **timestamp** per la sincronizzazione temporale.
+>
+> **Punto chiave:** Se un pacchetto RTP va perso, non viene recuperato. La priorità è la continuità del flusso (tempo reale), non l'integrità assoluta del dato.
+
 ---
 
 ## ✅ Domande di Verifica — Modulo 17.2
