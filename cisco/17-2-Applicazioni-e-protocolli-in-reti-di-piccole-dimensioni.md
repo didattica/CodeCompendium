@@ -42,6 +42,16 @@ Benché trasparenti all'utente finale, questi servizi rappresentano i programmi 
 
 > **Strumento utile:** Su un sistema Windows è possibile utilizzare **Gestione Attività** per visualizzare le applicazioni, i processi e i servizi in esecuzione sul computer.
 
+> [!TIP]
+> ### Monitoraggio delle Applicazioni e Troubleshooting
+> Per identificare problemi di rete a livello di host, è fondamentale saper distinguere tra il carico generato dal sistema e i problemi della rete stessa.
+>
+> * **Gestione Attività (Task Manager):** Permette di visualizzare in tempo reale quali applicazioni stanno consumando banda. È il primo strumento di analisi per escludere "colli di bottiglia" causati da software locali (es. aggiornamenti in background).
+> * **Monitoraggio Risorse:** Offre una vista dettagliata, mostrando non solo i processi, ma anche gli indirizzi IP di destinazione con cui ogni applicazione sta comunicando.
+> * **Connessione ai Protocolli:** Ricorda che un'applicazione (Livello 7) utilizza protocolli specifici (es. HTTP/HTTPS) e porte TCP/UDP (Livello 4) per trasmettere dati.
+>
+> **Nota pratica:** Se il Task Manager mostra un utilizzo di rete al 100%, il problema è l'host. Se l'utilizzo è vicino allo 0% ma i servizi non funzionano, il problema è probabilmente nella configurazione di rete o nei servizi remoti.
+
 ---
 
 ### 17.2.2 Protocolli Comuni
@@ -137,6 +147,29 @@ I protocolli di rete costituiscono gli strumenti fondamentali di un professionis
 
 > **Best practice:** Molte aziende hanno stabilito una politica per l'utilizzo di **versioni sicure** dei protocolli (es. SSH, SFTP, HTTPS) ove possibile.
 
+> [!NOTE]
+> ### Protocolli di Rete Comuni e Porte Standard
+> I servizi di rete si basano su protocolli specifici che operano a livello applicativo e utilizzano porte TCP/UDP predefinite:
+>
+> | Servizio | Protocollo | Porta | Descrizione |
+> | :--- | :--- | :--- | :--- |
+> | **Web** | HTTP / HTTPS | 80 / 443 | Accesso ai siti web (HTTPS è cifrato tramite TLS/SSL). |
+> | **File** | FTP / SFTP | 21 / 22 | Trasferimento file. SFTP usa SSH per la sicurezza. |
+> | **Email** | SMTP / POP3 | 25 / 110 | SMTP invia, POP3 scarica la posta localmente. |
+> | **Indirizzi** | DHCP | 67 (S) / 68 (C) | Assegna automaticamente la configurazione IP agli host. |
+> | **Nomi** | DNS | 53 | Risolve i nomi di dominio (es. google.com) in indirizzi IP. |
+>
+> **Focus DHCP (Processo DORA):** Ricorda l'acronimo **DORA** (*Discover, Offer, Request, Acknowledgment*) per memorizzare le quattro fasi dello scambio di messaggi tra client e server.
+
+
+> [!NOTE]
+> ### Perché il DNS preferisce UDP?
+> Il DNS utilizza principalmente la porta **53 UDP** per massimizzare la velocità e ridurre il carico sulla rete.
+>
+> * **Efficienza:** Una risoluzione DNS consiste in una singola domanda e una singola risposta. L'overhead della "stretta di mano" (handshake) di TCP renderebbe il caricamento delle pagine web molto più lento.
+> * **Gestione degli errori:** Poiché le query DNS sono brevi, è più veloce inviare nuovamente un pacchetto UDP smarrito piuttosto che mantenere una connessione TCP persistente.
+> * **Uso di TCP:** Il DNS passa a TCP solo per operazioni pesanti, come il trasferimento di intere zone tra server o quando la risposta è troppo grande per i limiti dell'UDP.
+
 ---
 
 ### 17.2.3 Applicazioni Voce e Video
@@ -181,6 +214,14 @@ L'amministratore di rete deve garantire che:
 |---|---|---|
 | **RTP** | Real-Time Transport Protocol | Trasporto dei dati multimediali in tempo reale |
 | **RTCP** | Real-Time Transport Control Protocol | Monitoraggio e controllo della qualità della sessione RTP |
+
+> [!IMPORTANT]
+> ### L'Evoluzione della Voce su IP (VoIP)
+> Sebbene le moderne piattaforme come Google Meet o Microsoft Teams abbiano semplificato l'accesso alle comunicazioni, l'infrastruttura sottostante poggia su concetti critici di networking:
+>
+> * **VoIP vs Telefonia IP:** Il VoIP è il metodo di trasporto; la Telefonia IP è l'ecosistema che include telefoni, server (IP-PBX) e servizi.
+> * **Protocolli Real-Time:** La voce e il video utilizzano **UDP** combinato con **RTP** (Real-Time Transport Protocol). A differenza del TCP, l'RTP non chiede la rispedizione dei pacchetti persi (che causerebbe ritardi inaccettabili), ma aiuta il ricevente a riordinare i pacchetti.
+> * **Infrastruttura Moderna:** La maggiore velocità delle linee attuali riduce la latenza, ma il design della rete deve comunque prevedere una **VLAN Voce** dedicata e politiche di **QoS** per proteggere il traffico durante i picchi di utilizzo.
 
 ---
 
