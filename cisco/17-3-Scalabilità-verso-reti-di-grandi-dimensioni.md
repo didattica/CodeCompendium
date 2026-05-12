@@ -64,6 +64,39 @@ Questa analisi consente di prendere decisioni su come gestire il traffico in mod
 > [!TIP]
 > In alcuni casi, riassegnare semplicemente un server o un servizio a un altro segmento di rete è sufficiente per migliorare le prestazioni. In altri casi, può rendersi necessaria una **riprogettazione completa** della rete.
 
+> [!TIP]
+> ### Wireshark: Il Microscopio della Rete
+> Wireshark è un analizzatore di protocolli (packet sniffer) fondamentale per il troubleshooting e lo studio del modello OSI.
+>
+> * **Analisi dell'Incapsulamento:** Permette di "smontare" ogni pacchetto per vedere come le intestazioni (headers) cambiano a ogni livello. 
+> * **Campi Chiave da Osservare:**
+>   - **Layer 3:** Versione IP (IPv4 vs IPv6), indirizzi sorgente/destinazione e campo TTL.
+>   - **Layer 4:** Numeri di sequenza (per TCP) e porte sorgente/destinazione.
+> * **Utilità Pratica:** È possibile catturare il processo di "handshake" a tre vie del TCP o vedere in chiaro le query DNS inviate tramite UDP.
+>
+> **Nota:** Ricorda che Wireshark cattura tutto ciò che arriva alla scheda di rete. Usa i **filtri di visualizzazione** per isolare solo il traffico che ti interessa analizzare.
+
+> [!IMPORTANT]
+> ### Analisi dell'Incapsulamento con Wireshark
+> Wireshark permette di visualizzare come i dati vengono "impacchettati" man mano che scendono lungo la pila protocollare:
+> 
+> * **L2 (Ethernet):** Gestisce l'invio fisico tra dispositivi sulla stessa rete (MAC Address).
+> * **L3 (IPv4/IPv6):** Gestisce l'instradamento logico tra reti diverse (IP Address).
+> * **L4 (TCP/UDP):** Gestisce la comunicazione end-to-end e la distinzione dei servizi tramite le **Porte**.
+> * **L7 (Applicazione):** Contiene il messaggio finale leggibile dall'utente o dal software.
+>
+> **Errore comune da evitare:** Ricorda che l'IP risiede al **Livello 3**, mentre TCP e UDP risiedono al **Livello 4**. Wireshark mostra questi livelli esattamente in quest'ordine gerarchico.
+
+> [!WARNING]
+> ### Etica e Limiti della Cattura Pacchetti
+> Sebbene Wireshark permetta di visualizzare i dati in transito, è importante comprenderne i limiti tecnici e legali:
+>
+> * **Cifratura (TLS/SSL):** La maggior parte del traffico moderno (HTTPS, SSH, SFTP) è cifrata. Wireshark mostrerà i pacchetti, ma il contenuto del Livello 7 sarà illeggibile senza le relative chiavi di decriptazione.
+> * **Protocolli insicuri:** Protocolli obsoleti come HTTP o Telnet trasmettono dati "in chiaro". In questo caso, chiunque catturi i pacchetti può leggere informazioni sensibili come le password.
+> * **Legalità:** L'intercettazione di dati su reti di cui non si è proprietari o senza autorizzazione è illegale. Wireshark deve essere utilizzato esclusivamente per scopi didattici, di manutenzione o sicurezza autorizzata.
+>
+> **Ricorda:** Wireshark è come uno scanner che legge le etichette sui pacchi postali; se il pacco è blindato (cifrato), non potrai vederne il contenuto senza la chiave.
+
 ---
 
 ### 17.3.3 Utilizzo della Rete da Parte dei Dipendenti
@@ -103,6 +136,14 @@ Settings > Network & Internet > Data usage > [interfaccia di rete]
 ```
 
 Questo strumento mostra il consumo di rete per singola applicazione negli **ultimi 30 giorni**, ed è molto utile per analizzare l'utilizzo su host remoti connessi tramite Wi-Fi o altre interfacce.
+
+> [!TIP]
+> ### Monitoraggio dell'Utilizzo Dati e Baseline
+> Il monitoraggio delle applicazioni non serve solo a controllare i dipendenti, ma è uno strumento diagnostico essenziale per mantenere la salute della rete.
+>
+> * **Analisi dei Picchi:** Utilizzare le impostazioni di sistema ("Utilizzo dati") o il "Monitoraggio Risorse" per identificare processi che saturano la banda (es. sincronizzazioni Cloud o Streaming video).
+> * **Creazione di una Baseline:** È fondamentale conoscere il consumo tipico della rete in condizioni normali. Qualsiasi deviazione significativa da questa base può indicare un guasto tecnico, un uso improprio o un problema di sicurezza.
+> * **Strumenti Professionali:** Mentre il singolo utente guarda il proprio PC, l'amministratore di rete utilizza strumenti come **Cisco NetFlow** per avere una visibilità completa su quali protocolli e quali host stanno generando traffico.
 
 ---
 
