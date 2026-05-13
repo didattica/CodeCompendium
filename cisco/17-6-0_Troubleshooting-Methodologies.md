@@ -10,6 +10,15 @@
 > Lo scenario, invece, è il caso specifico del paziente che arriva con sintomi come tosse, mal di testa e febbre.
 > In questo contesto, la metodologia rappresenta il processo standard di diagnosi e cura, mentre lo scenario è il singolo paziente con i suoi sintomi particolari su cui applicare quel processo.
 
+## 📚 Indice
+
+- [17.6.1 Approccio Base alla Risoluzione dei Problemi](#1761-approccio-base-alla-risoluzione-dei-problemi)
+- [17.6.2 Risolvere il Problema o Riassegnarlo?](#1762-risolvere-il-problema-o-riassegnarlo)
+- [17.6.3 Il Comando debug](#1763-il-comando-debug)
+- [17.6.4 Il Comando terminal monitor](#1764-il-comando-terminal-monitor)
+- [Domande di Verifica](#domande-di-verifica)
+- [Glossario / Ripasso Rapido](#glossario--ripasso-rapido)
+
 ## 17.6.1 Approccio Base alla Risoluzione dei Problemi
 
 Nei moduli precedenti sono state introdotte utilità e comandi utili per identificare le aree problematiche della rete. La risoluzione dei problemi è una competenza fondamentale per qualsiasi amministratore di rete.
