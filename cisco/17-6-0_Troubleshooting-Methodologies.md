@@ -2,6 +2,14 @@
 
 ---
 
+> [!TIP]
+> Una metodologia è un insieme strutturato di passi e approcci generali per analizzare e risolvere un problema.<br>
+> Uno scenario è la situazione concreta in cui quel problema si manifesta.
+> 
+> Facendo un’analogia con il campo medico, la metodologia corrisponde al modo di lavorare del medico: misurare la temperatura, raccogliere i sintomi, eseguire eventuali analisi e arrivare a una diagnosi prima di prescrivere una terapia.<br>
+> Lo scenario, invece, è il caso specifico del paziente che arriva con sintomi come tosse, mal di testa e febbre.
+> In questo contesto, la metodologia rappresenta il processo standard di diagnosi e cura, mentre lo scenario è il singolo paziente con i suoi sintomi particolari su cui applicare quel processo.
+
 ## 17.6.1 Approccio Base alla Risoluzione dei Problemi
 
 Nei moduli precedenti sono state introdotte utilità e comandi utili per identificare le aree problematiche della rete. La risoluzione dei problemi è una competenza fondamentale per qualsiasi amministratore di rete.
