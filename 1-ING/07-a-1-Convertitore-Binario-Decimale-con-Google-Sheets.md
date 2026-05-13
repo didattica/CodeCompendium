@@ -1,45 +1,46 @@
 # Esercitazione: Conversione Binaria → Decimale con Google Sheets
 
-Questa esercitazione guida nella costruzione di una tabella che converte un numero binario in decimale utilizzando **Google Sheets**.
+Questa esercitazione mostra come convertire un numero binario in decimale utilizzando **Google Sheets**, senza usare formule automatiche avanzate come `SUMPRODUCT()`.
 
-L’obiettivo è eseguire il calcolo in modo esplicito:
+L’obiettivo è comprendere chiaramente tutti i passaggi del calcolo:
 
-1. identificare i pesi delle potenze di 2;
-2. moltiplicare ogni bit per il proprio peso;
-3. sommare i prodotti ottenuti;
-4. automatizzare la copia delle formule tramite trascinamento.
+1. costruzione delle potenze di 2;
+2. inserimento dei bit;
+3. calcolo dei prodotti;
+4. somma finale dei risultati.
 
 ---
 
 # Obiettivi
 
-Al termine dell’esercitazione saprai:
+Al termine dell’attività saprai:
 
-* rappresentare un numero binario in tabella;
+* costruire una tabella binaria ordinata;
 * associare ogni colonna alla corretta potenza di 2;
-* calcolare i prodotti singolarmente;
+* moltiplicare ogni bit per il proprio peso;
 * utilizzare il trascinamento automatico delle formule;
 * ottenere il valore decimale finale tramite somma.
 
 > [!NOTE]
-> In questa attività **non** utilizziamo formule avanzate come `SUMPRODUCT()`.
+> In questa esercitazione il calcolo viene svolto **passo per passo**.
 >
-> Lo scopo è comprendere chiaramente ogni fase del procedimento:
+> Non utilizziamo `SUMPRODUCT()` perché vogliamo vedere separatamente:
 >
-> 1. bit;
-> 2. peso;
-> 3. prodotto;
-> 4. somma finale.
+> * le potenze;
+> * i prodotti;
+> * la somma finale.
 
 ---
 
 # 1 — Preparazione della tabella
 
-Apri un nuovo foglio Google e inserisci la seguente struttura.
+Apri un nuovo foglio Google e crea questa struttura.
 
 ---
 
-## Riga degli esponenti
+# Riga 1 — Esponenti
+
+Inserisci gli esponenti delle potenze di 2.
 
 |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
@@ -47,26 +48,27 @@ Apri un nuovo foglio Google e inserisci la seguente struttura.
 
 ---
 
-## Riga dei pesi binari
+# Riga 2 — Potenze di 2
 
-Nella riga successiva inserisci:
+Nella riga successiva inserisci i valori delle potenze:
 
 |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | 128 |  64 |  32 |  16 |  8  |  4  |  2  |  1  |
 
 > [!IMPORTANT]
-> Ogni valore rappresenta una potenza di 2:
+> Ogni numero rappresenta una potenza di 2:
 >
 > * 2⁷ = 128
 > * 2⁶ = 64
 > * 2⁵ = 32
+> * 2⁴ = 16
 > * …
 > * 2⁰ = 1
 
 ---
 
-## Riga dei bit
+# Riga 3 — Numero binario
 
 Inserisci ora i bit del numero binario:
 
@@ -74,9 +76,9 @@ Inserisci ora i bit del numero binario:
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 |  0  |  0  |  1  |  0  |  0  |  0  |  1  |  1  |
 
-Questo numero binario è:
+Il numero binario rappresentato è:
 
-```text id="binario1"
+```text id="binario"
 00100011
 ```
 
@@ -84,44 +86,47 @@ Questo numero binario è:
 
 # 2 — Calcolo dei prodotti
 
-Sotto la riga dei bit crea una nuova riga dedicata ai prodotti.
+Ora bisogna moltiplicare ogni bit per il proprio peso binario.
 
-Ogni colonna deve moltiplicare:
-
-```text id="formula-base"
-bit × peso
-```
+Crea una nuova riga sotto i bit.
 
 ---
 
-## Inserimento della prima formula
+# Prima formula
 
 Nella cella `A4` scrivi:
 
-```gs id="prodottoA"
+```gs id="formulaA4"
 =A3*A2
 ```
 
-Questa formula moltiplica:
+Questa formula significa:
 
-* il bit presente in `A3`
-* per il peso presente in `A2`
+```text id="spiegazioneA4"
+bit × potenza
+```
+
+quindi:
+
+```text id="spiegazioneA4b"
+0 × 128
+```
 
 ---
 
-## Copia automatica delle formule
+# Copia automatica delle formule
 
 > [!TIP]
-> **Non serve scrivere manualmente una formula per ogni colonna**
+> Non serve scrivere manualmente una formula per ogni colonna.
 >
-> Dopo aver inserito la formula nella prima cella:
+> Dopo aver scritto la prima formula:
 >
 > 1. seleziona la cella `A4`;
-> 2. sposta il cursore nell’angolo in basso a destra della cella;
-> 3. comparirà una piccola **croce blu** (`+`);
+> 2. sposta il cursore nell’angolo in basso a destra;
+> 3. apparirà una piccola croce blu (`+`);
 > 4. trascina verso destra fino alla colonna `H`.
 >
-> Google Sheets copierà automaticamente la formula adattando i riferimenti:
+> Google Sheets copierà automaticamente la formula aggiornando i riferimenti:
 >
 > * `=B3*B2`
 > * `=C3*C2`
@@ -129,64 +134,66 @@ Questa formula moltiplica:
 > * …
 
 > [!IMPORTANT]
-> Questo meccanismo si chiama **riferimento relativo**.
+> Questo comportamento utilizza i **riferimenti relativi**.
 >
-> Quando trascini una formula, Google Sheets aggiorna automaticamente lettere e numeri delle celle.
+> Quando trascini una formula, Google Sheets modifica automaticamente lettere e numeri delle celle.
 
 ---
 
-# Risultato atteso dei prodotti
+# Riga dei prodotti — Risultato atteso
 
 |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 |  0  |  0  |  32 |  0  |  0  |  0  |  2  |  1  |
 
+---
+
+# Interpretazione dei prodotti
+
+Le uniche colonne che contribuiscono al risultato finale sono quelle in cui il bit vale `1`.
+
+In questo esempio:
+
+| Bit attivo | Potenza |
+| ---------- | ------- |
+| 1          | 32      |
+| 1          | 2       |
+| 1          | 1       |
+
 > [!TIP]
-> Quando il bit vale `0`, anche il prodotto vale `0`.
->
-> Solo le colonne con bit uguale a `1` contribuiscono al risultato finale.
+> Se il bit vale `0`, il prodotto sarà sempre `0`.
 
 ---
 
-# 3 — Somma finale dei prodotti
+# 3 — Somma finale
 
-Nella cella finale (ad esempio `H5`) inserisci:
+Dopo aver ottenuto tutti i prodotti, bisogna sommarli.
+
+Nella cella finale (ad esempio `H5`) scrivi:
 
 ```gs id="sommafinale"
 =SOMMA(A4:H4)
 ```
 
-Il risultato ottenuto sarà:
-
-```text id="risultato35"
-35
-```
-
 ---
 
-# Interpretazione del risultato
+# Risultato finale
 
-Il numero binario:
+Il risultato ottenuto sarà:
 
-```text id="numero-binario"
-00100011
-```
-
-corrisponde al numero decimale:
-
-```text id="numero-decimale"
+```text id="risultato"
 35
 ```
 
 perché:
 
-```text id="somma35"
+```text id="sommaesplicita"
 32 + 2 + 1 = 35
 ```
 
 ---
 
-# Schema completo finale
+# Tabella completa finale
 
 |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |
 | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
@@ -197,7 +204,7 @@ perché:
 
 Valore finale:
 
-```text id="finale35"
+```text id="valorefinale"
 35
 ```
 
@@ -205,7 +212,7 @@ Valore finale:
 
 # 4 — Formattazione condizionale (facoltativa)
 
-Puoi evidenziare automaticamente i bit attivi (`1`) con una formattazione condizionale.
+Puoi evidenziare automaticamente i bit attivi (`1`).
 
 ## Procedura
 
@@ -219,24 +226,20 @@ Puoi evidenziare automaticamente i bit attivi (`1`) con una formattazione condiz
    * colore verde chiaro
 
 > [!WARNING]
-> Assicurati di selezionare solo la riga dei bit.
->
-> Se includi anche la riga dei pesi, verranno colorati anche i valori `1` presenti nei pesi binari.
+> Se selezioni anche la riga delle potenze, verranno evidenziati anche i valori `1` presenti nei pesi binari.
 
 ---
 
 # Per approfondire
 
-Questo metodo è esattamente il procedimento utilizzato internamente dai computer per interpretare i numeri binari.
+Questo procedimento è il metodo reale utilizzato dai computer per interpretare i numeri binari.
 
-Ogni bit attivo (`1`) “accende” il corrispondente peso della potenza di 2.
+Ogni bit acceso (`1`) attiva la corrispondente potenza di 2.
 
-La somma finale dei pesi attivi produce il valore decimale.
+La somma finale delle potenze attive produce il numero decimale.
 
 > [!IMPORTANT]
-> Questo esercizio introduce il principio fondamentale della rappresentazione binaria:
->
-> ogni numero è una combinazione di potenze di 2.
+> Tutti i dati digitali nei computer vengono rappresentati tramite combinazioni di bit (`0` e `1`).
 
 ---
 
