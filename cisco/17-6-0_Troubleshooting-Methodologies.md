@@ -148,6 +148,24 @@ Le connessioni all'interfaccia CLI (Command Line Interface) di Cisco IOS possono
 - **Localmente** — Connessione fisica alla **porta console** del router o switch tramite un cavo di rollover.
 - **In remoto** — Connessione tramite **Telnet** o **SSH** a un dispositivo con IP configurato.
 
+### 🔧 Prerequisiti di configurazione (accesso remoto e privilegi - Abilitazione accesso Telnet (VTY)
+
+Se nella topologia non è presente un terminale Telnet già configurato, è necessario abilitare le linee VTY e impostare una password:
+
+```bash id="pre2"
+line vty 0 4
+ password cisco
+ login
+````
+
+Per poter eseguire comandi avanzati come `debug`, è necessario configurare una password di enable:
+
+```bash id="pre3"
+enable secret cisco
+```
+
+
+
 ### Problema con le connessioni remote
 
 Per impostazione predefinita, l'output del comando `debug` viene visualizzato **solo sulle connessioni console** e **non** sulle connessioni remote (Telnet/SSH), perché i messaggi di log vengono bloccati sulle linee VTY.
