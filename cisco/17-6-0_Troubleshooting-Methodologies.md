@@ -156,6 +156,7 @@ Se nella topologia non è presente un terminale Telnet già configurato, è nece
 line vty 0 4
  password cisco
  login
+ transport input ssh !opzionale
 ````
 
 Per poter eseguire comandi avanzati come `debug`, è necessario configurare una password di enable:
