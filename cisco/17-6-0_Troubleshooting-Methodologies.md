@@ -34,6 +34,24 @@ Una metodologia comune ed efficiente si basa sul **metodo scientifico** ed è ar
 ---
 
 > [!TIP]
+> ### 💡 Mnemonico per ricordare il processo
+> Per memorizzare facilmente i passaggi del troubleshooting, puoi usare la seguente frase:
+>
+> **“I Have The Problem, Verify Done”**
+>
+> Questo corrisponde ai sei step:
+> - **I** → Identify  
+> - **H** → Hypothesize  
+> - **T** → Test  
+> - **P** → Plan  
+> - **V** → Validate  
+> - **D** → Document  
+>
+> In questo modo il processo diventa un flusso logico facile da ricordare e applicare anche in situazioni reali.
+
+---
+
+> [!NOTE]
 > ### 💡 Suggerimento operativo
 > Per valutare correttamente il problema, stabilisci **quanti dispositivi** nella rete sono coinvolti:
 > - Se il problema riguarda **un solo dispositivo**, avvia il troubleshooting da quel dispositivo.
