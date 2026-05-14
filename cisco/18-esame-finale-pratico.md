@@ -101,6 +101,35 @@ R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
 > Il comando `no shutdown` è obbligatorio.
 > Senza di esso l’interfaccia rimane disattivata (`administratively down`).
 
+> [!IMPORTANT]
+>
+> ## Come funziona una Route Statica
+>
+> Il comando:
+>
+> ```ios id="wvl8s5"
+> ip route 192.168.1.0 255.255.255.0 10.0.0.1
+> ```
+>
+> significa:
+>
+> > “Per raggiungere la rete `192.168.1.0/24`, invia i pacchetti al router `10.0.0.1`.”
+>
+> Una route statica ha sempre questa struttura:
+>
+> ```ios id="7m4v5s"
+> ip route [rete-destinazione] [subnet-mask] [next-hop]
+> ```
+>
+> Dove:
+>
+> * `rete-destinazione` → rete che vogliamo raggiungere
+> * `subnet-mask` → maschera della rete
+> * `next-hop` → IP del router vicino a cui inoltrare i pacchetti
+>
+> Senza una route statica, il router non saprebbe dove inviare i pacchetti destinati a reti remote.
+
+
 ---
 
 ## Configurazione Router R2
