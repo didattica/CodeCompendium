@@ -1,59 +1,199 @@
-# Tempi del modo indicativo
+# Verbi ausiliari
 
-## Tempi semplici
+## Essere
+- io sono
+- io ero
+- io fui
+- io sarò
+
+## Avere
+- io ho
+- io avevo
+- io ebbi
+- io avrò
+
+
+# Prima coniugazione (-ARE)
+
+## Esempio: amare
+
+### Modo indicativo
+
+#### Tempi semplici
 1. Presente  
-   → io mangio
+   → io amo
 
 2. Imperfetto  
-   → io mangiavo
+   → io amavo
 
 3. Passato remoto  
-   → io mangiai
+   → io amai
 
 4. Futuro semplice  
-   → io mangerò
+   → io amerò
 
-
-## Tempi composti
+#### Tempi composti
 5. Passato prossimo  
-   → io ho mangiato
+   → io ho amato
 
 6. Trapassato prossimo  
-   → io avevo mangiato
+   → io avevo amato
 
 7. Trapassato remoto  
-   → io ebbi mangiato
+   → io ebbi amato
 
 8. Futuro anteriore  
-   → io avrò mangiato
+   → io avrò amato
 
-# Tempi del modo congiuntivo
 
-## Tempi semplici
+### Modo congiuntivo
+
+#### Tempi semplici
 1. Presente  
-   → che io mangi
+   → che io ami
 
 2. Imperfetto  
-   → che io mangiassi
+   → che io amassi
 
-
-## Tempi composti
+#### Tempi composti
 3. Passato  
-   → che io abbia mangiato
+   → che io abbia amato
 
 4. Trapassato  
-   → che io avessi mangiato
+   → che io avessi amato
 
 
-# Tempi del modo imperativo
+### Modo imperativo
 
-## Tempo semplice
+#### Tempo semplice
 1. Presente  
-   → mangia!  
-   → mangiate!
+   → ama!  
+   → amate!
 
-
-## Tempo composto
+#### Tempo composto
 2. Imperativo passato  
-   → abbi mangiato  
-   → siate arrivati
+   → abbi amato
+
+
+# Seconda coniugazione (-ERE)
+
+## Esempio: temere
+
+### Modo indicativo
+
+#### Tempi semplici
+1. Presente  
+   → io temo
+
+2. Imperfetto  
+   → io temevo
+
+3. Passato remoto  
+   → io temei
+
+4. Futuro semplice  
+   → io temerò
+
+#### Tempi composti
+5. Passato prossimo  
+   → io ho temuto
+
+6. Trapassato prossimo  
+   → io avevo temuto
+
+7. Trapassato remoto  
+   → io ebbi temuto
+
+8. Futuro anteriore  
+   → io avrò temuto
+
+
+### Modo congiuntivo
+
+#### Tempi semplici
+1. Presente  
+   → che io tema
+
+2. Imperfetto  
+   → che io temessi
+
+#### Tempi composti
+3. Passato  
+   → che io abbia temuto
+
+4. Trapassato  
+   → che io avessi temuto
+
+
+### Modo imperativo
+
+#### Tempo semplice
+1. Presente  
+   → temi!  
+   → temete!
+
+#### Tempo composto
+2. Imperativo passato  
+   → abbi temuto
+
+
+# Terza coniugazione (-IRE)
+
+## Esempio: dormire
+
+### Modo indicativo
+
+#### Tempi semplici
+1. Presente  
+   → io dormo
+
+2. Imperfetto  
+   → io dormivo
+
+3. Passato remoto  
+   → io dormii
+
+4. Futuro semplice  
+   → io dormirò
+
+#### Tempi composti
+5. Passato prossimo  
+   → io ho dormito
+
+6. Trapassato prossimo  
+   → io avevo dormito
+
+7. Trapassato remoto  
+   → io ebbi dormito
+
+8. Futuro anteriore  
+   → io avrò dormito
+
+
+### Modo congiuntivo
+
+#### Tempi semplici
+1. Presente  
+   → che io dorma
+
+2. Imperfetto  
+   → che io dormissi
+
+#### Tempi composti
+3. Passato  
+   → che io abbia dormito
+
+4. Trapassato  
+   → che io avessi dormito
+
+
+### Modo imperativo
+
+#### Tempo semplice
+1. Presente  
+   → dormi!  
+   → dormite!
+
+#### Tempo composto
+2. Imperativo passato  
+   → abbi dormito
