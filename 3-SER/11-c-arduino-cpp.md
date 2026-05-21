@@ -122,8 +122,8 @@ Il diagramma seguente illustra il ciclo di vita di un programma Arduino dall'acc
 ```mermaid
 flowchart TD
     A([Alimentazione / Reset]) --> B[Inizializzazione hardware di sistema]
-    B --> C[Esecuzione di setup()]
-    C --> D[Esecuzione di loop()]
+    B --> C[Esecuzione di setup#40;#41;]
+    C --> D[Esecuzione di loop#40;#41;]
     D --> E{Alimentazione\npresente?}
     E -- Sì --> D
     E -- No --> F([Arresto])
