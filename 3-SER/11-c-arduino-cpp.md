@@ -52,7 +52,7 @@ L'ambiente di sviluppo Arduino (Arduino IDE) adotta una variante semplificata de
 3. **Upload:** il binario viene trasferito sulla memoria flash del microcontrollore tramite un programmatore seriale (tipicamente integrato nella scheda);
 4. **Esecuzione:** il microcontrollore esegue direttamente il codice in linguaggio macchina.
 
-> **Nota tecnica**
+> [!NOTE]
 > Un **microcontrollore** è un circuito integrato che incorpora in un unico chip un processore (CPU), memoria volatile (RAM), memoria non volatile (Flash/EEPROM) e periferiche di input/output. Differisce da un microprocessore generico per la sua natura autosufficiente e l'ottimizzazione per applicazioni embedded.
 
 Le librerie hardware Arduino forniscono un'interfaccia software (API — *Application Programming Interface*) per l'accesso semplificato a:
@@ -78,7 +78,7 @@ void loop() {
 }
 ```
 
-> **Nota tecnica**
+> [!NOTE]
 > La funzione `main()` del C++ standard è presente ma nascosta nell'infrastruttura di Arduino. Internamente, `main()` invoca `setup()` una volta, quindi chiama `loop()` in un ciclo infinito. Questa astrazione semplifica lo sviluppo per utenti non esperti di programmazione sistemi.
 
 ### 2.1 Funzione `setup()`
@@ -146,7 +146,7 @@ La tabella seguente riassume i tipi primitivi più utilizzati in Arduino:
 | `bool`   | 1 byte                   | `true` / `false`                  | Valori logici, flag di stato       |
 | `byte`   | 1 byte (8 bit)           | 0 → 255                           | Dati binari, registri hardware     |
 
-> **Avvertenza**
+> [!WARNING]
 > Su Arduino Uno (microcontrollore ATmega328P), il tipo `int` occupa **2 byte** (16 bit), a differenza dei sistemi a 32 o 64 bit dove tipicamente occupa 4 byte. Questa differenza può causare overflow aritmetici in codice non progettato specificamente per la piattaforma AVR.
 
 Esempi di dichiarazione e inizializzazione:
@@ -172,7 +172,7 @@ bool statoLed = false;
 | `/`       | Divisione               | `10 / 3`         | `3` (intera) |
 | `%`       | Resto della divisione   | `10 % 3`         | `1`       |
 
-> **Nota tecnica**
+> [!NOTE]
 > L'operatore `/` applicato a due operandi interi produce una **divisione intera** (troncamento verso zero). Per ottenere un risultato in virgola mobile, almeno uno degli operandi deve essere di tipo `float`: `10.0 / 3` produce `3.333...`.
 
 ### 4.2 Operatori di Confronto
@@ -251,7 +251,7 @@ while (digitalRead(2) == LOW) {
 }
 ```
 
-> **Avvertenza**
+> [!CAUTION]
 > Un ciclo con condizione permanentemente vera (`while (true)`) blocca indefinitamente l'esecuzione nella funzione corrente. Nella funzione `loop()` questo comportamento è accettabile e intenzionale; all'interno di `setup()` o di funzioni ausiliarie, può impedire il completamento dell'inizializzazione del sistema.
 
 ---
@@ -348,7 +348,7 @@ La funzione `Serial.begin()` configura l'hardware UART del microcontrollore spec
 Serial.begin(9600);    // Inizializzazione a 9600 bit/s
 ```
 
-> **Avvertenza**
+> [!IMPORTANT]
 > Il baud rate configurato su Arduino **deve coincidere** con quello impostato nel Serial Monitor dell'IDE. Una mancata corrispondenza produce la corruzione dei dati ricevuti, che appariranno come sequenze di caratteri incomprensibili.
 
 La tabella seguente riporta i baud rate più comunemente utilizzati e il relativo ambito di applicazione:
@@ -368,7 +368,7 @@ Il **Serial Monitor** è uno strumento integrato nell'Arduino IDE che consente d
 - inviare comandi testuali dalla tastiera verso Arduino;
 - effettuare il debug del firmware in fase di sviluppo.
 
-> **Nota tecnica**
+> [!TIP]
 > Il debug seriale è la tecnica di diagnostica più diffusa nello sviluppo embedded. In assenza di un debugger hardware dedicato (come JTAG o debugWIRE), la trasmissione di messaggi di stato tramite porta seriale rappresenta il metodo principale per verificare il comportamento del firmware a runtime.
 
 Esempio di utilizzo per il debug di variabili:
