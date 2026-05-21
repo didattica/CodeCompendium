@@ -287,14 +287,14 @@ Il diagramma seguente illustra il flusso di controllo durante la chiamata a funz
 
 ```mermaid
 sequenceDiagram
-    participant loop as loop()
+    participant LP as loop()
     participant fn as accendiLed(pin)
     participant hw as Hardware GPIO
 
-    loop ->> fn: chiamata con parametro pin = 13
+    LP ->> fn: chiamata con parametro pin = 13
     fn ->> hw: digitalWrite(13, HIGH)
     hw -->> fn: esecuzione completata
-    fn -->> loop: ritorno (void)
+    fn -->> LP: ritorno (void)
 ```
 
 ---
