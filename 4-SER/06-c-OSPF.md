@@ -1,4 +1,3 @@
-
 # 🌐 OSPF (Open Shortest Path First) – Introduzione Completa
 
 ---
@@ -40,6 +39,9 @@ A differenza di RIP:
 | Aggiornamenti periodici | Event-driven        |
 | Convergenza lenta       | Convergenza rapida  |
 | Max 15 hop              | altamente scalabile |
+
+> [!TIP]
+> **Aggiornamenti Event-driven**: a differenza di RIP che invia aggiornamenti periodici ogni 30 secondi, OSPF invia LSA **solo quando cambia qualcosa** nella topologia (link che cade, router che si accende, ecc.). Questo riduce drasticamente il traffico di controllo e accelera la convergenza.
 
 ---
 
@@ -84,6 +86,9 @@ graph TD
 > [!IMPORTANT]
 > In OSPF ogni router possiede una copia della topologia dell'area.
 
+> [!WARNING]
+> **RIP vs OSPF – Convergenza in caso di guasto**: con RIP, se un link cade, i router continuano a propagare rotte errate per decine di secondi (fino al *count-to-infinity*). Con OSPF il guasto viene rilevato immediatamente tramite il **Dead Timer** e le LSA vengono riflodate istantaneamente. La rete riconverge in pochi secondi.
+
 ---
 
 # 4. Architettura OSPF
@@ -101,6 +106,9 @@ flowchart LR
 | Neighbor Discovery   | scoperta dei router vicini          |
 | LSDB Synchronization | sincronizzazione database topologia |
 | SPF Calculation      | calcolo shortest path con Dijkstra  |
+
+> [!NOTE]
+> Queste 3 fasi avvengono **automaticamente** all'avvio di OSPF e si **riattivano parzialmente** ogni volta che la topologia cambia. Solo la fase SPF viene rieseguita se non cambiano le adiacenze.
 
 ---
 
@@ -153,6 +161,9 @@ packet-beta
 > * authentication
 > * hello/dead timers
 
+> [!TIP]
+> **Timer di default Cisco**: Hello Timer = **10 secondi**, Dead Timer = **40 secondi** (4× l'Hello). Se non si riceve un Hello entro il Dead Timer, il neighbor viene considerato **Down** e viene ricalcolato l'SPF.
+
 ---
 
 # 6. Router ID
@@ -176,6 +187,9 @@ OSPF sceglie il Router ID così:
 | 1        | router-id configurato manualmente |
 | 2        | loopback più alta                 |
 | 3        | IP fisico più alto                |
+
+> [!IMPORTANT]
+> **Configura sempre il Router ID manualmente** con il comando `router-id X.X.X.X`. Affidarsi alla selezione automatica può causare comportamenti imprevedibili se cambiano le interfacce del router. Un Router ID stabile è fondamentale per la stabilità di OSPF.
 
 ---
 
@@ -211,6 +225,9 @@ graph LR
 
 Ogni router inoltra le LSA ricevute.
 
+> [!NOTE]
+> Il flooding delle LSA è **affidabile**: ogni LSA ricevuta viene confermata con un pacchetto **LSAck**. Se un router non risponde, la LSA viene ritrasmessa. Questo garantisce che tutti i router nell'area abbiano la stessa visione della topologia.
+
 ---
 
 # 8. Link-State Database (LSDB)
@@ -231,6 +248,9 @@ flowchart TD
     B --> D
     C --> D
 ```
+
+> [!IMPORTANT]
+> La **LSDB deve essere identica** su tutti i router della stessa area. Se due router hanno LSDB diverse, calcolano percorsi diversi e la rete è inconsistente. La sincronizzazione avviene durante la fase **Exchange/Loading** della formazione del neighbor.
 
 ---
 
@@ -274,6 +294,9 @@ OSPF sceglie:
 
 # ✅ R1 → R3 → R4
 
+> [!NOTE]
+> **SPF e CPU**: l'algoritmo di Dijkstra è **computazionalmente costoso** su reti molto grandi. Per questo OSPF usa le **aree**: ogni router esegue SPF solo sulla propria area, non sull'intera rete. Tra aree diverse si usano rotte inter-area calcolate dagli ABR.
+
 ---
 
 # 10. Metrica OSPF – Cost
@@ -299,6 +322,14 @@ Cost = Reference Bandwidth / Interface Bandwidth
 | 10 Mbps  | 10                         |
 | 100 Mbps | 1                          |
 | 1 Gbps   | 1 (default Cisco classico) |
+
+> [!WARNING]
+> **Problema con link ad alta velocità**: la Reference Bandwidth di default Cisco è **100 Mbps**. Questo significa che FastEthernet (100M), GigabitEthernet (1G) e 10GigabitEthernet (10G) hanno tutti **Cost = 1**, rendendo OSPF incapace di distinguerli. Soluzione: aumentare la Reference Bandwidth con:
+> ```bash
+> router ospf 1
+>  auto-cost reference-bandwidth 10000
+> ```
+> *(imposta la reference a 10 Gbps — da configurare su **tutti** i router dell'area)*
 
 ---
 
@@ -341,6 +372,9 @@ graph TD
     A2 --- A0
     A3 --- A0
 ```
+
+> [!IMPORTANT]
+> **Tutte le aree devono connettersi ad Area 0**. Il traffico inter-area passa sempre attraverso il backbone. Se un'area non è direttamente connessa ad Area 0, è necessario configurare un **Virtual Link** — ma è una soluzione temporanea, non raccomandata in produzione.
 
 ---
 
@@ -401,6 +435,9 @@ graph TD
 
 Molto più efficiente.
 
+> [!TIP]
+> **Elezione DR/BDR**: il DR viene eletto in base alla **priorità OSPF** (default 1, range 0–255). In caso di parità, vince il **Router ID più alto**. Priorità 0 = il router non partecipa all'elezione. L'elezione è **non-preemptiva**: se entra un router con priorità più alta, non scalza il DR esistente — bisogna fare `clear ip ospf process`.
+
 ---
 
 # 13. Stati Neighbor OSPF
@@ -421,6 +458,9 @@ Molto più efficiente.
 > Lo stato finale desiderato è:
 >
 > # FULL
+
+> [!WARNING]
+> **Stato bloccato in 2-Way o ExStart**: è uno dei problemi più comuni. In 2-Way i router si "vedono" ma non diventano adiacenti (normale tra router non-DR/BDR su reti broadcast). ExStart bloccato può indicare un problema di **MTU mismatch** tra le interfacce: verificare con `show interfaces` e allineare l'MTU o usare `ip ospf mtu-ignore`.
 
 ---
 
@@ -444,6 +484,9 @@ OSPF usa direttamente il protocollo IP:
 | LSR   | link-state request   |
 | LSU   | link-state update    |
 | LSAck | acknowledgment       |
+
+> [!NOTE]
+> OSPF **non usa TCP o UDP** — gira direttamente su IP (Protocol 89) e implementa la propria affidabilità tramite gli **LSAck**. Questo lo rende più efficiente ma significa che eventuali firewall devono essere configurati per permettere IP Protocol 89, non una porta TCP/UDP.
 
 ---
 
@@ -499,6 +542,15 @@ show ip route ospf
 ```bash
 show ip ospf database
 ```
+
+> [!TIP]
+> **Debug rapido in sequenza**: se OSPF non funziona, verifica in quest'ordine:
+> 1. `show ip ospf neighbor` → i neighbor esistono? Sono in stato FULL?
+> 2. `show ip ospf database` → la LSDB è popolata?
+> 3. `show ip route ospf` → le rotte OSPF sono nella routing table?
+> 4. `show ip interface brief` → le interfacce sono up/up?
+>
+> Ogni step esclude una categoria di problemi.
 
 ---
 
@@ -559,6 +611,16 @@ Ogni router calcola shortest paths.
 
 Le rotte vengono installate.
 
+> [!NOTE]
+> **Cosa succede se cade il link R1–R2?**
+> 1. R1 e R2 non ricevono più gli Hello → Dead Timer scade
+> 2. Entrambi generano una nuova LSA con il link marcato come down
+> 3. Le LSA vengono riflodate a tutti i router dell'area
+> 4. Ogni router riesegue SPF
+> 5. Le routing table vengono aggiornate
+>
+> Tutto questo avviene in **pochi secondi** — questo è il vantaggio di OSPF event-driven.
+
 ---
 
 # 19. Problemi comuni
@@ -574,6 +636,9 @@ Le rotte vengono installate.
 
 > [!CAUTION]
 > Router ID duplicati causano problemi gravi di convergenza.
+
+> [!CAUTION]
+> **Router ID duplicato – effetti concreti**: se due router hanno lo stesso Router ID, i router vicini ricevono LSA contraddittorie dallo "stesso" router. Questo causa **flapping** della LSDB, ricalcoli SPF continui e routing instabile o blackhole. Per individuare duplicati: `show ip ospf` su ogni router e confronta i Router ID. La correzione richiede `clear ip ospf process` dopo aver cambiato il Router ID.
 
 ---
 
@@ -608,11 +673,12 @@ Dopo OSPF:
 
 # 📚 Concetti chiave da ricordare
 
-> [!SUMMARY]
+> [!IMPORTANT]
 >
-> * OSPF è un protocollo Link-State
-> * Ogni router conosce la topologia dell'area
-> * Usa Dijkstra per calcolare shortest path
-> * La metrica è il Cost basato sulla banda
-> * Area 0 è il backbone
-> * Convergenza molto più rapida rispetto a RIP
+> * OSPF è un protocollo **Link-State**: ogni router conosce la topologia completa dell'area
+> * Gli aggiornamenti sono **event-driven**: vengono inviati solo quando cambia qualcosa, non periodicamente
+> * Usa **Dijkstra** per calcolare lo shortest path dalla LSDB
+> * La metrica è il **Cost** basato sulla banda — attenzione alla Reference Bandwidth su link Gigabit+
+> * **Area 0** è il backbone obbligatorio: tutte le aree devono connettersi ad esso
+> * La convergenza è **molto più rapida** rispetto a RIP grazie al flooding immediato delle LSA
+> * Lo stato neighbor desiderato è **FULL** — qualsiasi altro stato finale indica un problema
