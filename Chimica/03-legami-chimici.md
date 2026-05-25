@@ -400,3 +400,31 @@ graph TD
 | Covalente polare | 0,4 – 1,9 | Non metallo – Non metallo (diversi) | Condivisi asimmetricamente |
 | Ionico | > 1,9 | Metallo – Non metallo | Trasferiti |
 | Metallico | — | Metallo – Metallo | Delocalizzati (nuvola) |
+
+---
+
+## Glossario (20 concetti fondamentali – Legami Chimici)
+
+| concetto                     | descrizione / definizione                                                                                                          |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Legame chimico               | Interazione tra atomi che porta alla formazione di molecole o solidi più stabili (energia più bassa rispetto agli atomi separati). |
+| Energia potenziale di legame | Energia associata alla posizione degli atomi in un sistema; diminuisce quando si forma un legame stabile.                          |
+| Forze attrattive             | Interazioni elettriche tra nuclei positivi ed elettroni negativi che favoriscono il legame.                                        |
+| Forze repulsive              | Interazioni tra cariche uguali (nucleo-nucleo, elettrone-elettrone) che ostacolano il legame.                                      |
+| Distanza di legame           | Distanza media tra i nuclei di due atomi legati, corrispondente all’equilibrio tra forze attrattive e repulsive.                   |
+| Energia di legame            | Energia necessaria per rompere una mole di legami chimici; misura la forza del legame.                                             |
+| Regola dell’ottetto          | Tendenza degli atomi a raggiungere 8 elettroni di valenza per ottenere una configurazione stabile simile ai gas nobili.            |
+| Gas nobili                   | Elementi del gruppo 18 con configurazione elettronica stabile (ottetto completo) e bassa reattività chimica.                       |
+| Elettronegatività            | Capacità di un atomo di attrarre a sé gli elettroni di legame in una molecola.                                                     |
+| Legame covalente             | Legame formato dalla condivisione di coppie di elettroni tra due atomi.                                                            |
+| Legame covalente puro        | Legame covalente tra atomi identici o con Δe < 0,4, con distribuzione simmetrica degli elettroni.                                  |
+| Legame covalente polare      | Legame covalente tra atomi con diversa elettronegatività (0,4 < Δe < 1,9), con cariche parziali δ+ e δ−.                           |
+| Legame dativo                | Legame covalente in cui entrambi gli elettroni condivisi provengono dallo stesso atomo (donatore).                                 |
+| Legame σ (sigma)             | Legame covalente singolo formato dalla sovrapposizione frontale degli orbitali lungo l’asse internucleare.                         |
+| Legame π (pi greco)          | Legame laterale presente nei doppi e tripli legami, più debole del legame σ.                                                       |
+| Legame ionico                | Legame dovuto al trasferimento di elettroni tra atomo metallico e non metallico con formazione di ioni.                            |
+| Catione                      | Ione positivo formato dalla perdita di elettroni da parte di un atomo.                                                             |
+| Anione                       | Ione negativo formato dall’acquisto di elettroni da parte di un atomo.                                                             |
+| Energia reticolare           | Energia liberata nella formazione di un solido ionico dal suo reticolo cristallino; misura la stabilità del composto ionico.       |
+| Legame metallico             | Legame tra atomi metallici basato su una “nuvola” di elettroni delocalizzati che tengono uniti i cationi metallici.                |
+
