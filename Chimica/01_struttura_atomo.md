@@ -330,58 +330,17 @@ Esempio: carbonio (Z=6) — distribuzione nei 2p
 
 ---
 
-| Termine                        | Definizione                                                                                |
-| ------------------------------ | ------------------------------------------------------------------------------------------ |
-| Atomo                          | Unità fondamentale della materia che conserva le proprietà chimiche di un elemento.        |
-| Modello di Dalton              | Teoria che descrive l’atomo come sfera solida, indivisibile e specifica per ogni elemento. |
-| Particelle subatomiche         | Componenti dell’atomo: protoni, neutroni ed elettroni.                                     |
-| Protone                        | Particella con carica +1, massa ~1 u.m.a., situata nel nucleo.                             |
-| Neutrone                       | Particella neutra, massa ~1 u.m.a., situata nel nucleo.                                    |
-| Elettrone                      | Particella con carica −1 e massa molto piccola, situata negli orbitali.                    |
-| Nucleo atomico                 | Parte centrale dell’atomo contenente protoni e neutroni.                                   |
-| Orbitali                       | Regioni dello spazio dove è probabile trovare gli elettroni.                               |
-| Raggio atomico                 | Distanza media tra il nucleo e la nuvola elettronica esterna.                              |
-| Raggio nucleare                | Dimensione del nucleo atomico, molto più piccolo del raggio atomico.                       |
-| Forza nucleare forte           | Interazione che tiene uniti protoni e neutroni nel nucleo.                                 |
-| Nucleoni                       | Proton e neutroni considerati collettivamente.                                             |
-| Carica elettrica               | Proprietà fisica delle particelle responsabile delle interazioni elettriche.               |
-| Coulomb (C)                    | Unità di misura della carica elettrica.                                                    |
-| Catione                        | Ione positivo (perdita di elettroni).                                                      |
-| Anione                         | Ione negativo (acquisto di elettroni).                                                     |
-| Atomo neutro                   | Atomo con numero di protoni uguale al numero di elettroni.                                 |
-| Numero atomico (Z)             | Numero di protoni nel nucleo; identifica l’elemento.                                       |
-| Numero di massa (A)            | Somma di protoni e neutroni nel nucleo.                                                    |
-| Neutroni (A−Z)                 | Differenza tra numero di massa e numero atomico.                                           |
-| Isotopo                        | Atomi dello stesso elemento con diverso numero di neutroni.                                |
-| Notazione nucleare             | Rappresentazione A sopra Z (es. ¹²₆C).                                                     |
-| Orbitali s                     | Orbitali sferici con l = 0.                                                                |
-| Orbitali p                     | Orbitali a due lobi con l = 1.                                                             |
-| Orbitali d                     | Orbitali complessi con l = 2.                                                              |
-| Orbitali f                     | Orbitali molto complessi con l = 3.                                                        |
-| Numero quantico principale (n) | Indica livello energetico e dimensione dell’orbitale.                                      |
-| Numero quantico azimutale (l)  | Indica la forma dell’orbitale.                                                             |
-| Numero quantico magnetico (m)  | Indica l’orientazione dell’orbitale nello spazio.                                          |
-| Numero quantico di spin (mₛ)   | Indica il verso di rotazione dell’elettrone (+½ o −½).                                     |
-| Principio di Pauli             | Due elettroni non possono avere gli stessi 4 numeri quantici.                              |
-| Principio di minima energia    | Gli elettroni occupano prima gli orbitali a energia minore.                                |
-| Regola di Hund                 | Gli elettroni occupano orbitali degeneri singolarmente prima di appaiarsi.                 |
-| Orbitali degeneri              | Orbitali con la stessa energia.                                                            |
-| Configurazione elettronica     | Distribuzione degli elettroni nei vari orbitali.                                           |
-| Gas nobile                     | Elemento con guscio elettronico completo e bassa reattività.                               |
-| Tavola periodica               | Organizzazione degli elementi in base al numero atomico e proprietà.                       |
-| Periodo                        | Riga della tavola periodica, legata al livello energetico n.                               |
-| Gruppo                         | Colonna della tavola periodica con proprietà chimiche simili.                              |
-| Blocco s                       | Elementi con elettroni finali nel sottolivello s.                                          |
-| Blocco p                       | Elementi con elettroni finali nel sottolivello p.                                          |
-| Blocco d                       | Metalli di transizione con elettroni nel sottolivello d.                                   |
-| Blocco f                       | Lantanidi e attinidi con elettroni nel sottolivello f.                                     |
-| Energia di ionizzazione        | Energia necessaria per rimuovere un elettrone da un atomo.                                 |
-| Affinità elettronica           | Energia associata all’acquisto di un elettrone da parte di un atomo.                       |
-| Elettronegatività              | Capacità di un atomo di attrarre elettroni di legame.                                      |
-| Carattere metallico            | Tendenza a perdere elettroni e formare cationi.                                            |
-| Carattere non metallico        | Tendenza ad acquistare elettroni.                                                          |
-| Livello energetico             | Regione quantizzata in cui si trovano gli elettroni.                                       |
-| Principio di Aufbau            | Riempimento degli orbitali in ordine crescente di energia.                                 |
-| Orbitali 2l+1                  | Numero di orbitali per sottolivello.                                                       |
-| Schermatura elettronica        | Riduzione dell’attrazione nucleare sugli elettroni esterni.                                |
-| Carica nucleare efficace       | Attrazione netta del nucleo sugli elettroni esterni.                                       |
+## Glossario (10 concetti più importanti)
+
+| concetto               | descrizione / definizione                                                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Atomo                  | Unità fondamentale della materia composta da nucleo (protoni e neutroni) ed elettroni; conserva le proprietà chimiche di un elemento. |
+| Particelle subatomiche | Componenti fondamentali dell’atomo: protoni (positivi), neutroni (neutri) ed elettroni (negativi).                                    |
+| Protone                | Particella del nucleo con carica positiva (+1) e massa circa 1 u.m.a.; determina l’identità dell’elemento.                            |
+| Elettrone              | Particella con carica negativa che si trova negli orbitali e determina le proprietà chimiche dell’atomo.                              |
+| Nucleo atomico         | Regione centrale dell’atomo, molto piccola e densa, che contiene protoni e neutroni e concentra quasi tutta la massa.                 |
+| Numero atomico (Z)     | Numero di protoni nel nucleo; identifica univocamente l’elemento chimico e la sua posizione nella tavola periodica.                   |
+| Numero di massa (A)    | Somma di protoni e neutroni nel nucleo (A = Z + n); indica la massa dell’atomo.                                                       |
+| Orbitali               | Regioni di spazio attorno al nucleo in cui è alta la probabilità di trovare un elettrone, descritte dalla meccanica quantistica.      |
+| Forza nucleare forte   | Interazione che tiene uniti protoni e neutroni nel nucleo nonostante la repulsione tra cariche positive.                              |
+| Tavola periodica       | Organizzazione degli elementi chimici in base al numero atomico e alle proprietà periodiche, strutturata in periodi e gruppi.         |
