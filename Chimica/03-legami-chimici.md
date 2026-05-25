@@ -119,13 +119,14 @@ Il tipo di legame si determina dalla **differenza di elettronegatività (Δe)** 
 
 ```mermaid
 graph LR
-    A[Calcola Δe = |χ₁ - χ₂|]
-    A --> B{Δe < 0,4}
-    A --> C{0,4 ≤ Δe ≤ 1,9}
-    A --> D{Δe > 1,9}
-    B --> E[Legame covalente puro]
-    C --> F[Legame covalente polare]
-    D --> G[Legame ionico]
+    A["Calcola Δe = |χ₁ - χ₂|"]
+    A --> B{"Δe < 0.4"}
+    A --> C{"0.4 ≤ Δe ≤ 1.9"}
+    A --> D{"Δe > 1.9"}
+
+    B --> E["Legame covalente puro"]
+    C --> F["Legame covalente polare"]
+    D --> G["Legame ionico"]
 ```
 
 ---
