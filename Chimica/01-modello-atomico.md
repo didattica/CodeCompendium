@@ -544,8 +544,8 @@ graph LR
 
 ```mermaid
 graph LR
-    A["↓ Scende nel gruppo"] --> B["Raggio AUMENTA\n(più livelli elettronici)"]
-    C["→ Avanza nel periodo"] --> D["Raggio DIMINUISCE\n(maggiore attrazione nucleare)"]
+    A["↓ Scende nel gruppo"] --> B["Raggio AUMENTA\n(più livelli elettronici + maggiore schermatura"]
+    C["→ Avanza nel periodo"] --> D["Raggio DIMINUISCE\n(aumenta la carica nucleare efficace Z_eff)"]
 ```
 
 ### 13.2 Energia di prima ionizzazione
