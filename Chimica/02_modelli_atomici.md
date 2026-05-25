@@ -295,3 +295,21 @@ SCHRÖDINGER (1926)
 
 > [!TIP]
 > **Chiave concettuale:** ogni modello successivo non "cancella" il precedente, ma lo **include come caso limite**. Bohr è un'approssimazione di Schrödinger valida per H; Rutherford è un'approssimazione di Bohr per la struttura nucleare. La scienza avanza per approssimazioni successive.
+
+---
+
+## Glossario (10 concetti fondamentali)
+
+| concetto                                    | descrizione / definizione                                                                                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Atomo                                       | Unità fondamentale della materia che conserva le proprietà chimiche di un elemento ed è costituita da nucleo (protoni e neutroni) ed elettroni.         |
+| Modello atomico                             | Rappresentazione teorica della struttura dell’atomo sviluppata nel tempo (Dalton → Thomson → Rutherford → Bohr → Schrödinger), sempre più precisa.      |
+| Nucleo atomico                              | Parte centrale dell’atomo, piccolissima ma densa, contenente protoni e neutroni e responsabile quasi tutta la massa atomica.                            |
+| Elettrone                                   | Particella subatomica con carica negativa che occupa gli orbitali attorno al nucleo e determina il comportamento chimico dell’atomo.                    |
+| Numero atomico (Z)                          | Numero di protoni nel nucleo; identifica univocamente l’elemento chimico e determina la sua posizione nella tavola periodica.                           |
+| Numero di massa (A)                         | Somma di protoni e neutroni nel nucleo; indica la massa complessiva dell’atomo (A = Z + neutroni).                                                      |
+| Orbitali                                    | RegionI di spazio descritte dalla funzione d’onda in cui è alta la probabilità di trovare un elettrone; sostituiscono le orbite di Bohr.                |
+| Numero quantico principale (n)              | Numero quantico che definisce il livello energetico e la distanza media dell’elettrone dal nucleo (n = 1, 2, 3…).                                       |
+| Principio di indeterminazione di Heisenberg | Principio secondo cui non è possibile conoscere simultaneamente con precisione assoluta posizione e quantità di moto di una particella.                 |
+| Spettro a righe                             | Spettro di emissione formato da linee discrete di lunghezze d’onda specifiche, prodotto da transizioni elettroniche tra livelli energetici quantizzati. |
+
