@@ -284,12 +284,12 @@ Un legame covalente si forma quando due atomi **condividono** una o più coppie 
 
 ```mermaid
 flowchart TD
-    A[Conta elettroni di valenza totali] --> B[Definisci scheletro molecolare]
-    B --> C[Collega gli atomi con legami singoli]
-    C --> D[Completa ottetto atomi esterni]
-    D --> E{Ottetto atomo centrale completato?}
+    A[Conta elettroni di<br> valenza totali] --> B[Definisci scheletro molecolare]
+    B --> C[Collega gli atomi<br> con legami singoli]
+    C --> D[Completa ottetto<br> atomi esterni]
+    D --> E{Ottetto atomo <br>centrale <br>completato?}
     E -- Sì --> F[Struttura completata]
-    E -- No --> G[Inserisci doppi o tripli legami]
+    E -- No --> G[Inserisci <br>doppi o<br> tripli legami]
     G --> F
 ```
 
