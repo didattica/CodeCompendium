@@ -12,7 +12,7 @@ La rappresentazione è organizzata in diagrammi di flusso (Mermaid) separati per
 
 ```mermaid
 flowchart TD
-    A[Elettronegatività] --> B[Capacità di attrarre elettroni in un legame covalente]
+    A[Elettronegatività] --> B[Capacità di attrarre<br> elettroni in un <br>legame covalente]
     B --> C[Aumenta da sinistra<br> a destra nel periodo]
     B --> D[Diminuisce dall'alto<br> verso il basso nel gruppo]
     B --> E[Valore massimo: Fluoro]
