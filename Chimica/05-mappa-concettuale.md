@@ -13,10 +13,10 @@ La rappresentazione è organizzata in diagrammi di flusso (Mermaid) separati per
 ```mermaid
 flowchart TD
     A[Elettronegatività] --> B[Capacità di attrarre elettroni in un legame covalente]
-    B --> C[Aumenta da sinistra a destra nel periodo]
-    B --> D[Diminuisce dall'alto verso il basso nel gruppo]
+    B --> C[Aumenta da sinistra<br> a destra nel periodo]
+    B --> D[Diminuisce dall'alto<br> verso il basso nel gruppo]
     B --> E[Valore massimo: Fluoro]
-    B --> F[Determina la polarità del legame]
+    B --> F[Determina la polarità <br>del legame]
 ```
 
 > [!NOTE]
@@ -28,12 +28,12 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Affinità elettronica] --> B[Energia liberata quando un atomo in fase gassosa acquista un elettrone]
-    B --> C[X(g) + e⁻ → X⁻(g)]
-    B --> D[Alta affinità → formazione favorevole di anioni]
-    B --> E[Aumenta da sinistra a destra nel periodo]
-    B --> F[Diminuisce dall'alto verso il basso nel gruppo]
-    B --> G[Eccezioni: gas nobili, gruppi 2 e 15]
+    A[Affinità elettronica] --> B[Energia liberata <br>quando un atomo<br> in fase gassosa <br>acquista un elettrone]
+    B --> C[X#40;g#41; + e⁻ → X⁻#40;g#41;]
+    B --> D[Alta affinità →<br> formazione favorevole di anioni]
+    B --> E[Aumenta da sinistra<br> a destra nel periodo]
+    B --> F[Diminuisce dall'alto<br> verso il basso nel gruppo]
+    B --> G[Eccezioni: gas nobili,<br> gruppi 2 e 15]
 ```
 
 > [!NOTE]
@@ -45,11 +45,11 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Energia di ionizzazione] --> B[Energia necessaria per rimuovere un elettrone da un atomo neutro]
-    B --> C[X(g) → X⁺(g) + e⁻]
-    B --> D[Alta energia di ionizzazione → elettroni fortemente trattenuti]
-    B --> E[Aumenta da sinistra a destra nel periodo]
-    B --> F[Diminuisce dall'alto verso il basso nel gruppo]
+    A[Energia di ionizzazione] --> B[Energia necessaria per<br> rimuovere un elettrone<br> da un atomo neutro]
+    B --> C[X#40;g#41; → X⁺#40;g#41; + e⁻]
+    B --> D[Alta energia di ionizzazione → <br>elettroni fortemente<br> trattenuti]
+    B --> E[Aumenta da sinistra<br> a destra nel periodo]
+    B --> F[Diminuisce dall'alto<br> verso il basso nel gruppo]
 ```
 
 > [!NOTE]
@@ -61,9 +61,9 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Legame covalente puro] --> B[Condivisione simmetrica della coppia elettronica]
-    B --> C[Differenza di elettronegatività ~ 0]
-    B --> D[Assenza di dipolo elettrico permanente]
+    A[Legame covalente puro] --> B[Condivisione simmetrica<br> della coppia elettronica]
+    B --> C[Differenza di <br>elettronegatività ~ 0]
+    B --> D[Assenza di dipolo<br> elettrico permanente]
     B --> E[Esempi: H₂, Cl₂]
 ```
 
@@ -77,9 +77,9 @@ flowchart TD
 ```mermaid
 flowchart TD
     A[Legame covalente polare] --> B[Condivisione asimmetrica della coppia elettronica]
-    B --> C[Differenza di elettronegatività intermedia]
-    B --> D[Formazione di cariche parziali δ⁺ e δ⁻]
-    B --> E[Presenza di dipolo elettrico]
+    B --> C[Differenza di <br>elettronegatività intermedia]
+    B --> D[Formazione di <br>cariche parziali δ⁺ e δ⁻]
+    B --> E[Presenza di <br>dipolo elettrico]
     B --> F[Esempi: H₂O, NH₃, HCl]
 ```
 
@@ -93,9 +93,9 @@ flowchart TD
 ```mermaid
 flowchart TD
     A[Legame ionico] --> B[Trasferimento quasi completo di elettroni]
-    B --> C[Grande differenza di elettronegatività]
-    B --> D[Formazione di cationi e anioni]
-    B --> E[Attrazione elettrostatica tra ioni]
+    B --> C[Grande differenza <br>di elettronegatività]
+    B --> D[Formazione di <br>cationi e anioni]
+    B --> E[Attrazione <br>elettrostatica tra ioni]
     B --> F[Esempi: NaCl, KBr]
 ```
 
