@@ -108,7 +108,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Differenza di elettronegatività ΔEN] --> B{Valore di ΔEN}
+    A[Differenza di<br> elettronegatività ΔEN] --> B{Valore di ΔEN}
 
     B -->|≈ 0| C[Legame covalente puro]
     B -->|intermedia| D[Legame covalente polare]
@@ -133,10 +133,10 @@ flowchart TD
     A --> D[Energia di ionizzazione]
 
     B --> E[Polarità del legame]
-    C --> F[Tendenza ad acquisire elettroni]
-    D --> G[Tendenza a perdere elettroni]
+    C --> F[Tendenza ad<br> acquisire elettroni]
+    D --> G[Tendenza a<br> perdere elettroni]
 
-    E --> H[Tipi di legame chimico]
+    E --> H[Tipi di <br>legame chimico]
     H --> I[Covalente puro]
     H --> J[Covalente polare]
     H --> K[Ionico]
