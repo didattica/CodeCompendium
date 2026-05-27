@@ -76,7 +76,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Legame covalente polare] --> B[Condivisione asimmetrica della coppia elettronica]
+    A[Legame covalente polare] --> B[Condivisione asimmetrica<br> della coppia elettronica]
     B --> C[Differenza di <br>elettronegatività intermedia]
     B --> D[Formazione di <br>cariche parziali δ⁺ e δ⁻]
     B --> E[Presenza di <br>dipolo elettrico]
