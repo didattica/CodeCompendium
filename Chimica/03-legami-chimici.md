@@ -80,7 +80,7 @@ graph TD
     B --> C[Legame covalente]
     B --> D[Legame ionico]
     B --> E[Legame metallico]
-    C & D & E --> F[Configurazione ottetto → Stabilità]
+    C & D & E --> F[Configurazione ottetto <br>→ Stabilità]
 ```
 
 ### Eccezioni alla regola dell'ottetto
