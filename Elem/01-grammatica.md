@@ -42,23 +42,20 @@ L'analisi grammaticale permette di:
 
 ## 2. Parte Teorica
 
+
 ### 2.1 Le Parti del Discorso
 
-In italiano esistono **nove parti del discorso** (o *categorie grammaticali*), suddivise in **variabili** e **invariabili** a seconda che la loro forma cambi o meno in base al contesto.
-
-| # | Parte del discorso | Variabile / Invariabile |
-|---|---|---|
-| 1 | Sostantivo | Variabile |
-| 2 | Articolo | Variabile |
-| 3 | Aggettivo | Variabile |
-| 4 | Pronome | Variabile |
-| 5 | Verbo | Variabile |
-| 6 | Avverbio | Invariabile |
-| 7 | Preposizione | Invariabile |
-| 8 | Congiunzione | Invariabile |
-| 9 | Interiezione (o esclamazione) | Invariabile |
-
----
+| # | Parte del discorso | Variabile / Invariabile | Spiegazione breve                                       | Esempio in contesto                           |
+| - | ------------------ | ----------------------- | ------------------------------------------------------- | --------------------------------------------- |
+| 1 | Sostantivo         | Variabile               | Indica persone, animali, cose, idee                     | **Il gatto** dorme sul **divano**             |
+| 2 | Articolo           | Variabile               | Accompagna il nome e ne specifica il genere e numero    | **La** ragazza legge un libro                 |
+| 3 | Aggettivo          | Variabile               | Aggiunge informazioni al nome (qualità, quantità, ecc.) | Un **bellissimo** giorno di **sole**          |
+| 4 | Pronome            | Variabile               | Sostituisce il nome per evitare ripetizioni             | **Lui** non ha visto **Maria**, ma **lei** sì |
+| 5 | Verbo              | Variabile               | Indica azione, stato o modo di essere                   | **Marco studia** per l’esame                  |
+| 6 | Avverbio           | Invariabile             | Modifica verbi, aggettivi o altri avverbi               | Maria parla **lentamente**                    |
+| 7 | Preposizione       | Invariabile             | Collega parole e introduce complementi                  | Vado **a scuola** con **Marco**               |
+| 8 | Congiunzione       | Invariabile             | Unisce parole o frasi                                   | Voglio tè **e** biscotti                      |
+| 9 | Interiezione       | Invariabile             | Esprime emozioni o reazioni                             | **Oh!** Che sorpresa incredibile              |
 
 ### 2.2 Il Sostantivo
 
