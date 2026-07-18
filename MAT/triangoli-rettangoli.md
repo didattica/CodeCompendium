@@ -1,8 +1,5 @@
 # Esercizi di Geometria: Teorema di Pitagora e Teoremi di Euclide
 
-Una raccolta di 5 esercizi a difficoltà crescente focalizzati sull'applicazione del Teorema di Pitagora, del Primo Teorema di Euclide e del Secondo Teorema di Euclide. Tutti i risultati numerici finali e intermedi sono espressi in numeri naturali per facilitare il riscontro didattico.
-
----
 
 ## Esercizi
 
