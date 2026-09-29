@@ -1,4 +1,4 @@
-Certo. Partiamo dalle definizioni in modo semplice e poi facciamo qualche esercizio.
+# Polinomi
 
 ## 1. Definizione di polinomio
 
@@ -6,29 +6,31 @@ Un **polinomio** è un'espressione matematica formata dalla **somma o differenza
 
 Per esempio:
 
-\[
+$$
 3x^2 + 5x - 7
-\]
+$$
 
 è un polinomio formato dai tre monomi:
 
-\[
-3x^2,\qquad 5x,\qquad -7
-\]
+$$
+3x^2, \qquad 5x, \qquad -7
+$$
 
 Un altro esempio è:
 
-\[
+$$
 2x^3 - 4x^2 + x + 6
-\]
+$$
+
+### Grado di un polinomio
 
 Il **grado di un polinomio** è il grado più alto tra i suoi monomi.
 
 Per esempio:
 
-\[
+$$
 5x^4 + 2x^2 - 3x + 1
-\]
+$$
 
 è un polinomio di **grado 4**.
 
@@ -40,70 +42,94 @@ Il **prodotto di due polinomi** si ottiene moltiplicando **ogni termine del prim
 
 Per esempio:
 
-\[
+$$
 (x+2)(x+3)
-\]
+$$
 
-Moltiplichiamo ogni termine:
+Moltiplichiamo ogni termine del primo polinomio per ogni termine del secondo:
 
-\[
-x\cdot x+x\cdot3+2\cdot x+2\cdot3
-\]
+$$
+x \cdot x + x \cdot 3 + 2 \cdot x + 2 \cdot 3
+$$
 
-quindi:
+Otteniamo:
 
-\[
-x^2+3x+2x+6
-\]
+$$
+x^2 + 3x + 2x + 6
+$$
 
 Sommiamo i termini simili:
 
-\[
-\boxed{x^2+5x+6}
-\]
+$$
+\boxed{x^2 + 5x + 6}
+$$
 
-Un modo utile per ricordarlo è:
+In generale:
 
-\[
-(a+b)(c+d)=ac+ad+bc+bd
-\]
+$$
+(a+b)(c+d) = ac + ad + bc + bd
+$$
 
 ---
 
-## 3. Esercizi semplici
+# Esercizi
 
-Prova a svolgere questi:
+Calcola i seguenti prodotti di polinomi e riduci i termini simili.
 
-1. \[
+### Esercizio 1
+
+$$
 (x+2)(x+4)
-\]
+$$
 
-2. \[
+### Esercizio 2
+
+$$
 (x+3)(x-2)
-\]
+$$
 
-3. \[
+### Esercizio 3
+
+$$
 (2x+1)(x+3)
-\]
+$$
 
-4. \[
+### Esercizio 4
+
+$$
 (3x-2)(x+4)
-\]
+$$
 
-5. \[
+### Esercizio 5
+
+$$
 (x-5)(x-2)
-\]
+$$
 
-Per esempio, nel **primo** devi fare:
+---
 
-\[
+# Esempio svolto
+
+Consideriamo:
+
+$$
 (x+2)(x+4)
-\]
+$$
 
-\[
-= x\cdot x+x\cdot4+2\cdot x+2\cdot4
-\]
+Moltiplichiamo ogni termine:
 
-e poi semplificare.
+$$
+x \cdot x + x \cdot 4 + 2 \cdot x + 2 \cdot 4
+$$
 
-Se vuoi, possiamo fare **il primo insieme passo per passo**, poi provi tu gli altri.
+Otteniamo:
+
+$$
+x^2 + 4x + 2x + 8
+$$
+
+Sommiamo i termini simili:
+
+$$
+\boxed{x^2 + 6x + 8}
+$$
