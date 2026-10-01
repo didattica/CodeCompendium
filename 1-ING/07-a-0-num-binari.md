@@ -183,32 +183,51 @@ Nei circuiti elettronici i due valori possono essere rappresentati mediante due 
 
 ---
 
-# 6. Dal bit al byte
 
-Un singolo bit permette di rappresentare due possibilità:
+# 6. Le combinazioni dei bit
 
-$$
-2^1=2
-$$
+## 6.1 Che cos'è una combinazione?
 
-Con due bit abbiamo:
+**Definizione:** una combinazione è uno dei possibili modi in cui possiamo mettere insieme più elementi o simboli.
 
-```text
-00
-01
-10
-11
-```
+In una sequenza di simboli, cambiando la loro posizione possiamo ottenere risultati differenti.
 
-quindi:
+*Esempio:* supponiamo di avere soltanto due simboli, A e B, e di voler formare sequenze di due simboli.
 
-$$
-2^2=4
-$$
+Possiamo ottenere:
 
-possibili combinazioni.
+| | |
+|:---:|:---:|
+| AA | AB |
+| BA | BB |
 
-In generale, con **n bit** possiamo rappresentare:
+Abbiamo ottenuto **4 possibili combinazioni**.
+
+## 6.2 Le combinazioni dei bit
+
+In informatica utilizziamo soltanto due simboli:
+
+**0 e 1**
+
+Ogni simbolo binario prende il nome di **bit** (binary digit).
+
+Combinando più bit possiamo ottenere sequenze differenti.
+
+Ad esempio:
+
+| Numero di bit | Possibili combinazioni | Totale |
+|:---:|:---|:---:|
+| 1 | 0, 1 | 2 |
+| 2 | 00, 01, 10, 11 | 4 |
+| 3 | 000, 001, 010, 011, 100, 101, 110, 111 | 8 |
+
+**Osservazione:** ogni volta che aggiungiamo un bit, il numero delle possibili combinazioni raddoppia.
+
+Questo accade perché ogni nuovo bit può assumere due valori: 0 oppure 1.
+
+### La formula generale
+
+Con **n bit** possiamo ottenere:
 
 $$
 \boxed{2^n}
@@ -216,45 +235,46 @@ $$
 
 combinazioni differenti.
 
-| Numero di bit | Combinazioni |
-|--------------:|-------------:|
-| 1 | $2^1=2$ |
-| 2 | $2^2=4$ |
-| 3 | $2^3=8$ |
-| 4 | $2^4=16$ |
-| 8 | $2^8=256$ |
+| Numero di bit (n) | Calcolo | Combinazioni |
+|:---:|:---:|:---:|
+| 1 | $2^1$ | 2 |
+| 2 | $2^2$ | 4 |
+| 3 | $2^3$ | 8 |
+| 4 | $2^4$ | 16 |
+| 8 | $2^8$ | 256 |
 
 Un gruppo di **8 bit** viene chiamato **byte**.
 
-```text
-1 byte = 8 bit
-```
-
-Esempio di byte:
-
-```text
-01001101
-```
-
-Con 8 bit possiamo rappresentare:
-
 $$
-2^8=256
+1\text{ byte}=8\text{ bit}=256\text{ possibili combinazioni}
 $$
 
-combinazioni differenti.
+## 6.3 Dalle combinazioni alle informazioni
 
-Se utilizziamo queste combinazioni per rappresentare numeri interi **senza segno**, possiamo rappresentare i numeri:
+Ma a cosa servono tutte queste combinazioni?
 
-```text
-da 0 a 255
-```
+Ogni combinazione può essere utilizzata per rappresentare un'informazione.
 
-Infatti:
+Ad esempio, possiamo decidere di associare quattro combinazioni di due bit a quattro colori differenti:
 
-$$
-2^8-1=255
-$$
+| Combinazione | Informazione |
+|:---:|:---|
+| 00 | Rosso |
+| 01 | Verde |
+| 10 | Blu |
+| 11 | Giallo |
+
+Questo è soltanto un esempio: il significato di ogni combinazione dipende da come decidiamo di interpretarla.
+
+Lo stesso principio permette ai computer di rappresentare informazioni molto più complesse, come:
+
+- Numeri e lettere;
+- Colori e immagini;
+- Suoni e musica;
+- Video.
+
+**Da ricordare:** più bit utilizziamo, maggiore è il numero di combinazioni differenti che possiamo ottenere e, quindi, di valori che possiamo rappresentare.
+
 
 ---
 
